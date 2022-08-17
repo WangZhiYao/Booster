@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="create_order_label">创建订单</string>
+    <string name="create_order_select_customer">客户*</string>
+    <string name="create_order_select_character">角色*</string>
+    <string name="create_order_select_category">分类*</string>
+    <string name="create_order_select_subject">项目*</string>
+    <string name="create_order_select_billing_cycle">付费周期*</string>
+    <string name="create_order_origin_price">价格*</string>
+    <string name="create_order_start_date">开始时间*</string>
+    <string name="create_order_end_date">结束时间*</string>
+    <string name="create_order_remark">备注</string>
+
+    <string name="item_category_create_subject">新建项目</string>
+
+    <string name="category_label">分类列表</string>
+
+    <string name="create_category_label">创建分类</string>
+    <string name="create_category_title">标题*</string>
+    <string name="create_category_description">描述</string>
+    <string name="create_category_success">创建类别</string>
+    <string name="create_category_success_to_create_subject">去创建项目</string>
+
+    <string name="create_subject_select_category">分类*</string>
+    <string name="create_subject_description">描述*</string>
+
+    <string name="subject_list_category_empty">该分类下暂无项目</string>
+
+    <string name="dialog_category_detail_title">提示</string>
+    <string name="dialog_category_detail_message_delete">确认要删除分类: %s 吗?\n删除该分类将会删除所有该分类的项目</string>
+
+    <string name="error_create_category_input_title">请输入标题</string>
+    <string name="error_create_category_title_exist">该标题的分类已存在</string>
+    <string name="error_create_category_failed">创建分类失败</string>
+    <string name="error_delete_category_failed">删除分类失败</string>
+    <string name="error_create_subject_select_category">请选择分类</string>
+    <string name="error_create_subject_input_content">请输入内容</string>
+    <string name="error_create_subject_failed">创建项目失败</string>
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="action_delete">删除</string>
+
+</resources>

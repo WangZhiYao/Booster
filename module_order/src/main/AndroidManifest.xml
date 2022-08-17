@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yizhenwind.booster.order">
+
+    <application android:theme="@style/Theme.Booster">
+
+        <activity
+            android:name=".ui.create.CreateOrderActivity"
+            android:label="@string/create_order_label" />
+
+        <activity
+            android:name=".ui.category.create.CreateCategoryActivity"
+            android:label="@string/create_category_label" />
+
+        <activity android:name=".ui.category.detail.CategoryDetailActivity"
+            android:theme="@style/Theme.Booster.NoActionBar" />
+
+        <activity
+            android:name=".ui.subject.create.CreateSubjectActivity"
+            android:label="创建项目" />
+
+    </application>
+
+</manifest>
