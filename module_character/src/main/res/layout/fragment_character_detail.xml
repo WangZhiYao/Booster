@@ -189,6 +189,32 @@
         tools:text="123456" />
 
     <TextView
+        android:id="@+id/tv_character_detail_remark_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/character_detail_remark"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock" />
+
+    <TextView
+        android:id="@+id/tv_character_detail_remark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_remark_title"
+        tools:text="123456" />
+
+    <TextView
         android:id="@+id/tv_character_detail_create_time_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -200,7 +226,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_remark" />
 
     <TextView
         android:id="@+id/tv_character_detail_create_time"

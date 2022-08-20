@@ -27,6 +27,7 @@ class CharacterDetailFragment :
                 tvCharacterDetailAccount.text = account
                 tvCharacterDetailPassword.text = password
                 tvCharacterDetailSecurityLock.text = securityLock
+                tvCharacterDetailRemark.text = remark
                 tvCharacterDetailCreateTime.text = createTime.formatToDateTime()
             }
         }
