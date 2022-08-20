@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.infra.ext
+package com.yizhenwind.booster.common.ext
 
 /**
  *

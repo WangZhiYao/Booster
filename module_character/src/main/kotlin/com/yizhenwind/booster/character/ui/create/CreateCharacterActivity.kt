@@ -13,7 +13,7 @@ import com.yizhenwind.booster.component.base.BaseTextInputActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
-import com.yizhenwind.booster.infra.ext.firstOrFirst
+import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import javax.inject.Inject
 
