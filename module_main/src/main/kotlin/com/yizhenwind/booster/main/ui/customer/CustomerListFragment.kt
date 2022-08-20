@@ -2,6 +2,8 @@ package com.yizhenwind.booster.main.ui.customer
 
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import com.yizhenwind.booster.component.base.BaseFragment
 import com.yizhenwind.booster.main.R
@@ -41,8 +43,6 @@ class CustomerListFragment :
     }
 
     private fun initView() {
-        setHasOptionsMenu(true)
-
         adapter.onItemClickListener = { customer ->
             customerService.launchCustomerInfo(requireContext(), customer)
         }
@@ -58,6 +58,8 @@ class CustomerListFragment :
         binding.apply {
             rvCustomer.adapter = adapter
         }
+
+        inflateMenu()
     }
 
     private fun initData() {
@@ -70,7 +72,19 @@ class CustomerListFragment :
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_customer_list, menu)
+    private fun inflateMenu() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_customer_list, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.action_search) {
+                    // TODO add search
+                    return true
+                }
+                return false
+            }
+        })
     }
 }
