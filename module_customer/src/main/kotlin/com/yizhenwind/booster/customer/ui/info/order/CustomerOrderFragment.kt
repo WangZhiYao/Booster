@@ -23,6 +23,7 @@ class CustomerOrderFragment :
     private val args by fragmentArgs(CustomerOrderArgs::deserialize)
 
     override fun init() {
+        super.init()
         viewModel.observe(viewLifecycleOwner, state = ::render)
         viewModel.observeOrderListByCustomerId(args.customerId)
     }

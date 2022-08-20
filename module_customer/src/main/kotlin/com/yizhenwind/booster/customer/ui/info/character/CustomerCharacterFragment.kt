@@ -33,6 +33,7 @@ class CustomerCharacterFragment :
     private val args by fragmentArgs(CustomerCharacterArgs::deserialize)
 
     override fun init() {
+        super.init()
         initData()
         initView()
     }
