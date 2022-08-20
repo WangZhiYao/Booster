@@ -24,12 +24,10 @@ data class CharacterDetailLaunchArgs(
 
     companion object : IActivityLaunchArgDeserializer<CharacterDetailLaunchArgs> {
 
-        override fun deserialize(intent: Intent): CharacterDetailLaunchArgs =
+        override fun deserialize(intent: Intent): CharacterDetailLaunchArgs = intent.run {
             CharacterDetailLaunchArgs(
-                requireNotNull(intent.getParcelableExtra(IntentKey.CHARACTER)) {
-                    IntentKey.CHARACTER
-                }
+                requireNotNull(getParcelableExtra(IntentKey.CHARACTER)) { IntentKey.CHARACTER }
             )
-
+        }
     }
 }

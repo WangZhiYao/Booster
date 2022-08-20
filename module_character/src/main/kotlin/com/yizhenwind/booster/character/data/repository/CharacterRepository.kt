@@ -4,8 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
 import com.yizhenwind.booster.common.model.*
 import com.yizhenwind.booster.data.database.dao.CharacterDao
 import com.yizhenwind.booster.data.database.entity.CharacterEntity
@@ -13,6 +11,8 @@ import com.yizhenwind.booster.data.database.mapper.CharacterInfoToCharacterMappe
 import com.yizhenwind.booster.data.database.mapper.CharacterToCharacterEntityMapper
 import com.yizhenwind.booster.data.repository.IRepository
 import com.yizhenwind.booster.infra.di.qualifier.IODispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -99,6 +99,20 @@ class CharacterRepository @Inject constructor(
             .map { characterId ->
                 characterId?.let { characterDao.getCharacterById(it) }
             }
+            .map { characterInfo ->
+                characterInfo?.let { characterInfoToCharacterMapper.map(it) }
+            }
+            .flowOn(dispatcher)
+
+    /**
+     * 根据ID获取角色
+     *
+     * @param characterId 角色ID
+     */
+    fun getCharacterById(characterId: Long): Flow<Character?> =
+        flow {
+            emit(characterDao.getCharacterById(characterId))
+        }
             .map { characterInfo ->
                 characterInfo?.let { characterInfoToCharacterMapper.map(it) }
             }

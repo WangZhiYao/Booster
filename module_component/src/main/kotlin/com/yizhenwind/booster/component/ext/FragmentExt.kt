@@ -9,5 +9,6 @@ import com.yizhenwind.booster.component.delegate.FragmentArgsDelegate
  * @author WangZhiYao
  * @since 2022/6/5
  */
-inline fun <reified T : IFragmentArgs> fragmentArgs(noinline deserializer: (Bundle) -> T) =
-    FragmentArgsDelegate(deserializer)
+inline fun <reified T : IFragmentArgs> fragmentArgs(
+    noinline deserializer: (Bundle) -> T
+): FragmentArgsDelegate<T> = FragmentArgsDelegate(deserializer)

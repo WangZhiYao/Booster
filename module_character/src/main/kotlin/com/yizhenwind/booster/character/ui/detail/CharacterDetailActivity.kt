@@ -5,22 +5,28 @@ import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import androidx.viewpager2.widget.ViewPager2
 import com.yizhenwind.booster.character.R
 import com.yizhenwind.booster.character.databinding.ActivityCharacterDetailBinding
+import com.yizhenwind.booster.character.ui.detail.info.CharacterInfoArgs
+import com.yizhenwind.booster.character.ui.detail.order.CharacterOrderArgs
 import com.yizhenwind.booster.common.constant.IntentKey
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
+import com.yizhenwind.booster.component.ext.setupWithTab
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.widget.BoosterDialog
 import com.yizhenwind.booster.mediator.order.IOrderService
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
  * 角色详情
+ *
+ * <a>https://developer.android.com/training/sign-in/biometric-auth</a>
  *
  * @author WangZhiYao
  * @since 2022/6/5
@@ -34,9 +40,7 @@ class CharacterDetailActivity :
     @Inject
     lateinit var orderService: IOrderService
 
-    private val args by activityArgs(CharacterDetailLaunchArgs::deserialize)
-
-    private val adapter by lazy { CharacterOrderAdapter() }
+    private val args by activityArgs(CharacterDetailLaunchArgs.Companion::deserialize)
 
     override fun showBack() = true
 
@@ -54,29 +58,49 @@ class CharacterDetailActivity :
     }
 
     private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-        viewModel.observeOrdersByCharacterId(args.character.id)
+        viewModel.observe(this, sideEffect = ::handleSideEffect)
     }
 
     private fun initView() {
         args.character.let {
             binding.apply {
                 collapsingToolbarLayout.title = it.name
-                rvOrder.adapter = adapter
-                fab.setIntervalClickListener { _ ->
-                    orderService.launchCreateOrder(
+                vpCharacterDetail.apply {
+                    setupWithTab(
                         this@CharacterDetailActivity,
-                        it.customerId,
-                        it.id
+                        tlCharacterDetail,
+                        listOf(R.string.character_detail_info, R.string.character_detail_order),
+                        listOf(
+                            CharacterInfoArgs(it.id).newInstance(),
+                            CharacterOrderArgs(it.id).newInstance()
+                        )
                     )
+                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            fab.apply {
+                                when (position) {
+                                    INDEX_INFO -> setImageResource(R.drawable.ic_round_edit_white_24dp)
+                                    INDEX_ORDER -> setImageResource(R.drawable.ic_round_add_white_24dp)
+                                }
+                            }
+                        }
+                    })
+                }
+                fab.setIntervalClickListener { _ ->
+                    when (vpCharacterDetail.currentItem) {
+                        INDEX_INFO -> {
+
+                        }
+                        INDEX_ORDER -> {
+                            orderService.launchCreateOrder(
+                                this@CharacterDetailActivity,
+                                it.customerId,
+                                it.id
+                            )
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    private suspend fun render(state: CharacterDetailViewState) {
-        when (state) {
-            is CharacterDetailViewState.Init -> adapter.submitData(state.orders)
         }
     }
 
@@ -111,6 +135,10 @@ class CharacterDetailActivity :
     }
 
     companion object {
+
+        private const val INDEX_INFO = 0
+
+        private const val INDEX_ORDER = 1
 
         fun start(context: Context, character: Character) {
             context.startActivity(

@@ -1,7 +1,5 @@
 package com.yizhenwind.booster.character.ui.detail
 
-import androidx.paging.PagingData
-import com.yizhenwind.booster.common.model.Order
 import com.yizhenwind.booster.component.base.IViewState
 
 /**
@@ -11,5 +9,5 @@ import com.yizhenwind.booster.component.base.IViewState
  */
 sealed class CharacterDetailViewState : IViewState {
 
-    data class Init(val orders: PagingData<Order> = PagingData.empty()) : CharacterDetailViewState()
+    object Init : CharacterDetailViewState()
 }

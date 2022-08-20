@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail
+package com.yizhenwind.booster.character.ui.detail.order
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -30,5 +30,4 @@ class CharacterOrderAdapter : PagingDataAdapter<Order, CharacterOrderViewHolder>
             holder.bind(it)
         }
     }
-
 }
