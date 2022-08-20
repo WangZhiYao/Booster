@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,13 +6,13 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_character_info_zone_title"
+        android:id="@+id/tv_character_detail_zone_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_zone"
+        android:text="@string/character_detail_zone"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_character_info_zone"
+        android:id="@+id/tv_character_detail_zone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,25 +29,25 @@
         android:textColor="@color/color_text_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_zone_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_zone_title"
         tools:text="电信五区" />
 
     <TextView
-        android:id="@+id/tv_character_info_server_title"
+        android:id="@+id/tv_character_detail_server_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_server"
+        android:text="@string/character_detail_server"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_zone" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_zone" />
 
     <TextView
-        android:id="@+id/tv_character_info_server"
+        android:id="@+id/tv_character_detail_server"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -56,25 +55,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_server_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_server_title"
         tools:text="唯我独尊" />
 
     <TextView
-        android:id="@+id/tv_character_info_sect_title"
+        android:id="@+id/tv_character_detail_sect_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_sect"
+        android:text="@string/character_detail_sect"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_server" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_server" />
 
     <TextView
-        android:id="@+id/tv_character_info_sect"
+        android:id="@+id/tv_character_detail_sect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -82,25 +81,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_sect_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_sect_title"
         tools:text="苍云" />
 
     <TextView
-        android:id="@+id/tv_character_info_internal_title"
+        android:id="@+id/tv_character_detail_internal_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_internal"
+        android:text="@string/character_detail_internal"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_sect" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_sect" />
 
     <TextView
-        android:id="@+id/tv_character_info_internal"
+        android:id="@+id/tv_character_detail_internal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -108,25 +107,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_internal_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_internal_title"
         tools:text="分山劲" />
 
     <TextView
-        android:id="@+id/tv_character_info_account_title"
+        android:id="@+id/tv_character_detail_account_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_account"
+        android:text="@string/character_detail_account"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_internal" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_internal" />
 
     <TextView
-        android:id="@+id/tv_character_info_account"
+        android:id="@+id/tv_character_detail_account"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -134,25 +133,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_account_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_account_title"
         tools:text="339@339.im" />
 
     <TextView
-        android:id="@+id/tv_character_info_password_title"
+        android:id="@+id/tv_character_detail_password_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_password"
+        android:text="@string/character_detail_password"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_account" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_account" />
 
     <TextView
-        android:id="@+id/tv_character_info_password"
+        android:id="@+id/tv_character_detail_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -160,25 +159,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_password_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_password_title"
         tools:text="12345678" />
 
     <TextView
-        android:id="@+id/tv_character_info_security_lock_title"
+        android:id="@+id/tv_character_detail_security_lock_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_security_lock"
+        android:text="@string/character_detail_security_lock"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_password" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_password" />
 
     <TextView
-        android:id="@+id/tv_character_info_security_lock"
+        android:id="@+id/tv_character_detail_security_lock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -186,25 +185,25 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_security_lock_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock_title"
         tools:text="123456" />
 
     <TextView
-        android:id="@+id/tv_character_info_create_time_title"
+        android:id="@+id/tv_character_detail_create_time_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/character_info_create_time"
+        android:text="@string/character_detail_create_time"
         android:textColor="@color/color_text_secondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_security_lock" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock" />
 
     <TextView
-        android:id="@+id/tv_character_info_create_time"
+        android:id="@+id/tv_character_detail_create_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -212,7 +211,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_info_create_time_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_create_time_title"
         tools:text="123456" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

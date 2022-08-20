@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail.order
+package com.yizhenwind.booster.character.ui.info.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,24 +9,23 @@ import com.yizhenwind.booster.component.base.IFragmentArgs
 
 /**
  *
- *
  * @author WangZhiYao
  * @since 2022/8/17
  */
-data class CharacterOrderArgs(
+data class CharacterDetailArgs(
     val characterId: Long
 ) : IFragmentArgs {
 
-    override fun newInstance(): Fragment = CharacterOrderFragment().apply {
+    override fun newInstance(): Fragment = CharacterDetailFragment().apply {
         arguments = Bundle().apply {
             putLong(IntentKey.CHARACTER_ID, characterId)
         }
     }
 
-    companion object : IFragmentArgDeserializer<CharacterOrderArgs> {
+    companion object : IFragmentArgDeserializer<CharacterDetailArgs> {
 
-        override fun deserialize(arguments: Bundle): CharacterOrderArgs = arguments.run {
-            CharacterOrderArgs(getLong(IntentKey.CHARACTER_ID, Constant.DEFAULT_ID))
+        override fun deserialize(arguments: Bundle): CharacterDetailArgs = arguments.run {
+            CharacterDetailArgs(getLong(IntentKey.CHARACTER_ID, Constant.DEFAULT_ID))
         }
     }
 }

@@ -28,11 +28,11 @@ interface ICharacterService : IService {
     )
 
     /**
-     * 启动角色详情页
+     * 启动角色信息页
      *
      * @param character 当前角色
      */
-    fun launchCharacterDetail(context: Context, character: Character)
+    fun launchCharacterInfo(context: Context, character: Character)
 
     /**
      * 根据客户ID订阅角色列表

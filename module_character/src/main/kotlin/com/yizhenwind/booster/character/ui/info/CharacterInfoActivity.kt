@@ -1,16 +1,13 @@
-package com.yizhenwind.booster.character.ui.detail
+package com.yizhenwind.booster.character.ui.info
 
-import android.content.Context
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.yizhenwind.booster.character.R
-import com.yizhenwind.booster.character.databinding.ActivityCharacterDetailBinding
-import com.yizhenwind.booster.character.ui.detail.info.CharacterInfoArgs
-import com.yizhenwind.booster.character.ui.detail.order.CharacterOrderArgs
-import com.yizhenwind.booster.common.constant.IntentKey
+import com.yizhenwind.booster.character.databinding.ActivityCharacterInfoBinding
+import com.yizhenwind.booster.character.ui.info.detail.CharacterDetailArgs
+import com.yizhenwind.booster.character.ui.info.order.CharacterOrderArgs
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.activityArgs
@@ -32,15 +29,15 @@ import javax.inject.Inject
  * @since 2022/6/5
  */
 @AndroidEntryPoint
-class CharacterDetailActivity :
-    BaseActivity<ActivityCharacterDetailBinding>(ActivityCharacterDetailBinding::inflate) {
+class CharacterInfoActivity :
+    BaseActivity<ActivityCharacterInfoBinding>(ActivityCharacterInfoBinding::inflate) {
 
-    private val viewModel by viewModels<CharacterDetailViewModel>()
+    private val viewModel by viewModels<CharacterInfoViewModel>()
 
     @Inject
     lateinit var orderService: IOrderService
 
-    private val args by activityArgs(CharacterDetailLaunchArgs.Companion::deserialize)
+    private val args by activityArgs(CharacterInfoLaunchArgs::deserialize)
 
     override fun showBack() = true
 
@@ -65,13 +62,13 @@ class CharacterDetailActivity :
         args.character.let {
             binding.apply {
                 collapsingToolbarLayout.title = it.name
-                vpCharacterDetail.apply {
+                vpCharacterInfo.apply {
                     setupWithTab(
-                        this@CharacterDetailActivity,
-                        tlCharacterDetail,
-                        listOf(R.string.character_detail_info, R.string.character_detail_order),
+                        this@CharacterInfoActivity,
+                        tlCharacterInfo,
+                        listOf(R.string.character_info_detail, R.string.character_info_order),
                         listOf(
-                            CharacterInfoArgs(it.id).newInstance(),
+                            CharacterDetailArgs(it.id).newInstance(),
                             CharacterOrderArgs(it.id).newInstance()
                         )
                     )
@@ -87,13 +84,13 @@ class CharacterDetailActivity :
                     })
                 }
                 fab.setIntervalClickListener { _ ->
-                    when (vpCharacterDetail.currentItem) {
+                    when (vpCharacterInfo.currentItem) {
                         INDEX_INFO -> {
 
                         }
                         INDEX_ORDER -> {
                             orderService.launchCreateOrder(
-                                this@CharacterDetailActivity,
+                                this@CharacterInfoActivity,
                                 it.customerId,
                                 it.id
                             )
@@ -104,10 +101,10 @@ class CharacterDetailActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CharacterDetailSideEffect) {
+    private fun handleSideEffect(sideEffect: CharacterInfoSideEffect) {
         when (sideEffect) {
-            CharacterDetailSideEffect.DeleteCharacterSuccess -> finish()
-            is CharacterDetailSideEffect.DeleteCharacterFailure ->
+            CharacterInfoSideEffect.DeleteCharacterSuccess -> finish()
+            is CharacterInfoSideEffect.DeleteCharacterFailure ->
                 binding.root.showSnack(sideEffect.errorMessage)
         }
     }
@@ -127,8 +124,8 @@ class CharacterDetailActivity :
 
     private fun attemptDeleteCharacter(character: Character) {
         BoosterDialog.Builder()
-            .setTitle(getString(R.string.dialog_character_detail_title))
-            .setMessage(getString(R.string.dialog_character_detail_message_delete, character.name))
+            .setTitle(getString(R.string.dialog_character_info_title))
+            .setMessage(getString(R.string.dialog_character_info_message_delete, character.name))
             .setNegativeButton(getString(R.string.cancel)) { it.dismiss() }
             .setPositiveButton(getString(R.string.ok)) { viewModel.deleteCharacter(character) }
             .show(supportFragmentManager)
@@ -140,12 +137,5 @@ class CharacterDetailActivity :
 
         private const val INDEX_ORDER = 1
 
-        fun start(context: Context, character: Character) {
-            context.startActivity(
-                Intent(context, CharacterDetailActivity::class.java).apply {
-                    putExtra(IntentKey.CHARACTER, character)
-                }
-            )
-        }
     }
 }

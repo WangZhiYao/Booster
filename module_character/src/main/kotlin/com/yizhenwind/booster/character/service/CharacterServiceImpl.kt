@@ -5,7 +5,8 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import com.yizhenwind.booster.character.data.domain.ObserveCharacterListByCustomerIdUseCase
 import com.yizhenwind.booster.character.ui.create.CreateCharacterLaunchArgs
-import com.yizhenwind.booster.character.ui.detail.CharacterDetailActivity
+import com.yizhenwind.booster.character.ui.info.CharacterInfoActivity
+import com.yizhenwind.booster.character.ui.info.CharacterInfoLaunchArgs
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.mediator.character.ICharacterService
@@ -30,8 +31,8 @@ class CharacterServiceImpl @Inject constructor(
             .launch(context)
     }
 
-    override fun launchCharacterDetail(context: Context, character: Character) {
-        CharacterDetailActivity.start(context, character)
+    override fun launchCharacterInfo(context: Context, character: Character) {
+        CharacterInfoLaunchArgs(character).launch(context)
     }
 
     override fun observeCharacterListByCustomerId(customerId: Long): Flow<PagingData<Character>> =

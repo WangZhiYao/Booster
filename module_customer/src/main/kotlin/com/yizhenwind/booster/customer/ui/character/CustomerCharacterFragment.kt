@@ -44,7 +44,7 @@ class CustomerCharacterFragment :
 
     private fun initView() {
         adapter.onCharacterClickListener = { character ->
-            characterService.launchCharacterDetail(requireContext(), character)
+            characterService.launchCharacterInfo(requireContext(), character)
         }
 
         adapter.onCreateOrderClickListener = { character ->

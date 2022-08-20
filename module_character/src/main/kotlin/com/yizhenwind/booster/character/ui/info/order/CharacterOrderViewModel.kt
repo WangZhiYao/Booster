@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail.order
+package com.yizhenwind.booster.character.ui.info.order
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn

@@ -9,7 +9,7 @@
             android:label="@string/create_character_label" />
 
         <activity
-            android:name=".ui.detail.CharacterDetailActivity"
+            android:name=".ui.info.CharacterInfoActivity"
             android:theme="@style/Theme.Booster.NoActionBar" />
 
     </application>

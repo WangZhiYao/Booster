@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail.info
+package com.yizhenwind.booster.character.ui.info.detail
 
 import com.yizhenwind.booster.character.R
 import com.yizhenwind.booster.character.data.domain.GetCharacterByIdUseCase
@@ -20,22 +20,22 @@ import javax.inject.Inject
  * @since 2022/8/17
  */
 @HiltViewModel
-class CharacterInfoViewModel @Inject constructor(
+class CharacterDetailViewModel @Inject constructor(
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase
-) : ContainerHost<CharacterInfoViewState, CharacterInfoSideEffect>, BaseViewModel() {
+) : ContainerHost<CharacterDetailViewState, CharacterDetailSideEffect>, BaseViewModel() {
 
-    override val container: Container<CharacterInfoViewState, CharacterInfoSideEffect> =
-        container(CharacterInfoViewState.Init)
+    override val container: Container<CharacterDetailViewState, CharacterDetailSideEffect> =
+        container(CharacterDetailViewState.Init)
 
     fun getCharacterById(characterId: Long) {
         intent {
             getCharacterByIdUseCase(characterId)
                 .collect { character ->
                     character.ifNullOrElse({
-                        postSideEffect(CharacterInfoSideEffect.GetCharacterFailure(R.string.error_get_character_failure))
+                        postSideEffect(CharacterDetailSideEffect.GetCharacterFailure(R.string.error_get_character_failure))
                     }, {
                         reduce {
-                            CharacterInfoViewState.GetCharacterSuccess(it)
+                            CharacterDetailViewState.GetCharacterSuccess(it)
                         }
                     })
                 }

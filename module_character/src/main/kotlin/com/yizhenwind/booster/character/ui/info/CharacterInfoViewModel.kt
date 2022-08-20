@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail
+package com.yizhenwind.booster.character.ui.info
 
 import com.yizhenwind.booster.character.R
 import com.yizhenwind.booster.character.data.domain.DeleteCharacterUseCase
@@ -20,25 +20,25 @@ import javax.inject.Inject
  * @since 2022/6/6
  */
 @HiltViewModel
-class CharacterDetailViewModel @Inject constructor(
+class CharacterInfoViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase
-) : ContainerHost<CharacterDetailViewState, CharacterDetailSideEffect>, BaseViewModel() {
+) : ContainerHost<CharacterInfoViewState, CharacterInfoSideEffect>, BaseViewModel() {
 
-    override val container: Container<CharacterDetailViewState, CharacterDetailSideEffect> =
-        container(CharacterDetailViewState.Init)
+    override val container: Container<CharacterInfoViewState, CharacterInfoSideEffect> =
+        container(CharacterInfoViewState.Init)
 
     fun deleteCharacter(character: Character) {
         intent {
             deleteCharacterUseCase(character)
                 .catch {
                     Timber.e(it)
-                    postSideEffect(CharacterDetailSideEffect.DeleteCharacterFailure(R.string.error_delete_character))
+                    postSideEffect(CharacterInfoSideEffect.DeleteCharacterFailure(R.string.error_delete_character))
                 }
                 .collect { success ->
                     if (success) {
-                        postSideEffect(CharacterDetailSideEffect.DeleteCharacterSuccess)
+                        postSideEffect(CharacterInfoSideEffect.DeleteCharacterSuccess)
                     } else {
-                        postSideEffect(CharacterDetailSideEffect.DeleteCharacterFailure(R.string.error_delete_character))
+                        postSideEffect(CharacterInfoSideEffect.DeleteCharacterFailure(R.string.error_delete_character))
                     }
                 }
         }

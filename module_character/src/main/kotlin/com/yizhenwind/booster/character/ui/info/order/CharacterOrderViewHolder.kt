@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.character.ui.detail.order
+package com.yizhenwind.booster.character.ui.info.order
 
 import com.yizhenwind.booster.character.databinding.ItemCharacterOrderBinding
 import com.yizhenwind.booster.common.model.Order
