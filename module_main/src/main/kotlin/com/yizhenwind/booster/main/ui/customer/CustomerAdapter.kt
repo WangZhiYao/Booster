@@ -1,11 +1,11 @@
-package com.yizhenwind.booster.customer.ui.main
+package com.yizhenwind.booster.main.ui.customer
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.component.ext.viewBinding
-import com.yizhenwind.booster.customer.databinding.ItemCustomerBinding
+import com.yizhenwind.booster.main.databinding.ItemCustomerBinding
 
 /**
  *

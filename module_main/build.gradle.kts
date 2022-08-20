@@ -53,10 +53,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     implementation(project(":module_component"))
+    implementation(project(":module_data"))
     implementation(project(":module_mediator"))
-    implementation(project(":module_customer"))
-    implementation(project(":module_character"))
-    implementation(project(":module_order"))
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.43.2")

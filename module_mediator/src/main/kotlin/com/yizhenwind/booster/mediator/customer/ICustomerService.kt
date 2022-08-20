@@ -1,10 +1,11 @@
 package com.yizhenwind.booster.mediator.customer
 
 import android.content.Context
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.PagingData
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.common.model.CustomerCharacterList
 import com.yizhenwind.booster.mediator.IService
+import kotlinx.coroutines.flow.Flow
 
 /**
  * 用户模块对外接口
@@ -24,7 +25,12 @@ interface ICustomerService : IService {
      *
      * @param customer 客户
      */
-    fun launchCustomerDetail(context: Context, customer: Customer)
+    fun launchCustomerInfo(context: Context, customer: Customer)
+
+    /**
+     * 订阅客户列表
+     */
+    fun observeCustomerList(): Flow<PagingData<Customer>>
 
     /**
      * 获取客户列表

@@ -10,15 +10,14 @@
     <string name="create_customer_success">创建客户成功</string>
     <string name="create_customer_jump_to_detail">去创建角色/订单</string>
 
-    <string name="customer_detail_character">角色</string>
-    <string name="customer_detail_order">订单</string>
+    <string name="customer_info_detail">详细信息</string>
+    <string name="customer_info_character">角色</string>
+    <string name="customer_info_order">订单</string>
 
-    <string name="customer_list_contact_qq">QQ: %s</string>
-    <string name="customer_list_contact_wechat">微信: %s</string>
-    <string name="customer_list_contact_phone">手机号: %s</string>
-
-    <string name="item_customer_add_character">创建角色</string>
-    <string name="item_customer_create_order">新建订单</string>
+    <string name="customer_detail_name">客户名</string>
+    <string name="customer_detail_contact_type">联系方式类型</string>
+    <string name="customer_detail_contact">联系方式</string>
+    <string name="customer_detail_remark">备注</string>
 
     <string name="error_customer_id">客户ID错误</string>
     <string name="error_customer_contact_exist">已经存在以上联系方式的客户</string>
@@ -31,13 +30,13 @@
 
     <string name="customer_character_create_order">新建订单</string>
 
-    <string name="dialog_customer_detail_title">提示</string>
-    <string name="dialog_customer_detail_message_delete">确认要删除客户: %s 吗?\n删除该客户将会删除所有该客户的角色与订单</string>
+    <string name="dialog_customer_info_title">提示</string>
+    <string name="dialog_customer_info_message_delete">确认要删除客户: %s 吗?\n删除该客户将会删除所有该客户的角色与订单</string>
 
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
 
     <string name="action_delete">删除</string>
-    <string name="action_search">搜索</string>
+    <string name="customer_detail_create_time">创建时间</string>
 
 </resources>

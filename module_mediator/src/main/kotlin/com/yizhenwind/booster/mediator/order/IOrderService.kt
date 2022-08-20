@@ -2,9 +2,9 @@ package com.yizhenwind.booster.mediator.order
 
 import android.content.Context
 import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
 import com.yizhenwind.booster.common.model.Order
 import com.yizhenwind.booster.mediator.IService
+import kotlinx.coroutines.flow.Flow
 
 /**
  * 订单模块对外接口
@@ -27,6 +27,11 @@ interface IOrderService : IService {
      * 启动创建分类页面
      */
     fun launchCreateCategory(context: Context)
+
+    /**
+     * 根据客户ID订阅订单列表
+     */
+    fun observeOrderListByCustomerId(customerId: Long): Flow<PagingData<Order>>
 
     /**
      * 根据角色ID订阅订单列表

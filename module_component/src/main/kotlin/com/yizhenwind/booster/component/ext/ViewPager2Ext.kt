@@ -29,7 +29,7 @@ fun ViewPager2.setupWithFragmentList(fragment: Fragment, fragmentList: List<Frag
     }
 }
 
-fun ViewPager2.setupWithTab(
+fun ViewPager2.setupFragmentWithTab(
     activity: FragmentActivity,
     tabLayout: TabLayout,
     titleResIdList: List<Int>,
@@ -44,7 +44,7 @@ fun ViewPager2.setupWithTab(
     }.attach()
 }
 
-fun ViewPager2.setupWithTab(
+fun ViewPager2.setupFragmentWithTab(
     fragment: Fragment,
     tabLayout: TabLayout,
     titleResIdList: List<Int>,

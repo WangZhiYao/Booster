@@ -1,9 +1,5 @@
 package com.yizhenwind.booster.main.ui.home
 
-import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import com.yizhenwind.booster.component.base.BaseViewModel
 
-@HiltViewModel
-class HomeViewModel @Inject constructor() :
-    ViewModel()
+class HomeViewModel : BaseViewModel()

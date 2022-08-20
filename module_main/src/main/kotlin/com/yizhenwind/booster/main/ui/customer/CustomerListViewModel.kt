@@ -1,14 +1,15 @@
-package com.yizhenwind.booster.customer.ui.main
+package com.yizhenwind.booster.main.ui.customer
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.yizhenwind.booster.component.base.BaseViewModel
+import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import com.yizhenwind.booster.component.base.BaseViewModel
-import com.yizhenwind.booster.customer.data.domain.ObserveCustomerListUseCase
 import javax.inject.Inject
 
 /**
@@ -19,14 +20,15 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class CustomerListViewModel @Inject constructor(
-    private val observeCustomerListUseCase: ObserveCustomerListUseCase
+    private val customerService: ICustomerService
 ) : ContainerHost<CustomerListViewState, Nothing>, BaseViewModel() {
 
-    override val container = container<CustomerListViewState, Nothing>(CustomerListViewState.Init())
+    override val container: Container<CustomerListViewState, Nothing> =
+        container(CustomerListViewState.Init())
 
     init {
         intent {
-            observeCustomerListUseCase()
+            customerService.observeCustomerList()
                 .cachedIn(viewModelScope)
                 .collect {
                     reduce {
@@ -35,5 +37,4 @@ class CustomerListViewModel @Inject constructor(
                 }
         }
     }
-
 }

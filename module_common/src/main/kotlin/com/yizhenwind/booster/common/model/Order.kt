@@ -1,10 +1,10 @@
 package com.yizhenwind.booster.common.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import com.yizhenwind.booster.common.constant.BillingCycle
 import com.yizhenwind.booster.common.constant.OrderStatus
 import com.yizhenwind.booster.common.constant.PaymentStatus
+import kotlinx.parcelize.Parcelize
 
 /**
  *

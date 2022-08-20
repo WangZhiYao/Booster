@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.character
+package com.yizhenwind.booster.customer.ui.info.character
 
 import androidx.core.view.isVisible
 import com.yizhenwind.booster.common.model.Character

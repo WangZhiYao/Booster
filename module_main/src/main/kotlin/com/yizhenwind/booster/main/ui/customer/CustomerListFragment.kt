@@ -1,16 +1,16 @@
-package com.yizhenwind.booster.customer.ui.main
+package com.yizhenwind.booster.main.ui.customer
 
 import android.view.Menu
 import android.view.MenuInflater
 import androidx.fragment.app.viewModels
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import com.yizhenwind.booster.component.base.BaseFragment
-import com.yizhenwind.booster.customer.R
-import com.yizhenwind.booster.customer.databinding.FragmentCustomerListBinding
+import com.yizhenwind.booster.main.R
+import com.yizhenwind.booster.main.databinding.FragmentCustomerListBinding
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.mediator.order.IOrderService
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -44,7 +44,7 @@ class CustomerListFragment :
         setHasOptionsMenu(true)
 
         adapter.onItemClickListener = { customer ->
-            customerService.launchCustomerDetail(requireContext(), customer)
+            customerService.launchCustomerInfo(requireContext(), customer)
         }
 
         adapter.onCreateCharacterClickListener = { customer ->

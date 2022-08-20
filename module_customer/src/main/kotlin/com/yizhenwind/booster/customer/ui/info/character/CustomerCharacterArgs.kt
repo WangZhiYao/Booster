@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.character
+package com.yizhenwind.booster.customer.ui.info.character
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,12 +16,11 @@ data class CustomerCharacterArgs(
     val customerId: Long
 ) : IFragmentArgs {
 
-    override fun newInstance(): Fragment = CustomerCharacterFragment()
-        .apply {
-            arguments = Bundle().apply {
-                putLong(IntentKey.CUSTOMER_ID, customerId)
-            }
+    override fun newInstance(): Fragment = CustomerCharacterFragment().apply {
+        arguments = Bundle().apply {
+            putLong(IntentKey.CUSTOMER_ID, customerId)
         }
+    }
 
     companion object : IFragmentArgDeserializer<CustomerCharacterArgs> {
 

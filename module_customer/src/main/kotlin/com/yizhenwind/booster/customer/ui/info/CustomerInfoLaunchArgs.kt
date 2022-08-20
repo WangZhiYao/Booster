@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.detail
+package com.yizhenwind.booster.customer.ui.info
 
 import android.content.Context
 import android.content.Intent
@@ -13,19 +13,19 @@ import com.yizhenwind.booster.component.base.IActivityLaunchArgs
  * @author WangZhiYao
  * @since 2022/7/29
  */
-data class CustomerDetailLaunchArgs(
+data class CustomerInfoLaunchArgs(
     val customer: Customer
 ) : IActivityLaunchArgs {
 
     override fun intent(context: Context): Intent =
-        Intent(context, CustomerDetailActivity::class.java).apply {
+        Intent(context, CustomerInfoActivity::class.java).apply {
             putExtra(IntentKey.CUSTOMER, customer)
         }
 
-    companion object : IActivityLaunchArgDeserializer<CustomerDetailLaunchArgs> {
+    companion object : IActivityLaunchArgDeserializer<CustomerInfoLaunchArgs> {
 
-        override fun deserialize(intent: Intent): CustomerDetailLaunchArgs =
-            CustomerDetailLaunchArgs(
+        override fun deserialize(intent: Intent): CustomerInfoLaunchArgs =
+            CustomerInfoLaunchArgs(
                 requireNotNull(
                     intent.getParcelableExtra(IntentKey.CUSTOMER)
                 ) {

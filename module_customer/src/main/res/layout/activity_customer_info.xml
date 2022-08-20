@@ -41,31 +41,37 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_container"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_customer_detail"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="2dp"
-            app:tabGravity="fill"
-            app:tabSelectedTextColor="@color/color_secondary"
-            app:tabIndicatorColor="@color/color_secondary"
-            app:tabMode="scrollable">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_customer_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/color_secondary"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/color_secondary">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_customer_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            </com.google.android.material.tabs.TabLayout>
 
-    </LinearLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_customer_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

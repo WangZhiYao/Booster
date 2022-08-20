@@ -90,7 +90,7 @@ class CreateCustomerActivity :
                     R.string.create_customer_success,
                     R.string.create_customer_jump_to_detail
                 ) {
-                    customerService.launchCustomerDetail(
+                    customerService.launchCustomerInfo(
                         this@CreateCustomerActivity,
                         state.customer
                     )

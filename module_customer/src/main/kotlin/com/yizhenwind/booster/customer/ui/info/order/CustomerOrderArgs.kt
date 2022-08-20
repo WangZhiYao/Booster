@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.order
+package com.yizhenwind.booster.customer.ui.info.order
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

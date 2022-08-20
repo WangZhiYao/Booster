@@ -1,24 +1,25 @@
-package com.yizhenwind.booster.customer.ui.detail
+package com.yizhenwind.booster.customer.ui.info
 
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import androidx.viewpager2.widget.ViewPager2
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
+import com.yizhenwind.booster.component.ext.setupFragmentWithTab
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.widget.BoosterDialog
 import com.yizhenwind.booster.customer.R
-import com.yizhenwind.booster.customer.databinding.ActivityCustomerDetailBinding
-import com.yizhenwind.booster.customer.ui.character.CustomerCharacterArgs
-import com.yizhenwind.booster.customer.ui.order.CustomerOrderArgs
+import com.yizhenwind.booster.customer.databinding.ActivityCustomerInfoBinding
+import com.yizhenwind.booster.customer.ui.info.character.CustomerCharacterArgs
+import com.yizhenwind.booster.customer.ui.info.detail.CustomerDetailArgs
+import com.yizhenwind.booster.customer.ui.info.order.CustomerOrderArgs
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.order.IOrderService
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -28,10 +29,10 @@ import javax.inject.Inject
  * @since 2022/4/20
  */
 @AndroidEntryPoint
-class CustomerDetailActivity :
-    BaseActivity<ActivityCustomerDetailBinding>(ActivityCustomerDetailBinding::inflate) {
+class CustomerInfoActivity :
+    BaseActivity<ActivityCustomerInfoBinding>(ActivityCustomerInfoBinding::inflate) {
 
-    private val viewModel by viewModels<CustomerDetailViewModel>()
+    private val viewModel by viewModels<CustomerInfoViewModel>()
 
     @Inject
     lateinit var characterService: ICharacterService
@@ -39,7 +40,7 @@ class CustomerDetailActivity :
     @Inject
     lateinit var orderService: IOrderService
 
-    private val args by activityArgs(CustomerDetailLaunchArgs::deserialize)
+    private val args by activityArgs(CustomerInfoLaunchArgs::deserialize)
 
     override fun init() {
         initData()
@@ -60,30 +61,42 @@ class CustomerDetailActivity :
         binding.apply {
             args.apply {
                 collapsingToolbarLayout.title = customer.name
-
-                vpCustomerDetail.apply {
-                    adapter = CustomerDetailPageAdapter(
-                        this@CustomerDetailActivity,
-                        arrayListOf(
+                vpCustomerInfo.apply {
+                    setupFragmentWithTab(
+                        this@CustomerInfoActivity,
+                        tlCustomerInfo,
+                        listOf(
+                            R.string.customer_info_detail,
+                            R.string.customer_info_character,
+                            R.string.customer_info_order
+                        ),
+                        listOf(
+                            CustomerDetailArgs(customer).newInstance(),
                             CustomerCharacterArgs(customer.id).newInstance(),
                             CustomerOrderArgs(customer.id).newInstance()
                         )
                     )
-                    (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            fab.apply {
+                                when (position) {
+                                    INDEX_DETAIL -> setImageResource(R.drawable.ic_round_edit_white_24dp)
+                                    else -> setImageResource(R.drawable.ic_round_add_white_24dp)
+                                }
+                            }
+                        }
+                    })
                 }
 
-                TabLayoutMediator(tlCustomerDetail, vpCustomerDetail) { tab, position ->
-                    tab.setText(TAB_TITLES[position])
-                }.attach()
-
                 fab.setIntervalClickListener {
-                    when (vpCustomerDetail.currentItem) {
+                    when (vpCustomerInfo.currentItem) {
+                        INDEX_DETAIL -> {}
                         INDEX_CHARACTER -> characterService.launchCreateCharacter(
-                            this@CustomerDetailActivity,
+                            this@CustomerInfoActivity,
                             customer
                         )
                         INDEX_ORDER -> orderService.launchCreateOrder(
-                            this@CustomerDetailActivity,
+                            this@CustomerInfoActivity,
                             customer.id
                         )
                     }
@@ -96,16 +109,16 @@ class CustomerDetailActivity :
         viewModel.observe(this, sideEffect = ::handleSideEffect)
     }
 
-    private fun handleSideEffect(sideEffect: CustomerDetailSideEffect) {
+    private fun handleSideEffect(sideEffect: CustomerInfoSideEffect) {
         when (sideEffect) {
-            CustomerDetailSideEffect.DeleteCustomerSuccess -> finish()
-            is CustomerDetailSideEffect.DeleteCustomerFailure ->
+            CustomerInfoSideEffect.DeleteCustomerSuccess -> finish()
+            is CustomerInfoSideEffect.DeleteCustomerFailure ->
                 binding.root.showSnack(sideEffect.errorMessage)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_customer_detail, menu)
+        menuInflater.inflate(R.menu.menu_customer_info, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -119,8 +132,8 @@ class CustomerDetailActivity :
 
     private fun attemptDeleteCustomer(customer: Customer) {
         BoosterDialog.Builder()
-            .setTitle(getString(R.string.dialog_customer_detail_title))
-            .setMessage(getString(R.string.dialog_customer_detail_message_delete, customer.name))
+            .setTitle(getString(R.string.dialog_customer_info_title))
+            .setMessage(getString(R.string.dialog_customer_info_message_delete, customer.name))
             .setNegativeButton(getString(R.string.cancel)) { it.dismiss() }
             .setPositiveButton(getString(R.string.ok)) { viewModel.deleteCustomer(customer) }
             .show(supportFragmentManager)
@@ -128,12 +141,11 @@ class CustomerDetailActivity :
 
     companion object {
 
-        private val TAB_TITLES =
-            intArrayOf(R.string.customer_detail_character, R.string.customer_detail_order)
+        private const val INDEX_DETAIL = 0
 
-        private const val INDEX_CHARACTER = 0
+        private const val INDEX_CHARACTER = 1
 
-        private const val INDEX_ORDER = 1
+        private const val INDEX_ORDER = 2
 
     }
 }

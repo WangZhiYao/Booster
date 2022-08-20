@@ -8,7 +8,7 @@ import com.yizhenwind.booster.component.databinding.FragmentBaseListBinding
  * @author WangZhiYao
  * @since 2022/8/17
  */
-abstract class BaseListFragment<VH : RecyclerView.ViewHolder> :
+abstract class BaseListFragment<ADAPTER : RecyclerView.Adapter<VH>, VH : RecyclerView.ViewHolder> :
     BaseFragment<FragmentBaseListBinding>(FragmentBaseListBinding::inflate) {
 
     protected open val adapter by lazy { getListAdapter() }
@@ -24,7 +24,7 @@ abstract class BaseListFragment<VH : RecyclerView.ViewHolder> :
 
     abstract fun getLayoutManager(): RecyclerView.LayoutManager
 
-    abstract fun getListAdapter(): RecyclerView.Adapter<VH>
+    abstract fun getListAdapter(): ADAPTER
 
     override fun onDestroyView() {
         // Otherwise the adapter is going to hold a reference to the RecyclerView

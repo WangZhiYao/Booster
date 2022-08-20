@@ -1,14 +1,16 @@
 package com.yizhenwind.booster.customer.service
 
 import android.content.Context
-import kotlinx.coroutines.flow.Flow
+import androidx.paging.PagingData
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.common.model.CustomerCharacterList
 import com.yizhenwind.booster.customer.data.domain.GetCustomerListUseCase
 import com.yizhenwind.booster.customer.data.domain.GetCustomerWithCharacterListUseCase
+import com.yizhenwind.booster.customer.data.domain.ObserveCustomerListUseCase
 import com.yizhenwind.booster.customer.ui.create.CreateCustomerLaunchArgs
-import com.yizhenwind.booster.customer.ui.detail.CustomerDetailLaunchArgs
+import com.yizhenwind.booster.customer.ui.info.CustomerInfoLaunchArgs
 import com.yizhenwind.booster.mediator.customer.ICustomerService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**
@@ -18,6 +20,7 @@ import javax.inject.Inject
  * @since 2022/7/14
  */
 class CustomerServiceImpl @Inject constructor(
+    private val observeCustomerListUseCase: ObserveCustomerListUseCase,
     private val getCustomerListUseCase: GetCustomerListUseCase,
     private val getCustomerWithCharacterListUseCase: GetCustomerWithCharacterListUseCase
 ) : ICustomerService {
@@ -26,9 +29,11 @@ class CustomerServiceImpl @Inject constructor(
         CreateCustomerLaunchArgs().launch(context)
     }
 
-    override fun launchCustomerDetail(context: Context, customer: Customer) {
-        CustomerDetailLaunchArgs(customer).launch(context)
+    override fun launchCustomerInfo(context: Context, customer: Customer) {
+        CustomerInfoLaunchArgs(customer).launch(context)
     }
+
+    override fun observeCustomerList(): Flow<PagingData<Customer>> = observeCustomerListUseCase()
 
     override fun getCustomerList(): Flow<List<Customer>> = getCustomerListUseCase()
 

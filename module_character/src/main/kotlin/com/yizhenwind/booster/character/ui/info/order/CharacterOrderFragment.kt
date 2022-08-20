@@ -1,7 +1,6 @@
 package com.yizhenwind.booster.character.ui.info.order
 
 import androidx.fragment.app.viewModels
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yizhenwind.booster.common.model.Order
@@ -16,7 +15,8 @@ import org.orbitmvi.orbit.viewmodel.observe
  * @since 2022/8/17
  */
 @AndroidEntryPoint
-class CharacterOrderFragment : BasePagingDataFragment<Order, CharacterOrderViewHolder>() {
+class CharacterOrderFragment :
+    BasePagingDataFragment<Order, CharacterOrderAdapter, CharacterOrderViewHolder>() {
 
     private val viewModel by viewModels<CharacterOrderViewModel>()
 
@@ -31,8 +31,7 @@ class CharacterOrderFragment : BasePagingDataFragment<Order, CharacterOrderViewH
     override fun getLayoutManager(): RecyclerView.LayoutManager =
         LinearLayoutManager(requireContext())
 
-    override fun getListAdapter(): PagingDataAdapter<Order, CharacterOrderViewHolder> =
-        CharacterOrderAdapter()
+    override fun getListAdapter(): CharacterOrderAdapter = CharacterOrderAdapter()
 
     private suspend fun render(state: CharacterOrderViewState) {
         when (state) {

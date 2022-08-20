@@ -170,7 +170,7 @@ class CreateCharacterActivity :
             is CreateCharacterViewState.CreateCharacterSuccess -> {
                 viewModel.customer?.let { customer ->
                     if (args.openDetailAfterCreateSuccess) {
-                        customerService.launchCustomerDetail(this, customer)
+                        customerService.launchCustomerInfo(this, customer)
                     }
                 }
                 finish()

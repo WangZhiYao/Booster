@@ -1,13 +1,15 @@
-package com.yizhenwind.booster.customer.ui.character
+package com.yizhenwind.booster.customer.ui.info.character
 
 import androidx.fragment.app.viewModels
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
-import com.yizhenwind.booster.component.base.BaseFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.yizhenwind.booster.common.model.Character
+import com.yizhenwind.booster.component.base.BasePagingDataFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
-import com.yizhenwind.booster.customer.databinding.FragmentCustomerCharacterBinding
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.order.IOrderService
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -18,7 +20,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CustomerCharacterFragment :
-    BaseFragment<FragmentCustomerCharacterBinding>(FragmentCustomerCharacterBinding::inflate) {
+    BasePagingDataFragment<Character, CustomerCharacterAdapter, CustomerCharacterViewHolder>() {
 
     private val viewModel by viewModels<CustomerCharacterViewModel>()
 
@@ -30,8 +32,6 @@ class CustomerCharacterFragment :
 
     private val args by fragmentArgs(CustomerCharacterArgs::deserialize)
 
-    private val adapter by lazy { CustomerCharacterAdapter() }
-
     override fun init() {
         initData()
         initView()
@@ -42,6 +42,11 @@ class CustomerCharacterFragment :
         viewModel.observeCharactersByCustomerId(args.customerId)
     }
 
+    override fun getLayoutManager(): RecyclerView.LayoutManager =
+        LinearLayoutManager(requireContext())
+
+    override fun getListAdapter(): CustomerCharacterAdapter = CustomerCharacterAdapter()
+
     private fun initView() {
         adapter.onCharacterClickListener = { character ->
             characterService.launchCharacterInfo(requireContext(), character)
@@ -50,8 +55,6 @@ class CustomerCharacterFragment :
         adapter.onCreateOrderClickListener = { character ->
             orderService.launchCreateOrder(requireContext(), character.customerId, character.id)
         }
-
-        binding.rvCustomerCharacter.adapter = adapter
     }
 
     private suspend fun render(state: CustomerCharacterViewState) {

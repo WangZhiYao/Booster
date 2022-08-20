@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.detail
+package com.yizhenwind.booster.customer.ui.info
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -19,25 +19,25 @@ import javax.inject.Inject
  * @since 2022/6/5
  */
 @HiltViewModel
-class CustomerDetailViewModel @Inject constructor(
+class CustomerInfoViewModel @Inject constructor(
     private val deleteCustomerUseCase: DeleteCustomerUseCase
-) : ContainerHost<CustomerDetailViewState, CustomerDetailSideEffect>, BaseViewModel() {
+) : ContainerHost<CustomerInfoViewState, CustomerInfoSideEffect>, BaseViewModel() {
 
     override val container =
-        container<CustomerDetailViewState, CustomerDetailSideEffect>(CustomerDetailViewState.Init)
+        container<CustomerInfoViewState, CustomerInfoSideEffect>(CustomerInfoViewState.Init)
 
     fun deleteCustomer(customer: Customer) {
         intent {
             deleteCustomerUseCase(customer)
                 .catch {
                     Timber.e(it)
-                    postSideEffect(CustomerDetailSideEffect.DeleteCustomerFailure(R.string.error_delete_customer))
+                    postSideEffect(CustomerInfoSideEffect.DeleteCustomerFailure(R.string.error_delete_customer))
                 }
                 .collect { success ->
                     if (success) {
-                        postSideEffect(CustomerDetailSideEffect.DeleteCustomerSuccess)
+                        postSideEffect(CustomerInfoSideEffect.DeleteCustomerSuccess)
                     } else {
-                        postSideEffect(CustomerDetailSideEffect.DeleteCustomerFailure(R.string.error_delete_customer))
+                        postSideEffect(CustomerInfoSideEffect.DeleteCustomerFailure(R.string.error_delete_customer))
                     }
                 }
         }

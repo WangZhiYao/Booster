@@ -12,7 +12,7 @@ import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
-import com.yizhenwind.booster.component.ext.setupWithTab
+import com.yizhenwind.booster.component.ext.setupFragmentWithTab
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.widget.BoosterDialog
 import com.yizhenwind.booster.mediator.order.IOrderService
@@ -63,7 +63,7 @@ class CharacterInfoActivity :
             binding.apply {
                 collapsingToolbarLayout.title = it.name
                 vpCharacterInfo.apply {
-                    setupWithTab(
+                    setupFragmentWithTab(
                         this@CharacterInfoActivity,
                         tlCharacterInfo,
                         listOf(R.string.character_info_detail, R.string.character_info_order),

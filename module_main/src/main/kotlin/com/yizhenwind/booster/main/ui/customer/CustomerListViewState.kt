@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.customer.ui.main
+package com.yizhenwind.booster.main.ui.customer
 
 import androidx.paging.PagingData
 import com.yizhenwind.booster.common.model.Customer

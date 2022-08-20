@@ -77,6 +77,9 @@ dependencies {
 
     implementation(project(":module_infra"))
     implementation(project(":module_main"))
+    implementation(project(":module_customer"))
+    implementation(project(":module_character"))
+    implementation(project(":module_order"))
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.43.2")
