@@ -52,7 +52,7 @@ dependencies {
 
     // Android X
     api("androidx.core:core-ktx:1.8.0")
-    api("androidx.appcompat:appcompat:1.4.2")
+    api("androidx.appcompat:appcompat:1.5.0")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Material
@@ -64,7 +64,7 @@ dependencies {
     api("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
 
     // Fragment
-    api("androidx.fragment:fragment-ktx:1.5.1")
+    api("androidx.fragment:fragment-ktx:1.5.2")
 
     // Navigation
     api("androidx.navigation:navigation-fragment-ktx:2.5.1")
@@ -75,5 +75,8 @@ dependencies {
 
     // Paging3
     api("androidx.paging:paging-runtime-ktx:3.1.1")
+
+    // Biometric
+    api("androidx.biometric:biometric:1.2.0-alpha04")
 
 }
