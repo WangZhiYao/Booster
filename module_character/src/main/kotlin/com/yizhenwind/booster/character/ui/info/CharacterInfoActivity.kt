@@ -68,7 +68,7 @@ class CharacterInfoActivity :
                         tlCharacterInfo,
                         listOf(R.string.character_info_detail, R.string.character_info_order),
                         listOf(
-                            CharacterDetailArgs(it.id).newInstance(),
+                            CharacterDetailArgs(it).newInstance(),
                             CharacterOrderArgs(it.id).newInstance()
                         )
                     )
