@@ -17,6 +17,10 @@ import com.yizhenwind.booster.data.database.model.OrderInfo
 interface OrderDao : IDao<OrderEntity> {
 
     @Transaction
+    @Query("SELECT * FROM `order` ORDER BY create_time DESC")
+    fun observeOrderList(): PagingSource<Int, OrderInfo>
+
+    @Transaction
     @Query("SELECT * FROM `order` WHERE customer_id = :customerId")
     fun observeOrderListByCustomerId(customerId: Long): PagingSource<Int, OrderInfo>
 

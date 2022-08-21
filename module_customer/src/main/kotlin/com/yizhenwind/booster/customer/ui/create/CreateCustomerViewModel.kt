@@ -1,19 +1,18 @@
 package com.yizhenwind.booster.customer.ui.create
 
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.common.ext.ifNullOrElse
-import com.yizhenwind.booster.component.base.BaseViewModel
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.data.domain.CreateCustomerUseCase
 import com.yizhenwind.booster.customer.data.domain.GetContactTypeListUseCase
 import com.yizhenwind.booster.customer.data.domain.GetCustomerByContactUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,7 +26,7 @@ class CreateCustomerViewModel @Inject constructor(
     private val getContactTypeListUseCase: GetContactTypeListUseCase,
     private val getCustomerByContactUseCase: GetCustomerByContactUseCase,
     private val createCustomerUseCase: CreateCustomerUseCase
-) : ContainerHost<CreateCustomerViewState, CreateCustomerSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CreateCustomerViewState, CreateCustomerSideEffect>() {
 
     override val container =
         container<CreateCustomerViewState, CreateCustomerSideEffect>(CreateCustomerViewState.Init())

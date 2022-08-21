@@ -1,9 +1,8 @@
 package com.yizhenwind.booster.order.ui.category.create
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import com.yizhenwind.booster.common.ext.blankThenNull
 import com.yizhenwind.booster.component.base.BaseTextInputActivity
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
@@ -12,6 +11,7 @@ import com.yizhenwind.booster.component.ext.showSnackWithAction
 import com.yizhenwind.booster.order.R
 import com.yizhenwind.booster.order.databinding.ActivityCreateCategoryBinding
 import com.yizhenwind.booster.order.ui.subject.create.CreateSubjectLaunchArgs
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * 创建分类
@@ -21,15 +21,15 @@ import com.yizhenwind.booster.order.ui.subject.create.CreateSubjectLaunchArgs
  */
 @AndroidEntryPoint
 class CreateCategoryActivity :
-    BaseTextInputActivity<ActivityCreateCategoryBinding>(ActivityCreateCategoryBinding::inflate) {
+    BaseTextInputActivity<ActivityCreateCategoryBinding, CreateCategoryViewState, CreateCategorySideEffect>(
+        ActivityCreateCategoryBinding::inflate
+    ) {
 
-    private val viewModel by viewModels<CreateCategoryViewModel>()
+    override val viewModel by viewModels<CreateCategoryViewModel>()
 
-    override fun showBack() = true
-
-    override fun init() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initView()
-        initData()
     }
 
     private fun initView() {
@@ -42,11 +42,7 @@ class CreateCategoryActivity :
         }
     }
 
-    private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-    }
-
-    private fun render(state: CreateCategoryViewState) {
+    override fun render(state: CreateCategoryViewState) {
         binding.apply {
             when (state) {
                 CreateCategoryViewState.Init -> {
@@ -65,7 +61,7 @@ class CreateCategoryActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CreateCategorySideEffect) {
+    override fun handleSideEffect(sideEffect: CreateCategorySideEffect) {
         binding.apply {
             when (sideEffect) {
                 is CreateCategorySideEffect.ShowTitleError -> {

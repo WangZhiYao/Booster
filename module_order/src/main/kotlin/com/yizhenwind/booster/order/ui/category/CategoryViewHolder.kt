@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.order.ui.category.main
+package com.yizhenwind.booster.order.ui.category
 
 import androidx.core.view.isVisible
 import com.yizhenwind.booster.common.model.Category

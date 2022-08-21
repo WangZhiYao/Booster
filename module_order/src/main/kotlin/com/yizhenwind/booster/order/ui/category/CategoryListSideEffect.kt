@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.order.ui.category.main
+package com.yizhenwind.booster.order.ui.category
 
 import com.yizhenwind.booster.component.base.ISideEffect
 

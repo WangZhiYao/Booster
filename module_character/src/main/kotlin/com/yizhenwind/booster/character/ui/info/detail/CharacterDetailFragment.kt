@@ -17,7 +17,7 @@ class CharacterDetailFragment :
 
     private val args by fragmentArgs(CharacterDetailArgs::deserialize)
 
-    override fun init() {
+    override fun initPage() {
         binding.apply {
             args.character.apply {
                 tvCharacterDetailZone.text = zone.name

@@ -1,14 +1,15 @@
-package com.yizhenwind.booster.order.ui.category.main
+package com.yizhenwind.booster.order.ui.category
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
+import com.yizhenwind.booster.order.data.domain.ObserveCategoryListUseCase
+import com.yizhenwind.booster.order.ui.category.CategoryListSideEffect
+import com.yizhenwind.booster.order.ui.category.CategoryListViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import com.yizhenwind.booster.component.base.BaseViewModel
-import com.yizhenwind.booster.order.data.domain.ObserveCategoryListUseCase
 import javax.inject.Inject
 
 /**
@@ -20,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CategoryListViewModel @Inject constructor(
     private val observeCategoryListUseCase: ObserveCategoryListUseCase
-) : ContainerHost<CategoryListViewState, CategoryListSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CategoryListViewState, CategoryListSideEffect>() {
 
     override val container =
         container<CategoryListViewState, CategoryListSideEffect>(CategoryListViewState.Init())

@@ -1,15 +1,16 @@
 package com.yizhenwind.booster.order.ui.subject.create
 
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.component.base.BaseTextInputActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
-import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.order.databinding.ActivityCreateSubjectBinding
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  * 创建项目
@@ -19,18 +20,18 @@ import com.yizhenwind.booster.order.databinding.ActivityCreateSubjectBinding
  */
 @AndroidEntryPoint
 class CreateSubjectActivity :
-    BaseTextInputActivity<ActivityCreateSubjectBinding>(ActivityCreateSubjectBinding::inflate) {
+    BaseTextInputActivity<ActivityCreateSubjectBinding, CreateSubjectViewState, CreateSubjectSideEffect>(
+        ActivityCreateSubjectBinding::inflate
+    ) {
 
-    private val viewModel by viewModels<CreateSubjectViewModel>()
+    override val viewModel by viewModels<CreateSubjectViewModel>()
     private val args by activityArgs(CreateSubjectLaunchArgs::deserialize)
 
     private lateinit var categoryAdapter: CategoryAdapter
 
-    override fun showBack() = true
-
-    override fun init() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initView()
-        initData()
     }
 
     private fun initView() {
@@ -47,11 +48,7 @@ class CreateSubjectActivity :
         }
     }
 
-    private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-    }
-
-    private fun render(state: CreateSubjectViewState) {
+    override fun render(state: CreateSubjectViewState) {
         when (state) {
             is CreateSubjectViewState.Init -> {
                 categoryAdapter = CategoryAdapter(this, state.categoryList)
@@ -69,7 +66,7 @@ class CreateSubjectActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CreateSubjectSideEffect) {
+    override fun handleSideEffect(sideEffect: CreateSubjectSideEffect) {
         binding.apply {
             when (sideEffect) {
                 is CreateSubjectSideEffect.ShowCategoryError ->

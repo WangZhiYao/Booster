@@ -2,6 +2,7 @@ package com.yizhenwind.booster.customer.ui.info.order
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CustomerOrderViewModel @Inject constructor(
     private val orderService: IOrderService
-) : ContainerHost<CustomerOrderViewState, CustomerOrderSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CustomerOrderViewState, CustomerOrderSideEffect>() {
 
     override val container: Container<CustomerOrderViewState, CustomerOrderSideEffect> =
         container(CustomerOrderViewState.Init())

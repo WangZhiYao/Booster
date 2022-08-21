@@ -46,7 +46,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
             val navController = navHostFragment.navController
             appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.nav_home, R.id.nav_customer_list),
+                setOf(R.id.nav_home, R.id.nav_customer_list, R.id.nav_order_list),
                 drawerLayout
             )
             setupActionBarWithNavController(navController, appBarConfiguration)

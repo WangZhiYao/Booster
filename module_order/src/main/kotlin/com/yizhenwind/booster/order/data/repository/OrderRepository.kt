@@ -4,15 +4,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import com.yizhenwind.booster.common.model.Order
 import com.yizhenwind.booster.data.database.dao.OrderDao
 import com.yizhenwind.booster.data.database.mapper.OrderInfoToOrderMapper
 import com.yizhenwind.booster.data.repository.IRepository
 import com.yizhenwind.booster.infra.di.qualifier.IODispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 /**
@@ -33,6 +33,15 @@ class OrderRepository @Inject constructor(
         initialLoadSize = 20,
         enablePlaceholders = false
     )
+
+    fun observeOrderList(): Flow<PagingData<Order>> =
+        Pager(pagingConfig) {
+            orderDao.observeOrderList()
+        }.flow
+            .map { pagingData ->
+                pagingData.map { orderInfoToOrderMapper.map(it) }
+            }
+            .flowOn(dispatcher)
 
     fun observeOrderListByCustomerId(customerId: Long): Flow<PagingData<Order>> =
         Pager(pagingConfig) {

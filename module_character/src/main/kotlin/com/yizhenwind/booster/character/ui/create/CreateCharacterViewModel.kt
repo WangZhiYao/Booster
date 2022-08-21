@@ -18,6 +18,7 @@ import com.yizhenwind.booster.common.ext.ifNullOrElse
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.common.model.SectInternal
 import com.yizhenwind.booster.common.model.ZoneServer
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import timber.log.Timber
@@ -35,7 +36,7 @@ class CreateCharacterViewModel @Inject constructor(
     private val getZoneServerListUseCase: GetZoneServerListUseCase,
     private val getSectInternalListUseCase: GetSectInternalListUseCase,
     private val createCharacterUseCase: CreateCharacterUseCase,
-) : ContainerHost<CreateCharacterViewState, CreateCharacterSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CreateCharacterViewState, CreateCharacterSideEffect>() {
 
     override val container =
         container<CreateCharacterViewState, CreateCharacterSideEffect>(CreateCharacterViewState.Init())

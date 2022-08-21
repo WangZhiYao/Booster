@@ -3,11 +3,10 @@ package com.yizhenwind.booster.character.ui.info
 import com.yizhenwind.booster.character.R
 import com.yizhenwind.booster.character.data.domain.DeleteCharacterUseCase
 import com.yizhenwind.booster.common.model.Character
-import com.yizhenwind.booster.component.base.BaseViewModel
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import org.orbitmvi.orbit.Container
-import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
@@ -22,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterInfoViewModel @Inject constructor(
     private val deleteCharacterUseCase: DeleteCharacterUseCase
-) : ContainerHost<CharacterInfoViewState, CharacterInfoSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CharacterInfoViewState, CharacterInfoSideEffect>() {
 
     override val container: Container<CharacterInfoViewState, CharacterInfoSideEffect> =
         container(CharacterInfoViewState.Init)

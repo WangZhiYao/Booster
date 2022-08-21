@@ -2,9 +2,8 @@ package com.yizhenwind.booster.order.ui.create
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import com.yizhenwind.booster.common.constant.BillingCycle
 import com.yizhenwind.booster.common.constant.Constant
 import com.yizhenwind.booster.common.constant.IntentKey
@@ -15,6 +14,8 @@ import com.yizhenwind.booster.component.base.BaseTextInputActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.order.databinding.ActivityCreateOrderBinding
 import com.yizhenwind.booster.order.ui.subject.create.CategoryAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  * 创建角色
@@ -24,9 +25,11 @@ import com.yizhenwind.booster.order.ui.subject.create.CategoryAdapter
  */
 @AndroidEntryPoint
 class CreateOrderActivity :
-    BaseTextInputActivity<ActivityCreateOrderBinding>(ActivityCreateOrderBinding::inflate) {
+    BaseTextInputActivity<ActivityCreateOrderBinding, CreateOrderViewState, CreateOrderSideEffect>(
+        ActivityCreateOrderBinding::inflate
+    ) {
 
-    private val viewModel by viewModels<CreateOrderViewModel>()
+    override val viewModel by viewModels<CreateOrderViewModel>()
 
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var characterAdapter: CharacterAdapter
@@ -36,15 +39,9 @@ class CreateOrderActivity :
 
     private val args by activityArgs(CreateOrderLaunchArgs::deserialize)
 
-    override fun showBack() = true
-
-    override fun init() {
-        initData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initView()
-    }
-
-    private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
     }
 
     private fun initView() {
@@ -71,7 +68,7 @@ class CreateOrderActivity :
         }
     }
 
-    private fun render(state: CreateOrderViewState) {
+    override fun render(state: CreateOrderViewState) {
         when (state) {
             is CreateOrderViewState.Init -> {
                 initCustomerCharacterSelector(state.customerCharacterList)
@@ -85,7 +82,7 @@ class CreateOrderActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CreateOrderSideEffect) {
+    override fun handleSideEffect(sideEffect: CreateOrderSideEffect) {
 
     }
 
@@ -167,20 +164,6 @@ class CreateOrderActivity :
                     setText(it.content, false)
                 }
             }
-        }
-    }
-
-    companion object {
-
-        fun start(
-            context: Context,
-            customerId: Long = Constant.DEFAULT_ID,
-            characterId: Long = Constant.DEFAULT_ID
-        ) {
-            context.startActivity(Intent(context, CreateOrderActivity::class.java).apply {
-                putExtra(IntentKey.CUSTOMER_ID, customerId)
-                putExtra(IntentKey.CHARACTER_ID, characterId)
-            })
         }
     }
 }

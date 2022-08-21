@@ -16,7 +16,7 @@ class CustomerDetailFragment :
 
     private val args by fragmentArgs(CustomerDetailArgs::deserialize)
 
-    override fun init() {
+    override fun initPage() {
         binding.apply {
             args.customer.apply {
                 tvCustomerDetailName.text = name

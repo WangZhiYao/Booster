@@ -15,6 +15,12 @@
         android:id="@+id/nav_customer_list"
         android:name="com.yizhenwind.booster.main.ui.customer.CustomerListFragment"
         android:label="@string/menu_customer"
-        tools:layout="@layout/fragment_customer_list" />
+        tools:layout="@layout/fragment_base_paging_mvi" />
+
+    <fragment
+        android:id="@+id/nav_order_list"
+        android:name="com.yizhenwind.booster.main.ui.order.OrderListFragment"
+        android:label="@string/menu_order"
+        tools:layout="@layout/fragment_base_paging_mvi" />
 
 </navigation>

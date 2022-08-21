@@ -12,9 +12,9 @@ import com.google.android.material.textfield.TextInputLayout
  * @author WangZhiYao
  * @since 2022/8/4
  */
-abstract class BaseTextInputActivity<out VB : ViewBinding>(
+abstract class BaseTextInputActivity<out VB : ViewBinding, STATE : IViewState, SIDE_EFFECT : ISideEffect>(
     bindingInflater: (LayoutInflater) -> VB
-) : BaseActivity<VB>(bindingInflater) {
+) : BaseMVIActivity<VB, STATE, SIDE_EFFECT>(bindingInflater) {
 
     protected fun showErrorInfo(
         textInputLayout: TextInputLayout,

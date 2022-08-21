@@ -1,13 +1,14 @@
 package com.yizhenwind.booster.customer.ui.info.order
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yizhenwind.booster.common.model.Order
-import com.yizhenwind.booster.component.base.BasePagingDataFragment
+import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -16,26 +17,29 @@ import org.orbitmvi.orbit.viewmodel.observe
  */
 @AndroidEntryPoint
 class CustomerOrderFragment :
-    BasePagingDataFragment<Order, CustomerOrderAdapter, CustomerOrderViewHolder>() {
+    BasePagingDataMVIFragment<Order, CustomerOrderAdapter, CustomerOrderViewHolder, CustomerOrderViewState, CustomerOrderSideEffect>() {
 
-    private val viewModel by viewModels<CustomerOrderViewModel>()
+    override val viewModel by viewModels<CustomerOrderViewModel>()
+    override val adapter: CustomerOrderAdapter = CustomerOrderAdapter()
 
     private val args by fragmentArgs(CustomerOrderArgs::deserialize)
 
-    override fun init() {
-        super.init()
-        viewModel.observe(viewLifecycleOwner, state = ::render)
+    override fun initPage() {
+        super.initPage()
         viewModel.observeOrderListByCustomerId(args.customerId)
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager =
-        LinearLayoutManager(requireContext())
-
-    override fun getListAdapter(): CustomerOrderAdapter = CustomerOrderAdapter()
-
-    private suspend fun render(state: CustomerOrderViewState) {
+    override fun render(state: CustomerOrderViewState) {
         when (state) {
-            is CustomerOrderViewState.Init -> adapter.submitData(state.orderList)
+            is CustomerOrderViewState.Init -> {
+                lifecycleScope.launch {
+                    adapter.submitData(state.orderList)
+                }
+            }
         }
+    }
+
+    override fun handleSideEffect(sideEffect: CustomerOrderSideEffect) {
+
     }
 }

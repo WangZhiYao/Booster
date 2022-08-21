@@ -24,9 +24,19 @@ interface IOrderService : IService {
     fun launchCreateOrder(context: Context, customerId: Long = 0L, characterId: Long = 0L)
 
     /**
+     * 启动分类列表页面
+     */
+    fun launchCategoryList(context: Context)
+
+    /**
      * 启动创建分类页面
      */
     fun launchCreateCategory(context: Context)
+
+    /**
+     * 订阅订单列表
+     */
+    fun observeOrderList(): Flow<PagingData<Order>>
 
     /**
      * 根据客户ID订阅订单列表
@@ -37,4 +47,6 @@ interface IOrderService : IService {
      * 根据角色ID订阅订单列表
      */
     fun observeOrderListByCharacterId(characterId: Long): Flow<PagingData<Order>>
+
+
 }

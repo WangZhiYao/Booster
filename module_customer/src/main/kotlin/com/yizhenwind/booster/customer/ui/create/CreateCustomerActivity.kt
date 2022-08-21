@@ -1,11 +1,10 @@
 package com.yizhenwind.booster.customer.ui.create
 
+import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.common.ext.blankThenNull
 import com.yizhenwind.booster.component.base.BaseTextInputActivity
@@ -14,6 +13,8 @@ import com.yizhenwind.booster.component.ext.showSnackWithAction
 import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.databinding.ActivityCreateCustomerBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -24,25 +25,24 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CreateCustomerActivity :
-    BaseTextInputActivity<ActivityCreateCustomerBinding>(ActivityCreateCustomerBinding::inflate) {
+    BaseTextInputActivity<ActivityCreateCustomerBinding, CreateCustomerViewState, CreateCustomerSideEffect>(
+        ActivityCreateCustomerBinding::inflate
+    ) {
 
-    private val viewModel by viewModels<CreateCustomerViewModel>()
+    override val viewModel by viewModels<CreateCustomerViewModel>()
 
     @Inject
     lateinit var customerService: ICustomerService
 
     private lateinit var contactTypeAdapter: ContactTypeAdapter
 
-    override fun init() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initView()
-        initData()
     }
-
-    override fun showBack() = true
 
     private fun initView() {
         binding.apply {
-
             tietCreateCustomerName.doAfterTextChanged { name ->
                 if (!name.isNullOrBlank()) {
                     tilCreateCustomerName.error = null
@@ -77,11 +77,7 @@ class CreateCustomerActivity :
         }
     }
 
-    private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-    }
-
-    private fun render(state: CreateCustomerViewState) {
+    override fun render(state: CreateCustomerViewState) {
         when (state) {
             is CreateCustomerViewState.Init -> initContactTypeSelector(state.contactTypeList)
             is CreateCustomerViewState.CreateCustomerSuccess -> {
@@ -104,7 +100,7 @@ class CreateCustomerActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CreateCustomerSideEffect) {
+    override fun handleSideEffect(sideEffect: CreateCustomerSideEffect) {
         when (sideEffect) {
             is CreateCustomerSideEffect.ShowNameError ->
                 showNameError(sideEffect.errorMessage)

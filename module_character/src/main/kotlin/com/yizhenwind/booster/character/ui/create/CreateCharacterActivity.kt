@@ -1,20 +1,20 @@
 package com.yizhenwind.booster.character.ui.create
 
+import android.os.Bundle
 import android.text.method.DigitsKeyListener
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
-import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import com.yizhenwind.booster.character.databinding.ActivityCreateCharacterBinding
 import com.yizhenwind.booster.common.ext.blankThenNull
+import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.component.base.BaseTextInputActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
-import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.mediator.customer.ICustomerService
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
@@ -25,9 +25,11 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CreateCharacterActivity :
-    BaseTextInputActivity<ActivityCreateCharacterBinding>(ActivityCreateCharacterBinding::inflate) {
+    BaseTextInputActivity<ActivityCreateCharacterBinding, CreateCharacterViewState, CreateCharacterSideEffect>(
+        ActivityCreateCharacterBinding::inflate
+    ) {
 
-    private val viewModel by viewModels<CreateCharacterViewModel>()
+    override val viewModel by viewModels<CreateCharacterViewModel>()
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -52,15 +54,13 @@ class CreateCharacterActivity :
 
     private val args by activityArgs(CreateCharacterLaunchArgs::deserialize)
 
-    override fun init() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initData()
         initView()
     }
 
-    override fun showBack() = true
-
     private fun initData() {
-        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
         viewModel.customer = args.customer
     }
 
@@ -123,13 +123,14 @@ class CreateCharacterActivity :
         }
     }
 
-    private fun render(state: CreateCharacterViewState) {
+    override fun render(state: CreateCharacterViewState) {
         when (state) {
             is CreateCharacterViewState.Init -> {
                 state.apply {
                     customerList.let {
                         customerAdapter = CustomerAdapter(this@CreateCharacterActivity, it)
-                        val customer = it.firstOrFirst { customer -> customer.id == viewModel.customer?.id }
+                        val customer =
+                            it.firstOrFirst { customer -> customer.id == viewModel.customer?.id }
 
                         binding.actvCreateCharacterCustomer.apply {
                             setAdapter(customerAdapter)
@@ -178,7 +179,7 @@ class CreateCharacterActivity :
         }
     }
 
-    private fun handleSideEffect(sideEffect: CreateCharacterSideEffect) {
+    override fun handleSideEffect(sideEffect: CreateCharacterSideEffect) {
         sideEffect.let {
             binding.apply {
                 when (it) {

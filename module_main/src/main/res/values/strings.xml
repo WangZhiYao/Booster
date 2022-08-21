@@ -9,11 +9,10 @@
 
     <string name="menu_home">主页</string>
     <string name="menu_customer">客户</string>
-    <string name="menu_category">分类</string>
-    <string name="menu_subject">项目</string>
+    <string name="menu_order">订单</string>
 
-    <string name="action_create_customer">添加客户</string>
     <string name="action_search">搜索</string>
+    <string name="action_category_list">分类列表</string>
 
     <string name="item_customer_add_character">创建角色</string>
     <string name="item_customer_create_order">新建订单</string>

@@ -13,6 +13,7 @@ import timber.log.Timber
  * @author WangZhiYao
  * @since 2022/7/18
  */
+/*
 @AndroidEntryPoint
 class SubjectListFragment :
     BaseFragment<FragmentSubjectListBinding>(FragmentSubjectListBinding::inflate) {
@@ -44,4 +45,4 @@ class SubjectListFragment :
             }
         }
     }
-}
+}*/

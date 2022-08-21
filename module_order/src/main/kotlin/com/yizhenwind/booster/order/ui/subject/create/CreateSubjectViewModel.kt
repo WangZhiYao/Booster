@@ -9,6 +9,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.constant.Constant
 import com.yizhenwind.booster.common.ext.ifNullOrElse
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.order.R
 import com.yizhenwind.booster.order.data.domain.CreateSubjectUseCase
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class CreateSubjectViewModel @Inject constructor(
     private val getCategoryListUseCase: GetCategoryListUseCase,
     private val createSubjectUseCase: CreateSubjectUseCase
-) : ContainerHost<CreateSubjectViewState, CreateSubjectSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CreateSubjectViewState, CreateSubjectSideEffect>() {
 
     override val container =
         container<CreateSubjectViewState, CreateSubjectSideEffect>(CreateSubjectViewState.Init(emptyList()))

@@ -7,6 +7,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.model.Customer
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.data.domain.DeleteCustomerUseCase
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CustomerInfoViewModel @Inject constructor(
     private val deleteCustomerUseCase: DeleteCustomerUseCase
-) : ContainerHost<CustomerInfoViewState, CustomerInfoSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CustomerInfoViewState, CustomerInfoSideEffect>() {
 
     override val container =
         container<CustomerInfoViewState, CustomerInfoSideEffect>(CustomerInfoViewState.Init)

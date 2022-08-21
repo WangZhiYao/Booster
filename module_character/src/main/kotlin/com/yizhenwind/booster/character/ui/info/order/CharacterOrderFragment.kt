@@ -1,13 +1,14 @@
 package com.yizhenwind.booster.character.ui.info.order
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yizhenwind.booster.common.model.Order
-import com.yizhenwind.booster.component.base.BasePagingDataFragment
+import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -16,31 +17,28 @@ import org.orbitmvi.orbit.viewmodel.observe
  */
 @AndroidEntryPoint
 class CharacterOrderFragment :
-    BasePagingDataFragment<Order, CharacterOrderAdapter, CharacterOrderViewHolder>() {
+    BasePagingDataMVIFragment<Order, CharacterOrderAdapter, CharacterOrderViewHolder, CharacterOrderViewState, CharacterOrderSideEffect>() {
 
-    private val viewModel by viewModels<CharacterOrderViewModel>()
+    override val viewModel by viewModels<CharacterOrderViewModel>()
+    override val adapter: CharacterOrderAdapter = CharacterOrderAdapter()
 
     private val args by fragmentArgs(CharacterOrderArgs::deserialize)
 
-    override fun init() {
-        super.init()
-        viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
+    override fun initPage() {
+        super.initPage()
         viewModel.observeOrderListByCharacterId(args.characterId)
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager =
-        LinearLayoutManager(requireContext())
-
-    override fun getListAdapter(): CharacterOrderAdapter = CharacterOrderAdapter()
-
-    private suspend fun render(state: CharacterOrderViewState) {
+    override fun render(state: CharacterOrderViewState) {
         when (state) {
             is CharacterOrderViewState.GetCharacterOrderListSuccess ->
-                adapter.submitData(state.characterOrderList)
+                lifecycleScope.launch {
+                    adapter.submitData(state.characterOrderList)
+                }
         }
     }
 
-    private fun handleSideEffect(sideEffect: CharacterOrderSideEffect) {
+    override fun handleSideEffect(sideEffect: CharacterOrderSideEffect) {
 
     }
 }

@@ -1,20 +1,18 @@
 package com.yizhenwind.booster.main.ui.customer
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yizhenwind.booster.common.model.Customer
-import com.yizhenwind.booster.component.base.BasePagingDataFragment
+import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.component.ext.registerMenu
 import com.yizhenwind.booster.main.R
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -25,9 +23,10 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CustomerListFragment :
-    BasePagingDataFragment<Customer, CustomerAdapter, CustomerViewHolder>() {
+    BasePagingDataMVIFragment<Customer, CustomerAdapter, CustomerViewHolder, CustomerListViewState, CustomerListSideEffect>() {
 
-    private val viewModel by viewModels<CustomerListViewModel>()
+    override val viewModel by viewModels<CustomerListViewModel>()
+    override val adapter: CustomerAdapter = CustomerAdapter()
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -38,10 +37,9 @@ class CustomerListFragment :
     @Inject
     lateinit var orderService: IOrderService
 
-    override fun init() {
-        super.init()
+    override fun initPage() {
+        super.initPage()
         initView()
-        initData()
     }
 
     private fun initView() {
@@ -57,39 +55,28 @@ class CustomerListFragment :
             orderService.launchCreateOrder(requireContext(), customer.id)
         }
 
-        inflateMenu()
-    }
-
-    private fun initData() {
-        viewModel.observe(viewLifecycleOwner, state = ::render)
-    }
-
-    override fun getLayoutManager(): RecyclerView.LayoutManager =
-        LinearLayoutManager(requireContext())
-
-    override fun getListAdapter(): CustomerAdapter =
-        CustomerAdapter()
-
-    private suspend fun render(state: CustomerListViewState) {
-        when (state) {
-            is CustomerListViewState.Init -> adapter.submitData(state.customerList)
+        registerMenu(R.menu.menu_customer_list) { menuItem ->
+            return@registerMenu when (menuItem.itemId) {
+                R.id.action_search -> {
+                    // TODO add search
+                    true
+                }
+                else -> false
+            }
         }
     }
 
-    private fun inflateMenu() {
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.menu_customer_list, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                if (menuItem.itemId == R.id.action_search) {
-                    // TODO add search
-                    return true
+    override fun render(state: CustomerListViewState) {
+        when (state) {
+            is CustomerListViewState.Init -> {
+                lifecycleScope.launch {
+                    adapter.submitData(state.customerList)
                 }
-                return false
             }
-        })
+        }
     }
 
+    override fun handleSideEffect(sideEffect: CustomerListSideEffect) {
+
+    }
 }

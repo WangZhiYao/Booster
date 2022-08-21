@@ -8,6 +8,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.ext.ifNullOrElse
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.order.R
 import com.yizhenwind.booster.order.data.domain.CreateCategoryUseCase
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class CreateCategoryViewModel @Inject constructor(
     private val getCategoryByTitleUseCase: GetCategoryByTitleUseCase,
     private val createCategoryUseCase: CreateCategoryUseCase
-) : ContainerHost<CreateCategoryViewState, CreateCategorySideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CreateCategoryViewState, CreateCategorySideEffect>() {
 
     override val container =
         container<CreateCategoryViewState, CreateCategorySideEffect>(CreateCategoryViewState.Init)

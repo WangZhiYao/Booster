@@ -2,6 +2,7 @@ package com.yizhenwind.booster.main.ui.customer
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class CustomerListViewModel @Inject constructor(
     private val customerService: ICustomerService
-) : ContainerHost<CustomerListViewState, Nothing>, BaseViewModel() {
+) : BaseMVIViewModel<CustomerListViewState, CustomerListSideEffect>() {
 
-    override val container: Container<CustomerListViewState, Nothing> =
+    override val container: Container<CustomerListViewState, CustomerListSideEffect> =
         container(CustomerListViewState.Init())
 
     init {

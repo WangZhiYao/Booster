@@ -17,5 +17,6 @@ class ObserveCategoryListUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : IUseCase {
 
-    operator fun invoke(): Flow<PagingData<Category>> = categoryRepository.observeCategoryList()
+    operator fun invoke(): Flow<PagingData<Category>> =
+        categoryRepository.observeCategoryList()
 }

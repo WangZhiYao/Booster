@@ -16,8 +16,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    override fun init() {
-
-    }
-
 }

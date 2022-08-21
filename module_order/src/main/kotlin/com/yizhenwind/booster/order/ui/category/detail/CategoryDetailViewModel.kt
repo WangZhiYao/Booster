@@ -10,6 +10,7 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.model.Category
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.order.R
 import com.yizhenwind.booster.order.data.domain.DeleteCategoryUseCase
@@ -27,7 +28,7 @@ import javax.inject.Inject
 class CategoryDetailViewModel @Inject constructor(
     private val observeSubjectListByCategoryIdUseCase: ObserveSubjectListByCategoryIdUseCase,
     private val deleteCategoryUseCase: DeleteCategoryUseCase
-) : ContainerHost<CategoryDetailViewState, CategoryDetailSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CategoryDetailViewState, CategoryDetailSideEffect>() {
 
     override val container =
         container<CategoryDetailViewState, CategoryDetailSideEffect>(CategoryDetailViewState.Init())

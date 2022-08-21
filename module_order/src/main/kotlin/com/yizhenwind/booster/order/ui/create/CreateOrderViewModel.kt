@@ -8,6 +8,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.constant.BillingCycle
 import com.yizhenwind.booster.common.model.*
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
 import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.order.data.domain.GetBillingCycleListUseCase
@@ -25,7 +26,7 @@ class CreateOrderViewModel @Inject constructor(
     private val customerService: ICustomerService,
     private val getCategorySubjectListUseCase: GetCategorySubjectListUseCase,
     private val getBillingCycleListUseCase: GetBillingCycleListUseCase
-) : ContainerHost<CreateOrderViewState, CreateOrderSideEffect>, BaseViewModel() {
+) : BaseMVIViewModel<CreateOrderViewState, CreateOrderSideEffect>() {
 
     override val container =
         container<CreateOrderViewState, CreateOrderSideEffect>(CreateOrderViewState.Init())
