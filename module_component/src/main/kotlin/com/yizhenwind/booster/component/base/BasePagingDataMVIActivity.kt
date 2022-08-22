@@ -44,7 +44,7 @@ abstract class BasePagingDataMVIActivity<T : Any, VH : BaseViewHolder<T>, STATE 
         }
     }
 
-    abstract suspend fun render(state: STATE)
+    abstract fun render(state: STATE)
 
     abstract fun handleSideEffect(sideEffect: SIDE_EFFECT)
 }

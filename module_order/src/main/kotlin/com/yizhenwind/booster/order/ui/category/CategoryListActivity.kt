@@ -1,11 +1,13 @@
 package com.yizhenwind.booster.order.ui.category
 
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yizhenwind.booster.common.model.Category
 import com.yizhenwind.booster.component.base.BasePagingDataMVIActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -21,9 +23,11 @@ class CategoryListActivity :
     override val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
     override val adapter = CategoryAdapter()
 
-    override suspend fun render(state: CategoryListViewState) {
+    override fun render(state: CategoryListViewState) {
         when (state) {
-            is CategoryListViewState.Init -> adapter.submitData(state.categoryList)
+            is CategoryListViewState.Init -> {
+                lifecycleScope.launch { adapter.submitData(state.categoryList) }
+            }
         }
     }
 
