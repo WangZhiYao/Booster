@@ -64,15 +64,7 @@ class CreateCustomerActivity :
 
             actvCreateCustomerContactType.apply {
                 setOnItemClickListener { _, _, position, _ ->
-                    tietCreateCustomerContactValue.apply {
-                        isEnabled = true
-                        text = null
-                        inputType =
-                            when (ContactType.values()[position]) {
-                                ContactType.QQ, ContactType.PHONE -> EditorInfo.TYPE_CLASS_NUMBER
-                                ContactType.WECHAT -> EditorInfo.TYPE_CLASS_TEXT
-                            }
-                    }
+                    viewModel.onContactTypeSelected(contactTypeAdapter.getItem(position))
                 }
             }
 
@@ -111,6 +103,8 @@ class CreateCustomerActivity :
                 initContactTypeSelector(state.contactTypeList)
                 resetUI()
             }
+            is CreateCustomerViewState.OnContactTypeSelected ->
+                onContactTypeSelected(state.contactType)
         }
     }
 
@@ -122,14 +116,27 @@ class CreateCustomerActivity :
                 binding.tilCreateCustomerName.error = null
             is CreateCustomerSideEffect.ShowContactTypeError ->
                 showContactTypeError(sideEffect.errorMessage)
-            CreateCustomerSideEffect.HideContactTypeError ->
-                binding.tilCreateCustomerContactType.error = null
             is CreateCustomerSideEffect.ShowContactError ->
                 showContactError(sideEffect.errorMessage)
             CreateCustomerSideEffect.HideContactError ->
                 binding.tilCreateCustomerContactValue.error = null
             is CreateCustomerSideEffect.CreateCustomerFailure ->
                 binding.root.showSnack(sideEffect.errorMessage)
+        }
+    }
+
+    private fun onContactTypeSelected(contactType: ContactType) {
+        binding.apply {
+            tilCreateCustomerContactType.error = null
+            tietCreateCustomerContactValue.apply {
+                isEnabled = true
+                text = null
+                inputType =
+                    when (contactType) {
+                        ContactType.QQ, ContactType.PHONE -> EditorInfo.TYPE_CLASS_NUMBER
+                        ContactType.WECHAT -> EditorInfo.TYPE_CLASS_TEXT
+                    }
+            }
         }
     }
 

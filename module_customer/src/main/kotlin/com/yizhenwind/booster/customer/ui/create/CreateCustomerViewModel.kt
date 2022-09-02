@@ -69,7 +69,9 @@ class CreateCustomerViewModel @Inject constructor(
     fun onContactTypeSelected(contactType: ContactType) {
         intent {
             this@CreateCustomerViewModel.contactType = contactType
-            postSideEffect(CreateCustomerSideEffect.HideContactTypeError)
+            reduce {
+                CreateCustomerViewState.OnContactTypeSelected(contactType)
+            }
         }
     }
 

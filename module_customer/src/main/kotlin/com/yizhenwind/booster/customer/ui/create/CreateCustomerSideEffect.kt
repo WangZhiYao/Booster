@@ -16,8 +16,6 @@ sealed class CreateCustomerSideEffect : ISideEffect {
 
     data class ShowContactTypeError(@StringRes val errorMessage: Int) : CreateCustomerSideEffect()
 
-    object HideContactTypeError : CreateCustomerSideEffect()
-
     data class ShowContactError(@StringRes val errorMessage: Int) : CreateCustomerSideEffect()
 
     object HideContactError : CreateCustomerSideEffect()

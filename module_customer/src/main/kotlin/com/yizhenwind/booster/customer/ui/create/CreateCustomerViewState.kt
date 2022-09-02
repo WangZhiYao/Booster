@@ -16,5 +16,7 @@ sealed class CreateCustomerViewState : IViewState {
 
     data class Reset(val contactTypeList: List<ContactType>) : CreateCustomerViewState()
 
+    data class OnContactTypeSelected(val contactType: ContactType) : CreateCustomerViewState()
+
     data class CreateCustomerSuccess(val customer: Customer) : CreateCustomerViewState()
 }
