@@ -6,8 +6,7 @@
 
         <activity
             android:name=".ui.create.CreateCharacterActivity"
-            android:label="@string/create_character_label"
-            android:windowSoftInputMode="adjustPan" />
+            android:label="@string/create_character_label" />
 
         <activity
             android:name=".ui.tab.CharacterTabActivity"
