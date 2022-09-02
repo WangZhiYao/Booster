@@ -18,6 +18,7 @@ import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -60,6 +61,7 @@ class CreateCharacterActivity :
     override fun initPage() {
         super.initPage()
         initView()
+        initData()
     }
 
     private fun initView() {
@@ -128,12 +130,16 @@ class CreateCharacterActivity :
         }
     }
 
+    private fun initData() {
+        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
+    }
+
     override fun render(state: CreateCharacterViewState) {
         when (state) {
             is CreateCharacterViewState.CreateCharacterSuccess -> {
                 viewModel.customer?.let { customer ->
                     if (args.openDetailAfterCreateSuccess) {
-                        customerService.launchCustomerInfo(this, customer)
+                        customerService.launchCustomerTab(this, customer)
                     }
                 }
                 finish()

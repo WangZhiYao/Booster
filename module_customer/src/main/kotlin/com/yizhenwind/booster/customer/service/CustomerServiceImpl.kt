@@ -8,7 +8,7 @@ import com.yizhenwind.booster.customer.data.domain.GetCustomerListUseCase
 import com.yizhenwind.booster.customer.data.domain.GetCustomerWithCharacterListUseCase
 import com.yizhenwind.booster.customer.data.domain.ObserveCustomerListUseCase
 import com.yizhenwind.booster.customer.ui.create.CreateCustomerLaunchArgs
-import com.yizhenwind.booster.customer.ui.info.CustomerInfoLaunchArgs
+import com.yizhenwind.booster.customer.ui.tab.CustomerTabLaunchArgs
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -29,8 +29,8 @@ class CustomerServiceImpl @Inject constructor(
         CreateCustomerLaunchArgs().launch(context)
     }
 
-    override fun launchCustomerInfo(context: Context, customer: Customer) {
-        CustomerInfoLaunchArgs(customer).launch(context)
+    override fun launchCustomerTab(context: Context, customer: Customer) {
+        CustomerTabLaunchArgs(customer).launch(context)
     }
 
     override fun observeCustomerList(): Flow<PagingData<Customer>> = observeCustomerListUseCase()

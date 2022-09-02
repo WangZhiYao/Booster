@@ -2,10 +2,10 @@ package com.yizhenwind.booster.mediator.character
 
 import android.content.Context
 import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.mediator.IService
+import kotlinx.coroutines.flow.Flow
 
 /**
  * 角色模块对外接口
@@ -32,7 +32,7 @@ interface ICharacterService : IService {
      *
      * @param character 当前角色
      */
-    fun launchCharacterInfo(context: Context, character: Character)
+    fun launchCharacterTab(context: Context, character: Character)
 
     /**
      * 根据客户ID订阅角色列表

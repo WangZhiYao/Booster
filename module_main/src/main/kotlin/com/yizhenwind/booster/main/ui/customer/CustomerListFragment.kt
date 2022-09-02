@@ -43,7 +43,7 @@ class CustomerListFragment :
         }
 
         adapter.onItemClickListener = { customer ->
-            customerService.launchCustomerInfo(requireContext(), customer)
+            customerService.launchCustomerTab(requireContext(), customer)
         }
 
         adapter.onCreateCharacterClickListener = { customer ->

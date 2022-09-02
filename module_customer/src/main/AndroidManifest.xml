@@ -5,7 +5,7 @@
     <application android:theme="@style/Theme.Booster">
 
         <activity
-            android:name=".ui.info.CustomerTabActivity"
+            android:name=".ui.tab.CustomerTabActivity"
             android:theme="@style/Theme.Booster.NoActionBar" />
 
         <activity

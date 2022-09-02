@@ -10,6 +10,7 @@ import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.order.databinding.ActivityCreateOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  * 创建角色
@@ -35,6 +36,7 @@ class CreateOrderActivity :
     override fun initPage() {
         super.initPage()
         initView()
+        initData()
     }
 
     private fun initView() {
@@ -66,6 +68,10 @@ class CreateOrderActivity :
                 viewModel.onBillingCycleSelected(BillingCycle.values()[position])
             }
         }
+    }
+
+    private fun initData() {
+        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
     }
 
     override fun render(state: CreateOrderViewState) {

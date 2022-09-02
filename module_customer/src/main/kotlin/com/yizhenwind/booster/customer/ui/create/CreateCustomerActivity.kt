@@ -18,6 +18,7 @@ import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.databinding.ActivityCreateCustomerBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -43,6 +44,7 @@ class CreateCustomerActivity :
     override fun initPage() {
         super.initPage()
         initView()
+        initData()
     }
 
     private fun initView() {
@@ -88,6 +90,10 @@ class CreateCustomerActivity :
         }
     }
 
+    private fun initData() {
+        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
+    }
+
     override fun render(state: CreateCustomerViewState) {
         when (state) {
             is CreateCustomerViewState.Init -> initContactTypeSelector(state.contactTypeList)
@@ -97,7 +103,7 @@ class CreateCustomerActivity :
                     R.string.create_customer_success,
                     R.string.create_customer_jump_to_detail
                 ) {
-                    customerService.launchCustomerInfo(this, state.customer)
+                    customerService.launchCustomerTab(this, state.customer)
                     finish()
                 }
             }
