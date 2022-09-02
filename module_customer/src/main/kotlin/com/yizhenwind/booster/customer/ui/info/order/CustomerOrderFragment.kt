@@ -3,12 +3,11 @@ package com.yizhenwind.booster.customer.ui.info.order
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.yizhenwind.booster.common.model.Order
 import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  *
@@ -17,15 +16,21 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class CustomerOrderFragment :
-    BasePagingDataMVIFragment<Order, CustomerOrderAdapter, CustomerOrderViewHolder, CustomerOrderViewState, CustomerOrderSideEffect>() {
+    BasePagingDataMVIFragment<CustomerOrderViewState, CustomerOrderSideEffect>() {
 
-    override val viewModel by viewModels<CustomerOrderViewModel>()
-    override val adapter: CustomerOrderAdapter = CustomerOrderAdapter()
-
+    private val viewModel by viewModels<CustomerOrderViewModel>()
     private val args by fragmentArgs(CustomerOrderArgs::deserialize)
+    private val adapter: CustomerOrderAdapter = CustomerOrderAdapter()
 
-    override fun initPage() {
-        super.initPage()
+    override fun initView() {
+        binding.rvList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@CustomerOrderFragment.adapter
+        }
+    }
+
+    override fun initData() {
+        viewModel.observe(viewLifecycleOwner, state = ::render)
         viewModel.observeOrderListByCustomerId(args.customerId)
     }
 
@@ -37,9 +42,5 @@ class CustomerOrderFragment :
                 }
             }
         }
-    }
-
-    override fun handleSideEffect(sideEffect: CustomerOrderSideEffect) {
-
     }
 }

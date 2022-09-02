@@ -1,16 +1,14 @@
 package com.yizhenwind.booster.customer.ui.info
 
+import com.yizhenwind.booster.common.model.Customer
+import com.yizhenwind.booster.component.base.BaseMVIViewModel
+import com.yizhenwind.booster.customer.R
+import com.yizhenwind.booster.customer.data.domain.DeleteCustomerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
-import com.yizhenwind.booster.common.model.Customer
-import com.yizhenwind.booster.component.base.BaseMVIViewModel
-import com.yizhenwind.booster.component.base.BaseViewModel
-import com.yizhenwind.booster.customer.R
-import com.yizhenwind.booster.customer.data.domain.DeleteCustomerUseCase
 import timber.log.Timber
 import javax.inject.Inject
 

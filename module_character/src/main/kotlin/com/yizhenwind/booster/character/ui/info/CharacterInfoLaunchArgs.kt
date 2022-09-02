@@ -18,7 +18,7 @@ data class CharacterInfoLaunchArgs(
 ) : IActivityLaunchArgs {
 
     override fun intent(context: Context): Intent =
-        Intent(context, CharacterInfoActivity::class.java).apply {
+        Intent(context, CharacterTabActivity::class.java).apply {
             putExtra(IntentKey.CHARACTER, character)
         }
 

@@ -1,18 +1,21 @@
 package com.yizhenwind.booster.character.ui.create
 
-import android.os.Bundle
 import android.text.method.DigitsKeyListener
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.yizhenwind.booster.character.databinding.ActivityCreateCharacterBinding
 import com.yizhenwind.booster.common.ext.blankThenNull
 import com.yizhenwind.booster.common.ext.firstOrFirst
-import com.yizhenwind.booster.component.base.BaseTextInputActivity
+import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
+import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -25,11 +28,11 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CreateCharacterActivity :
-    BaseTextInputActivity<ActivityCreateCharacterBinding, CreateCharacterViewState, CreateCharacterSideEffect>(
-        ActivityCreateCharacterBinding::inflate
-    ) {
+    BaseMVIActivity<CreateCharacterViewState, CreateCharacterSideEffect>() {
 
-    override val viewModel by viewModels<CreateCharacterViewModel>()
+    private val viewModel by viewModels<CreateCharacterViewModel>()
+    private val binding by viewBinding(ActivityCreateCharacterBinding::inflate)
+    private val args by activityArgs(CreateCharacterLaunchArgs::deserialize)
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -52,20 +55,22 @@ class CreateCharacterActivity :
         ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line)
     }
 
-    private val args by activityArgs(CreateCharacterLaunchArgs::deserialize)
+    override fun getRootView(): View = binding.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initData()
+    override fun initPage() {
+        super.initPage()
         initView()
-    }
-
-    private fun initData() {
-        viewModel.customer = args.customer
     }
 
     private fun initView() {
         binding.apply {
+            toolbar.apply {
+                setSupportActionBar(this)
+                setNavigationOnClickListener {
+                    onBackPressed()
+                }
+            }
+
             actvCreateCharacterCustomer.setOnItemClickListener { _, _, position, _ ->
                 viewModel.customer = customerAdapter.getItem(position)
             }
@@ -119,12 +124,20 @@ class CreateCharacterActivity :
 
             actvCreateCharacterInternal.setAdapter(internalAdapter)
 
-            fabCreateCharacterSubmit.setIntervalClickListener { attemptCreateCharacter() }
+            fab.setIntervalClickListener { attemptCreateCharacter() }
         }
     }
 
     override fun render(state: CreateCharacterViewState) {
         when (state) {
+            is CreateCharacterViewState.CreateCharacterSuccess -> {
+                viewModel.customer?.let { customer ->
+                    if (args.openDetailAfterCreateSuccess) {
+                        customerService.launchCustomerInfo(this, customer)
+                    }
+                }
+                finish()
+            }
             is CreateCharacterViewState.Init -> {
                 state.apply {
                     customerList.let {
@@ -167,14 +180,6 @@ class CreateCharacterActivity :
                         binding.actvCreateCharacterInternal.setText(first().name, false)
                     }
                 }
-            }
-            is CreateCharacterViewState.CreateCharacterSuccess -> {
-                viewModel.customer?.let { customer ->
-                    if (args.openDetailAfterCreateSuccess) {
-                        customerService.launchCustomerInfo(this, customer)
-                    }
-                }
-                finish()
             }
         }
     }
@@ -301,9 +306,19 @@ class CreateCharacterActivity :
         showErrorInfo(binding.tilCreateCharacterInternal, errorMessage)
     }
 
+    private fun showErrorInfo(
+        textInputLayout: TextInputLayout,
+        @StringRes errorMessage: Int,
+        textInputEditText: TextInputEditText? = null
+    ) {
+        textInputLayout.error = getString(errorMessage)
+        textInputEditText?.requestFocus()
+    }
+
     companion object {
 
         private val DIGITS_KEY_LISTENER =
             DigitsKeyListener.getInstance("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#\$%^&*()-_=+[{]}\\|;:'\",<.>/?")
     }
+
 }

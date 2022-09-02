@@ -6,10 +6,11 @@
 
         <activity
             android:name=".ui.create.CreateCharacterActivity"
-            android:label="@string/create_character_label" />
+            android:label="@string/create_character_label"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".ui.info.CharacterInfoActivity"
+            android:name=".ui.info.CharacterTabActivity"
             android:theme="@style/Theme.Booster.NoActionBar" />
 
     </application>

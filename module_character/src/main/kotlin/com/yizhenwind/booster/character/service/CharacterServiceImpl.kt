@@ -2,14 +2,13 @@ package com.yizhenwind.booster.character.service
 
 import android.content.Context
 import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
 import com.yizhenwind.booster.character.data.domain.ObserveCharacterListByCustomerIdUseCase
 import com.yizhenwind.booster.character.ui.create.CreateCharacterLaunchArgs
-import com.yizhenwind.booster.character.ui.info.CharacterInfoActivity
 import com.yizhenwind.booster.character.ui.info.CharacterInfoLaunchArgs
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.mediator.character.ICharacterService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /**

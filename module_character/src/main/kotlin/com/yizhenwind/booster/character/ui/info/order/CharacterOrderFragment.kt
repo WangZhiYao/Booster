@@ -3,12 +3,11 @@ package com.yizhenwind.booster.character.ui.info.order
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.yizhenwind.booster.common.model.Order
 import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  *
@@ -17,15 +16,21 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class CharacterOrderFragment :
-    BasePagingDataMVIFragment<Order, CharacterOrderAdapter, CharacterOrderViewHolder, CharacterOrderViewState, CharacterOrderSideEffect>() {
+    BasePagingDataMVIFragment<CharacterOrderViewState, CharacterOrderSideEffect>() {
 
-    override val viewModel by viewModels<CharacterOrderViewModel>()
-    override val adapter: CharacterOrderAdapter = CharacterOrderAdapter()
-
+    private val viewModel by viewModels<CharacterOrderViewModel>()
     private val args by fragmentArgs(CharacterOrderArgs::deserialize)
+    private val adapter = CharacterOrderAdapter()
 
-    override fun initPage() {
-        super.initPage()
+    override fun initView() {
+        binding.rvList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@CharacterOrderFragment.adapter
+        }
+    }
+
+    override fun initData() {
+        viewModel.observe(viewLifecycleOwner, state = ::render)
         viewModel.observeOrderListByCharacterId(args.characterId)
     }
 
@@ -36,9 +41,5 @@ class CharacterOrderFragment :
                     adapter.submitData(state.characterOrderList)
                 }
         }
-    }
-
-    override fun handleSideEffect(sideEffect: CharacterOrderSideEffect) {
-
     }
 }

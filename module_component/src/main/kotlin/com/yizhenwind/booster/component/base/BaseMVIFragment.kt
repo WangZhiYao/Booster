@@ -3,7 +3,6 @@ package com.yizhenwind.booster.component.base
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  *
@@ -15,14 +14,11 @@ abstract class BaseMVIFragment<out VB : ViewBinding, STATE : IViewState, SIDE_EF
     inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
 ) : BaseFragment<VB>(inflate) {
 
-    protected abstract val viewModel: BaseMVIViewModel<STATE, SIDE_EFFECT>
+    protected open fun render(state: STATE) {
 
-    override fun initPage() {
-        viewModel.observe(viewLifecycleOwner, state = ::render, sideEffect = ::handleSideEffect)
     }
 
-    abstract fun render(state: STATE)
+    protected open fun handleSideEffect(sideEffect: SIDE_EFFECT) {
 
-    abstract fun handleSideEffect(sideEffect: SIDE_EFFECT)
-
+    }
 }

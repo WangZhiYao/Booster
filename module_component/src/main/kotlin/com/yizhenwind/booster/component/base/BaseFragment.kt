@@ -14,7 +14,7 @@ import androidx.viewbinding.ViewBinding
  * @since 2021/11/12
  */
 abstract class BaseFragment<out VB : ViewBinding>(
-    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
+    private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 ) : Fragment() {
 
     private var _binding: VB? = null
@@ -25,7 +25,7 @@ abstract class BaseFragment<out VB : ViewBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = inflate.invoke(inflater, container, false)
+        _binding = this.inflater.invoke(inflater, container, false)
         return binding.root
     }
 
@@ -34,7 +34,7 @@ abstract class BaseFragment<out VB : ViewBinding>(
         initPage()
     }
 
-    open fun initPage() {
+    protected open fun initPage() {
 
     }
 

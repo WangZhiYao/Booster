@@ -20,21 +20,24 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/color_primary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@color/color_primary"
             app:toolbarId="@+id/toolbar">
 
             <ImageView
+                android:id="@+id/iv_feature_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/color_secondary"
                 android:fitsSystemWindows="true" />
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_round_arrow_back_white_24dp"
                 app:popupTheme="@style/Theme.Booster.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -49,7 +52,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <com.google.android.material.tabs.TabLayout
@@ -60,7 +63,9 @@
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/color_secondary"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/color_secondary" />
+                app:tabSelectedTextColor="@color/color_secondary">
+
+            </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"

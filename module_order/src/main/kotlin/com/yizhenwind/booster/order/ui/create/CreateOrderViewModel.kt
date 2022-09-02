@@ -1,18 +1,15 @@
 package com.yizhenwind.booster.order.ui.create
 
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.combine
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.common.constant.BillingCycle
 import com.yizhenwind.booster.common.model.*
 import com.yizhenwind.booster.component.base.BaseMVIViewModel
-import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.order.data.domain.GetBillingCycleListUseCase
-import com.yizhenwind.booster.order.data.domain.GetCategorySubjectListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.combine
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
 /**
@@ -24,7 +21,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateOrderViewModel @Inject constructor(
     private val customerService: ICustomerService,
-    private val getCategorySubjectListUseCase: GetCategorySubjectListUseCase,
     private val getBillingCycleListUseCase: GetBillingCycleListUseCase
 ) : BaseMVIViewModel<CreateOrderViewState, CreateOrderSideEffect>() {
 
@@ -43,14 +39,11 @@ class CreateOrderViewModel @Inject constructor(
     init {
         intent {
             customerService.getCustomerWithCharacterList()
-                .combine(getCategorySubjectListUseCase()) { customerCharacterList, categorySubjectList ->
-                    CreateOrderViewState.Init(customerCharacterList, categorySubjectList).also {
-                        this@CreateOrderViewModel.customerCharacterList.addAll(customerCharacterList)
-                        this@CreateOrderViewModel.categorySubjectList.addAll(categorySubjectList)
-                    }
-                }
-                .combine(getBillingCycleListUseCase()) { state, billingCycleList ->
-                    state.copy(billingCycleList = billingCycleList)
+                .combine(getBillingCycleListUseCase()) { customerCharacterList, billingCycleList ->
+                    CreateOrderViewState.Init(
+                        customerCharacterList = customerCharacterList,
+                        billingCycleList = billingCycleList
+                    )
                 }
                 .collect {
                     reduce {

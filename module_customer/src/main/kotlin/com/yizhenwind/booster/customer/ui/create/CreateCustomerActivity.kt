@@ -1,20 +1,23 @@
 package com.yizhenwind.booster.customer.ui.create
 
-import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.common.ext.blankThenNull
-import com.yizhenwind.booster.component.base.BaseTextInputActivity
+import com.yizhenwind.booster.component.base.BaseMVIActivity
+import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.ext.showSnackWithAction
+import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.databinding.ActivityCreateCustomerBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -25,24 +28,32 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CreateCustomerActivity :
-    BaseTextInputActivity<ActivityCreateCustomerBinding, CreateCustomerViewState, CreateCustomerSideEffect>(
-        ActivityCreateCustomerBinding::inflate
-    ) {
+    BaseMVIActivity<CreateCustomerViewState, CreateCustomerSideEffect>() {
 
-    override val viewModel by viewModels<CreateCustomerViewModel>()
+    private val viewModel by viewModels<CreateCustomerViewModel>()
+    private val binding by viewBinding(ActivityCreateCustomerBinding::inflate)
 
     @Inject
     lateinit var customerService: ICustomerService
 
     private lateinit var contactTypeAdapter: ContactTypeAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun getRootView(): View = binding.root
+
+    override fun initPage() {
+        super.initPage()
         initView()
     }
 
     private fun initView() {
         binding.apply {
+            toolbar.apply {
+                setSupportActionBar(this)
+                setNavigationOnClickListener {
+                    onBackPressed()
+                }
+            }
+
             tietCreateCustomerName.doAfterTextChanged { name ->
                 if (!name.isNullOrBlank()) {
                     tilCreateCustomerName.error = null
@@ -73,7 +84,7 @@ class CreateCustomerActivity :
                 )
             }
 
-            fabCreateCustomerSubmit.setOnClickListener { attemptCreateCustomer() }
+            fab.setIntervalClickListener { attemptCreateCustomer() }
         }
     }
 
@@ -86,10 +97,7 @@ class CreateCustomerActivity :
                     R.string.create_customer_success,
                     R.string.create_customer_jump_to_detail
                 ) {
-                    customerService.launchCustomerInfo(
-                        this@CreateCustomerActivity,
-                        state.customer
-                    )
+                    customerService.launchCustomerInfo(this, state.customer)
                     finish()
                 }
             }
@@ -186,5 +194,14 @@ class CreateCustomerActivity :
                 tietCreateCustomerContactValue
             )
         }
+    }
+
+    private fun showErrorInfo(
+        textInputLayout: TextInputLayout,
+        @StringRes errorMessage: Int,
+        textInputEditText: TextInputEditText? = null
+    ) {
+        textInputLayout.error = getString(errorMessage)
+        textInputEditText?.requestFocus()
     }
 }

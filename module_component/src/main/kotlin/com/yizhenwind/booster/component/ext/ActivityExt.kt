@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
-import com.yizhenwind.booster.component.delegate.ActivityArgsDelegate
 import com.yizhenwind.booster.component.base.IActivityLaunchArgs
 
 /**
@@ -14,16 +13,15 @@ import com.yizhenwind.booster.component.base.IActivityLaunchArgs
  * @since 2022/3/2
  */
 inline fun <T : ViewBinding> Activity.viewBinding(
-    crossinline bindingInflater: (LayoutInflater) -> T
+    crossinline inflater: (LayoutInflater) -> T
 ) =
     lazy(LazyThreadSafetyMode.NONE) {
-        bindingInflater.invoke(layoutInflater)
+        inflater.invoke(layoutInflater)
     }
 
-inline fun <reified T : Any> Activity.extra(key: String, defaultValue: T? = null) = lazy {
-    val value = intent.extras?.get(key)
-    if (value is T) value else defaultValue
-}
-
-inline fun <reified T : IActivityLaunchArgs> activityArgs(noinline deserializer: (Intent) -> T) =
-    ActivityArgsDelegate(deserializer)
+inline fun <reified T : IActivityLaunchArgs> Activity.activityArgs(
+    crossinline deserializer: (Intent) -> T
+) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        deserializer(this.intent)
+    }

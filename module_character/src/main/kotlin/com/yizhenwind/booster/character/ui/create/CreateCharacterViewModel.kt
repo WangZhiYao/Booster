@@ -1,14 +1,5 @@
 package com.yizhenwind.booster.character.ui.create
 
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 import com.yizhenwind.booster.character.R
 import com.yizhenwind.booster.character.data.domain.CreateCharacterUseCase
 import com.yizhenwind.booster.character.data.domain.GetSectInternalListUseCase
@@ -19,8 +10,15 @@ import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.common.model.SectInternal
 import com.yizhenwind.booster.common.model.ZoneServer
 import com.yizhenwind.booster.component.base.BaseMVIViewModel
-import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.customer.ICustomerService
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
 import timber.log.Timber
 import javax.inject.Inject
 

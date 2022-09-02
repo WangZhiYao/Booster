@@ -18,7 +18,7 @@ data class CustomerInfoLaunchArgs(
 ) : IActivityLaunchArgs {
 
     override fun intent(context: Context): Intent =
-        Intent(context, CustomerInfoActivity::class.java).apply {
+        Intent(context, CustomerTabActivity::class.java).apply {
             putExtra(IntentKey.CUSTOMER, customer)
         }
 

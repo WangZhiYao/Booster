@@ -3,23 +3,21 @@ package com.yizhenwind.booster.customer.ui.info
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.yizhenwind.booster.common.model.Customer
-import com.yizhenwind.booster.component.base.BaseActivity
+import com.yizhenwind.booster.component.base.BaseTabMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
-import com.yizhenwind.booster.component.ext.setupFragmentWithTab
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.widget.BoosterDialog
 import com.yizhenwind.booster.customer.R
-import com.yizhenwind.booster.customer.databinding.ActivityCustomerInfoBinding
 import com.yizhenwind.booster.customer.ui.info.character.CustomerCharacterArgs
 import com.yizhenwind.booster.customer.ui.info.detail.CustomerDetailArgs
 import com.yizhenwind.booster.customer.ui.info.order.CustomerOrderArgs
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -29,8 +27,8 @@ import javax.inject.Inject
  * @since 2022/4/20
  */
 @AndroidEntryPoint
-class CustomerInfoActivity :
-    BaseActivity<ActivityCustomerInfoBinding>(ActivityCustomerInfoBinding::inflate) {
+class CustomerTabActivity :
+    BaseTabMVIActivity<CustomerInfoViewState, CustomerInfoSideEffect>() {
 
     private val viewModel by viewModels<CustomerInfoViewModel>()
 
@@ -42,74 +40,57 @@ class CustomerInfoActivity :
 
     private val args by activityArgs(CustomerInfoLaunchArgs::deserialize)
 
-    override fun init() {
-        initData()
+    override fun initPage() {
+        super.initPage()
         initView()
-    }
-
-    override fun showBack() = true
-
-    override fun setupHomeButton() {
-        binding.apply {
-            toolbar.setNavigationIcon(R.drawable.ic_round_arrow_white_24dp)
-            setSupportActionBar(toolbar)
-        }
-        super.setupHomeButton()
     }
 
     private fun initView() {
         binding.apply {
-            args.apply {
-                collapsingToolbarLayout.title = customer.name
-                vpCustomerInfo.apply {
-                    setupFragmentWithTab(
-                        this@CustomerInfoActivity,
-                        tlCustomerInfo,
-                        listOf(
-                            R.string.customer_info_detail,
-                            R.string.customer_info_character,
-                            R.string.customer_info_order
-                        ),
-                        listOf(
-                            CustomerDetailArgs(customer).newInstance(),
-                            CustomerCharacterArgs(customer.id).newInstance(),
-                            CustomerOrderArgs(customer.id).newInstance()
-                        )
-                    )
-                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                        override fun onPageSelected(position: Int) {
-                            fab.apply {
-                                when (position) {
-                                    INDEX_DETAIL -> setImageResource(R.drawable.ic_round_edit_white_24dp)
-                                    else -> setImageResource(R.drawable.ic_round_add_white_24dp)
-                                }
-                            }
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    fab.apply {
+                        when (position) {
+                            INDEX_DETAIL -> setImageResource(R.drawable.ic_round_edit_white_24dp)
+                            else -> setImageResource(R.drawable.ic_round_add_white_24dp)
                         }
-                    })
-                }
-
-                fab.setIntervalClickListener {
-                    when (vpCustomerInfo.currentItem) {
-                        INDEX_DETAIL -> {}
-                        INDEX_CHARACTER -> characterService.launchCreateCharacter(
-                            this@CustomerInfoActivity,
-                            customer
-                        )
-                        INDEX_ORDER -> orderService.launchCreateOrder(
-                            this@CustomerInfoActivity,
-                            customer.id
-                        )
                     }
+                }
+            })
+
+            fab.setIntervalClickListener {
+                when (viewPager.currentItem) {
+                    INDEX_DETAIL -> {}
+                    INDEX_CHARACTER -> characterService.launchCreateCharacter(
+                        this@CustomerTabActivity,
+                        args.customer
+                    )
+                    INDEX_ORDER -> orderService.launchCreateOrder(
+                        this@CustomerTabActivity,
+                        args.customer.id
+                    )
                 }
             }
         }
     }
 
-    private fun initData() {
-        viewModel.observe(this, sideEffect = ::handleSideEffect)
+    override fun getPageTitle(): String = args.customer.name
+
+    override fun getTabTitleList(): List<Int> = listOf(
+        R.string.customer_info_detail,
+        R.string.customer_info_character,
+        R.string.customer_info_order
+    )
+
+    override fun getFragmentList(): List<Fragment> = args.run {
+        listOf(
+            CustomerDetailArgs(customer).newInstance(),
+            CustomerCharacterArgs(customer.id).newInstance(),
+            CustomerOrderArgs(customer.id).newInstance()
+        )
     }
 
-    private fun handleSideEffect(sideEffect: CustomerInfoSideEffect) {
+    override fun handleSideEffect(sideEffect: CustomerInfoSideEffect) {
         when (sideEffect) {
             CustomerInfoSideEffect.DeleteCustomerSuccess -> finish()
             is CustomerInfoSideEffect.DeleteCustomerFailure ->

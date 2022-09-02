@@ -1,9 +1,9 @@
 package com.yizhenwind.booster.main.ui.customer
 
-import androidx.core.view.isVisible
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.component.base.BaseViewHolder
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
+import com.yizhenwind.booster.main.R
 import com.yizhenwind.booster.main.databinding.ItemCustomerBinding
 
 /**
@@ -23,11 +23,16 @@ class CustomerViewHolder(
         binding.apply {
             data.apply {
                 tvCustomerName.text = name
-                tvCustomerContact.text = String.format("%s: %s", contactType.value, contact)
-
-                tvCustomerRemark.apply {
-                    isVisible = !remark.isNullOrBlank()
-                    text = remark
+                root.context.apply {
+                    tvCustomerContact.text = getString(
+                        R.string.item_customer_character_contact_prefix,
+                        contactType.value,
+                        contact
+                    )
+                    tvCustomerRemark.text = getString(
+                        R.string.item_customer_character_remark_prefix,
+                        if (data.remark.isNullOrBlank()) getString(R.string.item_customer_character_remark_empty) else data.remark
+                    )
                 }
             }
 

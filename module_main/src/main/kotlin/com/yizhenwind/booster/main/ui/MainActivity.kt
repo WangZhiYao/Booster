@@ -1,18 +1,20 @@
 package com.yizhenwind.booster.main.ui
 
+import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import dagger.hilt.android.AndroidEntryPoint
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
+import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.main.R
 import com.yizhenwind.booster.main.databinding.ActivityMainBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.mediator.order.IOrderService
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
@@ -22,7 +24,9 @@ import javax.inject.Inject
  * @since 2021/10/26
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
+class MainActivity : BaseActivity() {
+
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -32,11 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     @Inject
     lateinit var orderService: IOrderService
 
-    override fun init() {
+    override fun getRootView(): View = binding.root
+
+    override fun initPage() {
+        super.initPage()
         initView()
     }
-
-    override fun showBack() = false
 
     private fun initView() {
         binding.apply {

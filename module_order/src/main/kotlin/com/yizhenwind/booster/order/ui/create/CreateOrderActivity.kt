@@ -1,21 +1,15 @@
 package com.yizhenwind.booster.order.ui.create
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import com.yizhenwind.booster.common.constant.BillingCycle
-import com.yizhenwind.booster.common.constant.Constant
-import com.yizhenwind.booster.common.constant.IntentKey
-import com.yizhenwind.booster.common.model.CategorySubjectList
 import com.yizhenwind.booster.common.model.CustomerCharacterList
 import com.yizhenwind.booster.common.model.Subject
-import com.yizhenwind.booster.component.base.BaseTextInputActivity
+import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
+import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.order.databinding.ActivityCreateOrderBinding
-import com.yizhenwind.booster.order.ui.subject.create.CategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  * 创建角色
@@ -25,27 +19,33 @@ import org.orbitmvi.orbit.viewmodel.observe
  */
 @AndroidEntryPoint
 class CreateOrderActivity :
-    BaseTextInputActivity<ActivityCreateOrderBinding, CreateOrderViewState, CreateOrderSideEffect>(
-        ActivityCreateOrderBinding::inflate
-    ) {
+    BaseMVIActivity<CreateOrderViewState, CreateOrderSideEffect>() {
 
-    override val viewModel by viewModels<CreateOrderViewModel>()
+    private val viewModel by viewModels<CreateOrderViewModel>()
+    private val binding by viewBinding(ActivityCreateOrderBinding::inflate)
+    private val args by activityArgs(CreateOrderLaunchArgs::deserialize)
 
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var characterAdapter: CharacterAdapter
-    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var subjectAdapter: SubjectAdapter
     private lateinit var billingCycleAdapter: BillingCycleAdapter
 
-    private val args by activityArgs(CreateOrderLaunchArgs::deserialize)
+    override fun getRootView(): View = binding.root
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initPage() {
+        super.initPage()
         initView()
     }
 
     private fun initView() {
         binding.apply {
+            toolbar.apply {
+                setSupportActionBar(this)
+                setNavigationOnClickListener {
+                    onBackPressed()
+                }
+            }
+
             actvCreateOrderCustomer.setOnItemClickListener { _, _, position, _ ->
                 viewModel.onCustomerSelected(customerAdapter.getItem(position))
             }
@@ -55,7 +55,7 @@ class CreateOrderActivity :
             }
 
             actvCreateOrderCategory.setOnItemClickListener { _, _, position, _ ->
-                viewModel.onCategorySelected(categoryAdapter.getItem(position))
+                //viewModel.onCategorySelected(categoryAdapter.getItem(position))
             }
 
             actvCreateOrderSubject.setOnItemClickListener { _, _, position, _ ->
@@ -72,7 +72,7 @@ class CreateOrderActivity :
         when (state) {
             is CreateOrderViewState.Init -> {
                 initCustomerCharacterSelector(state.customerCharacterList)
-                initCategorySubjectSelector(state.categorySubjectList)
+                //initCategorySubjectSelector(state.categorySubjectList)
                 initBillingCycleSelector(state.billingCycleList)
             }
             is CreateOrderViewState.OnCustomerSelected ->
@@ -80,10 +80,6 @@ class CreateOrderActivity :
             is CreateOrderViewState.OnCategorySelected ->
                 onCategorySelected(state.subjectList)
         }
-    }
-
-    override fun handleSideEffect(sideEffect: CreateOrderSideEffect) {
-
     }
 
     private fun initCustomerCharacterSelector(customerCharacterList: List<CustomerCharacterList>) {
@@ -103,7 +99,7 @@ class CreateOrderActivity :
         }
     }
 
-    private fun initCategorySubjectSelector(categorySubjectList: List<CategorySubjectList>) {
+    /*private fun initCategorySubjectSelector(categorySubjectList: List<CategorySubjectList>) {
         categorySubjectList.apply {
             categoryAdapter =
                 CategoryAdapter(this@CreateOrderActivity, ArrayList(map { it.category }))
@@ -118,7 +114,7 @@ class CreateOrderActivity :
                 }
             }
         }
-    }
+    }*/
 
     private fun initBillingCycleSelector(billingCycleList: List<BillingCycle>) {
         billingCycleList.apply {

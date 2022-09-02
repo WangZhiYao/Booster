@@ -8,10 +8,4 @@
         android:title="@string/action_search"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_category_list"
-        android:icon="@drawable/ic_round_list_alt_white_24dp"
-        android:title="@string/action_category_list"
-        app:showAsAction="ifRoom" />
-
 </menu>

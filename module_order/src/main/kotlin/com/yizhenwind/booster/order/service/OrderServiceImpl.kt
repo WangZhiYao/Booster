@@ -7,8 +7,6 @@ import com.yizhenwind.booster.mediator.order.IOrderService
 import com.yizhenwind.booster.order.data.domain.ObserveOrderListByCharacterIdUseCase
 import com.yizhenwind.booster.order.data.domain.ObserveOrderListByCustomerIdUseCase
 import com.yizhenwind.booster.order.data.domain.ObserveOrderListUseCase
-import com.yizhenwind.booster.order.ui.category.CategoryListArgs
-import com.yizhenwind.booster.order.ui.category.create.CreateCategoryLaunchArgs
 import com.yizhenwind.booster.order.ui.create.CreateOrderLaunchArgs
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -27,14 +25,6 @@ class OrderServiceImpl @Inject constructor(
 
     override fun launchCreateOrder(context: Context, customerId: Long, characterId: Long) {
         CreateOrderLaunchArgs(customerId, characterId).launch(context)
-    }
-
-    override fun launchCategoryList(context: Context) {
-        CategoryListArgs().launch(context)
-    }
-
-    override fun launchCreateCategory(context: Context) {
-        CreateCategoryLaunchArgs().launch(context)
     }
 
     override fun observeOrderList(): Flow<PagingData<Order>> =

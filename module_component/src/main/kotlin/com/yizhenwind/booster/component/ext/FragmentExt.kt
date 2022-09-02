@@ -9,16 +9,18 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.yizhenwind.booster.component.base.IFragmentArgs
-import com.yizhenwind.booster.component.delegate.FragmentArgsDelegate
 
 /**
  *
  * @author WangZhiYao
  * @since 2022/6/5
  */
-inline fun <reified T : IFragmentArgs> fragmentArgs(
-    noinline deserializer: (Bundle) -> T
-): FragmentArgsDelegate<T> = FragmentArgsDelegate(deserializer)
+inline fun <reified T : IFragmentArgs> Fragment.fragmentArgs(
+    crossinline deserializer: (Bundle) -> T
+) =
+    lazy(LazyThreadSafetyMode.NONE) {
+        deserializer.invoke(requireArguments())
+    }
 
 inline fun Fragment.registerMenu(
     @MenuRes menuRes: Int,

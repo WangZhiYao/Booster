@@ -3,21 +3,19 @@ package com.yizhenwind.booster.character.ui.info
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.yizhenwind.booster.character.R
-import com.yizhenwind.booster.character.databinding.ActivityCharacterInfoBinding
 import com.yizhenwind.booster.character.ui.info.detail.CharacterDetailArgs
 import com.yizhenwind.booster.character.ui.info.order.CharacterOrderArgs
 import com.yizhenwind.booster.common.model.Character
-import com.yizhenwind.booster.component.base.BaseActivity
+import com.yizhenwind.booster.component.base.BaseTabMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
-import com.yizhenwind.booster.component.ext.setupFragmentWithTab
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.widget.BoosterDialog
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.AndroidEntryPoint
-import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -29,8 +27,7 @@ import javax.inject.Inject
  * @since 2022/6/5
  */
 @AndroidEntryPoint
-class CharacterInfoActivity :
-    BaseActivity<ActivityCharacterInfoBinding>(ActivityCharacterInfoBinding::inflate) {
+class CharacterTabActivity : BaseTabMVIActivity<CharacterInfoViewState, CharacterInfoSideEffect>() {
 
     private val viewModel by viewModels<CharacterInfoViewModel>()
 
@@ -39,69 +36,53 @@ class CharacterInfoActivity :
 
     private val args by activityArgs(CharacterInfoLaunchArgs::deserialize)
 
-    override fun showBack() = true
-
-    override fun init() {
-        initData()
+    override fun initPage() {
+        super.initPage()
         initView()
     }
 
-    override fun setupHomeButton() {
-        binding.apply {
-            toolbar.setNavigationIcon(R.drawable.ic_round_arrow_white_24dp)
-            setSupportActionBar(toolbar)
-        }
-        super.setupHomeButton()
-    }
-
-    private fun initData() {
-        viewModel.observe(this, sideEffect = ::handleSideEffect)
-    }
-
     private fun initView() {
-        args.character.let {
-            binding.apply {
-                collapsingToolbarLayout.title = it.name
-                vpCharacterInfo.apply {
-                    setupFragmentWithTab(
-                        this@CharacterInfoActivity,
-                        tlCharacterInfo,
-                        listOf(R.string.character_info_detail, R.string.character_info_order),
-                        listOf(
-                            CharacterDetailArgs(it).newInstance(),
-                            CharacterOrderArgs(it.id).newInstance()
-                        )
-                    )
-                    registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                        override fun onPageSelected(position: Int) {
-                            fab.apply {
-                                when (position) {
-                                    INDEX_INFO -> setImageResource(R.drawable.ic_round_edit_white_24dp)
-                                    INDEX_ORDER -> setImageResource(R.drawable.ic_round_add_white_24dp)
-                                }
-                            }
+        binding.apply {
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    fab.apply {
+                        when (position) {
+                            INDEX_DETAIL -> setImageResource(R.drawable.ic_round_edit_white_24dp)
+                            INDEX_ORDER -> setImageResource(R.drawable.ic_round_add_white_24dp)
                         }
-                    })
+                    }
                 }
-                fab.setIntervalClickListener { _ ->
-                    when (vpCharacterInfo.currentItem) {
-                        INDEX_INFO -> {
+            })
+            fab.setIntervalClickListener {
+                when (viewPager.currentItem) {
+                    INDEX_DETAIL -> {
 
-                        }
-                        INDEX_ORDER -> {
-                            orderService.launchCreateOrder(
-                                this@CharacterInfoActivity,
-                                it.customerId,
-                                it.id
-                            )
-                        }
+                    }
+                    INDEX_ORDER -> {
+                        orderService.launchCreateOrder(
+                            this@CharacterTabActivity,
+                            args.character.customerId,
+                            args.character.id
+                        )
                     }
                 }
             }
         }
     }
 
-    private fun handleSideEffect(sideEffect: CharacterInfoSideEffect) {
+    override fun getPageTitle(): String = args.character.name
+
+    override fun getTabTitleList(): List<Int> =
+        listOf(R.string.character_info_detail, R.string.character_info_order)
+
+    override fun getFragmentList(): List<Fragment> = args.run {
+        listOf(
+            CharacterDetailArgs(character).newInstance(),
+            CharacterOrderArgs(character.id).newInstance()
+        )
+    }
+
+    override fun handleSideEffect(sideEffect: CharacterInfoSideEffect) {
         when (sideEffect) {
             CharacterInfoSideEffect.DeleteCharacterSuccess -> finish()
             is CharacterInfoSideEffect.DeleteCharacterFailure ->
@@ -133,7 +114,7 @@ class CharacterInfoActivity :
 
     companion object {
 
-        private const val INDEX_INFO = 0
+        private const val INDEX_DETAIL = 0
 
         private const val INDEX_ORDER = 1
 

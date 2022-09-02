@@ -3,11 +3,9 @@ package com.yizhenwind.booster.character.ui.info.order
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.yizhenwind.booster.component.base.BaseMVIViewModel
-import com.yizhenwind.booster.component.base.BaseViewModel
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
-import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject

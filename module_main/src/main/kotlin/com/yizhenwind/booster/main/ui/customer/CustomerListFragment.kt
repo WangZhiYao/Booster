@@ -3,8 +3,6 @@ package com.yizhenwind.booster.main.ui.customer
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
 import com.yizhenwind.booster.component.ext.registerMenu
 import com.yizhenwind.booster.main.R
@@ -13,6 +11,7 @@ import com.yizhenwind.booster.mediator.customer.ICustomerService
 import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.orbitmvi.orbit.viewmodel.observe
 import javax.inject.Inject
 
 /**
@@ -23,10 +22,10 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CustomerListFragment :
-    BasePagingDataMVIFragment<Customer, CustomerAdapter, CustomerViewHolder, CustomerListViewState, CustomerListSideEffect>() {
+    BasePagingDataMVIFragment<CustomerListViewState, CustomerListSideEffect>() {
 
-    override val viewModel by viewModels<CustomerListViewModel>()
-    override val adapter: CustomerAdapter = CustomerAdapter()
+    private val viewModel by viewModels<CustomerListViewModel>()
+    private val adapter: CustomerAdapter = CustomerAdapter()
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -37,12 +36,12 @@ class CustomerListFragment :
     @Inject
     lateinit var orderService: IOrderService
 
-    override fun initPage() {
-        super.initPage()
-        initView()
-    }
+    override fun initView() {
+        binding.rvList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@CustomerListFragment.adapter
+        }
 
-    private fun initView() {
         adapter.onItemClickListener = { customer ->
             customerService.launchCustomerInfo(requireContext(), customer)
         }
@@ -66,6 +65,10 @@ class CustomerListFragment :
         }
     }
 
+    override fun initData() {
+        viewModel.observe(viewLifecycleOwner, state = ::render)
+    }
+
     override fun render(state: CustomerListViewState) {
         when (state) {
             is CustomerListViewState.Init -> {
@@ -74,9 +77,5 @@ class CustomerListFragment :
                 }
             }
         }
-    }
-
-    override fun handleSideEffect(sideEffect: CustomerListSideEffect) {
-
     }
 }

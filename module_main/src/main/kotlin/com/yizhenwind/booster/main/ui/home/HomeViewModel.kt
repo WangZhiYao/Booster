@@ -1,5 +1,5 @@
 package com.yizhenwind.booster.main.ui.home
 
-import com.yizhenwind.booster.component.base.BaseViewModel
+import androidx.lifecycle.ViewModel
 
-class HomeViewModel : BaseViewModel()
+class HomeViewModel : ViewModel()
