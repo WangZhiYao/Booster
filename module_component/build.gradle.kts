@@ -50,6 +50,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
+    api(project(":module_common"))
+
     // Android X
     api("androidx.core:core-ktx:1.8.0")
     api("androidx.appcompat:appcompat:1.5.0")

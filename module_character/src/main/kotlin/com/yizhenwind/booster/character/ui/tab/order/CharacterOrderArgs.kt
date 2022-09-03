@@ -25,6 +25,7 @@ data class CharacterOrderArgs(
 
     companion object : IFragmentArgDeserializer<CharacterOrderArgs> {
 
+        @JvmStatic
         override fun deserialize(arguments: Bundle): CharacterOrderArgs = arguments.run {
             CharacterOrderArgs(getLong(IntentKey.CHARACTER_ID, Constant.DEFAULT_ID))
         }

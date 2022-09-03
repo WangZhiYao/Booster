@@ -4,7 +4,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.yizhenwind.booster.component.databinding.ActivityBaseTabMviBinding
 import com.yizhenwind.booster.component.ext.setupFragmentWithTab
-import com.yizhenwind.booster.component.ext.viewBinding
+import com.yizhenwind.booster.component.ext.viewBindings
 
 /**
  *
@@ -15,7 +15,7 @@ import com.yizhenwind.booster.component.ext.viewBinding
 abstract class BaseTabMVIActivity<STATE : IViewState, SIDE_EFFECT : ISideEffect> :
     BaseMVIActivity<STATE, SIDE_EFFECT>() {
 
-    protected open val binding by viewBinding(ActivityBaseTabMviBinding::inflate)
+    protected open val binding by viewBindings<ActivityBaseTabMviBinding>()
 
     override fun getRootView(): View = binding.root
 

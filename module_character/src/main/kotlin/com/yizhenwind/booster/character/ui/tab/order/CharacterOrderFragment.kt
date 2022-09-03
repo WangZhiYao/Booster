@@ -3,7 +3,7 @@ package com.yizhenwind.booster.character.ui.tab.order
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.component.base.BaseListMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -16,10 +16,10 @@ import org.orbitmvi.orbit.viewmodel.observe
  */
 @AndroidEntryPoint
 class CharacterOrderFragment :
-    BasePagingDataMVIFragment<CharacterOrderViewState, CharacterOrderSideEffect>() {
+    BaseListMVIFragment<CharacterOrderViewState, CharacterOrderSideEffect>() {
 
     private val viewModel by viewModels<CharacterOrderViewModel>()
-    private val args by fragmentArgs(CharacterOrderArgs::deserialize)
+    private val args by fragmentArgs<CharacterOrderArgs>()
     private val adapter = CharacterOrderAdapter()
 
     override fun initView() {

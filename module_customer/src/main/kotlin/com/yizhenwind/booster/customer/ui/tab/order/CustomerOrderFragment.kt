@@ -3,7 +3,7 @@ package com.yizhenwind.booster.customer.ui.tab.order
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.component.base.BaseListMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -16,10 +16,10 @@ import org.orbitmvi.orbit.viewmodel.observe
  */
 @AndroidEntryPoint
 class CustomerOrderFragment :
-    BasePagingDataMVIFragment<CustomerOrderViewState, CustomerOrderSideEffect>() {
+    BaseListMVIFragment<CustomerOrderViewState, CustomerOrderSideEffect>() {
 
     private val viewModel by viewModels<CustomerOrderViewModel>()
-    private val args by fragmentArgs(CustomerOrderArgs::deserialize)
+    private val args by fragmentArgs<CustomerOrderArgs>()
     private val adapter: CustomerOrderAdapter = CustomerOrderAdapter()
 
     override fun initView() {

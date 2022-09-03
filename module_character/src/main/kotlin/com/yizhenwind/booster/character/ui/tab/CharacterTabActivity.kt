@@ -35,7 +35,7 @@ class CharacterTabActivity : BaseTabMVIActivity<CharacterTabViewState, Character
     @Inject
     lateinit var orderService: IOrderService
 
-    private val args by activityArgs(CharacterTabLaunchArgs::deserialize)
+    private val args by activityArgs<CharacterTabArgs>()
 
     override fun initPage() {
         super.initPage()

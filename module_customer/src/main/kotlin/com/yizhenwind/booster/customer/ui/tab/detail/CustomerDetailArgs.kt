@@ -25,6 +25,7 @@ data class CustomerDetailArgs(
 
     companion object : IFragmentArgDeserializer<CustomerDetailArgs> {
 
+        @JvmStatic
         override fun deserialize(arguments: Bundle): CustomerDetailArgs = arguments.run {
             CustomerDetailArgs(requireNotNull(getParcelable(IntentKey.CUSTOMER)) { IntentKey.CUSTOMER })
         }

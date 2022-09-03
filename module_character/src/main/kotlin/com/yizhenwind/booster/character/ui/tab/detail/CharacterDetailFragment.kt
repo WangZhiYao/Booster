@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CharacterDetailFragment :
     BaseFragment<FragmentCharacterDetailBinding>(FragmentCharacterDetailBinding::inflate) {
 
-    private val args by fragmentArgs(CharacterDetailArgs::deserialize)
+    private val args by fragmentArgs<CharacterDetailArgs>()
 
     override fun initPage() {
         binding.apply {

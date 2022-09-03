@@ -25,7 +25,7 @@ interface ICustomerService : IService {
      *
      * @param customer 客户
      */
-    fun launchCustomerTab(context: Context, customer: Customer)
+    fun launchCustomerTab(context: Context, customer: Customer, tabIndex: Int)
 
     /**
      * 订阅客户列表

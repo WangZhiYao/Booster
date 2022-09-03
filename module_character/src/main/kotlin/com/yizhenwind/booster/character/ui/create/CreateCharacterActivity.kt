@@ -10,12 +10,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yizhenwind.booster.character.databinding.ActivityCreateCharacterBinding
 import com.yizhenwind.booster.common.ext.blankThenNull
-import com.yizhenwind.booster.common.ext.firstOrFirst
 import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
-import com.yizhenwind.booster.component.ext.viewBinding
+import com.yizhenwind.booster.component.ext.viewBindings
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
 import org.orbitmvi.orbit.viewmodel.observe
@@ -32,8 +31,8 @@ class CreateCharacterActivity :
     BaseMVIActivity<CreateCharacterViewState, CreateCharacterSideEffect>() {
 
     private val viewModel by viewModels<CreateCharacterViewModel>()
-    private val binding by viewBinding(ActivityCreateCharacterBinding::inflate)
-    private val args by activityArgs(CreateCharacterLaunchArgs::deserialize)
+    private val binding by viewBindings<ActivityCreateCharacterBinding>()
+    private val args by activityArgs<CreateCharacterArgs>()
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -74,7 +73,7 @@ class CreateCharacterActivity :
             }
 
             actvCreateCharacterCustomer.setOnItemClickListener { _, _, position, _ ->
-                viewModel.customer = customerAdapter.getItem(position)
+                viewModel.onCustomerSelected(customerAdapter.getItem(position))
             }
 
             actvCreateCharacterZone.apply {
@@ -132,30 +131,36 @@ class CreateCharacterActivity :
 
     private fun initData() {
         viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
+        args.customer?.let { viewModel.onCustomerSelected(it) }
     }
 
     override fun render(state: CreateCharacterViewState) {
         when (state) {
             is CreateCharacterViewState.CreateCharacterSuccess -> {
-                viewModel.customer?.let { customer ->
+                /*viewModel.customer?.let { customer ->
                     if (args.openDetailAfterCreateSuccess) {
-                        customerService.launchCustomerTab(this, customer)
+                        customerService.launchCustomerTab(
+                            this,
+                            customer,
+                            Constant.CustomerTab.INDEX_CHARACTER
+                        )
                     }
-                }
+                }*/
                 finish()
             }
             is CreateCharacterViewState.Init -> {
                 state.apply {
                     customerList.let {
                         customerAdapter = CustomerAdapter(this@CreateCharacterActivity, it)
-                        val customer =
-                            it.firstOrFirst { customer -> customer.id == viewModel.customer?.id }
+                        /*val customer = it.findFirstOrFirst { customer ->
+                            customer.id == this@CreateCharacterActivity.customer?.id
+                        }
 
                         binding.actvCreateCharacterCustomer.apply {
                             setAdapter(customerAdapter)
                             text = null
                             setText(customer?.name, false)
-                        }
+                        }*/
                     }
 
                     zoneAdapter.apply {
@@ -168,6 +173,9 @@ class CreateCharacterActivity :
                         addAll(sectInternalList.map { it.sect.name })
                     }
                 }
+            }
+            is CreateCharacterViewState.OnCustomerSelected -> {
+
             }
             is CreateCharacterViewState.OnZoneSelected -> {
                 serverAdapter.apply {
@@ -250,7 +258,7 @@ class CreateCharacterActivity :
             val remark = tietCreateCharacterRemark.text?.toString()
 
             viewModel.attemptCreateCharacter(
-                viewModel.customer?.id,
+                /*viewModel.customer?.id*/0,
                 zone,
                 server,
                 account,

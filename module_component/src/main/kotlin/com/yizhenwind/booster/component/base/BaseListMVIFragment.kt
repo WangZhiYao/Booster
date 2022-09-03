@@ -1,14 +1,14 @@
 package com.yizhenwind.booster.component.base
 
-import com.yizhenwind.booster.component.databinding.FragmentBasePagingMviBinding
+import com.yizhenwind.booster.component.databinding.FragmentBaseListMviBinding
 
 /**
  *
  * @author WangZhiYao
  * @since 2022/8/17
  */
-abstract class BasePagingDataMVIFragment<STATE : IViewState, SIDE_EFFECT : ISideEffect> :
-    BaseMVIFragment<FragmentBasePagingMviBinding, STATE, SIDE_EFFECT>(FragmentBasePagingMviBinding::inflate) {
+abstract class BaseListMVIFragment<STATE : IViewState, SIDE_EFFECT : ISideEffect> :
+    BaseMVIFragment<FragmentBaseListMviBinding, STATE, SIDE_EFFECT>(FragmentBaseListMviBinding::inflate) {
 
     override fun initPage() {
         initView()

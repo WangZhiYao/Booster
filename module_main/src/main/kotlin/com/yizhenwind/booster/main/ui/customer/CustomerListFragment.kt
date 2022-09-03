@@ -3,7 +3,8 @@ package com.yizhenwind.booster.main.ui.customer
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.common.constant.Constant
+import com.yizhenwind.booster.component.base.BaseListMVIFragment
 import com.yizhenwind.booster.component.ext.registerMenu
 import com.yizhenwind.booster.main.R
 import com.yizhenwind.booster.mediator.character.ICharacterService
@@ -22,7 +23,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CustomerListFragment :
-    BasePagingDataMVIFragment<CustomerListViewState, CustomerListSideEffect>() {
+    BaseListMVIFragment<CustomerListViewState, CustomerListSideEffect>() {
 
     private val viewModel by viewModels<CustomerListViewModel>()
     private val adapter: CustomerAdapter = CustomerAdapter()
@@ -43,7 +44,11 @@ class CustomerListFragment :
         }
 
         adapter.onItemClickListener = { customer ->
-            customerService.launchCustomerTab(requireContext(), customer)
+            customerService.launchCustomerTab(
+                requireContext(),
+                customer,
+                Constant.CustomerTab.INDEX_DETAIL
+            )
         }
 
         adapter.onCreateCharacterClickListener = { customer ->

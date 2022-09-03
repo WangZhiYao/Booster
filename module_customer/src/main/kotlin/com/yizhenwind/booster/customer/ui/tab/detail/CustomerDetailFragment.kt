@@ -14,7 +14,7 @@ import com.yizhenwind.booster.customer.databinding.FragmentCustomerDetailBinding
 class CustomerDetailFragment :
     BaseFragment<FragmentCustomerDetailBinding>(FragmentCustomerDetailBinding::inflate) {
 
-    private val args by fragmentArgs(CustomerDetailArgs::deserialize)
+    private val args by fragmentArgs<CustomerDetailArgs>()
 
     override fun initPage() {
         binding.apply {

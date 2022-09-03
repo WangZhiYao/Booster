@@ -2,7 +2,7 @@ package com.yizhenwind.booster.main.ui.order
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.component.base.BaseListMVIFragment
 import com.yizhenwind.booster.component.ext.registerMenu
 import com.yizhenwind.booster.main.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.viewmodel.observe
  * @since 2022/8/21
  */
 @AndroidEntryPoint
-class OrderListFragment : BasePagingDataMVIFragment<OrderListViewState, OrderListSideEffect>() {
+class OrderListFragment : BaseListMVIFragment<OrderListViewState, OrderListSideEffect>() {
 
     private val viewModel by viewModels<OrderListViewModel>()
     private val adapter: OrderAdapter = OrderAdapter()

@@ -9,7 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.yizhenwind.booster.component.base.BaseActivity
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
-import com.yizhenwind.booster.component.ext.viewBinding
+import com.yizhenwind.booster.component.ext.viewBindings
 import com.yizhenwind.booster.main.R
 import com.yizhenwind.booster.main.databinding.ActivityMainBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
@@ -26,7 +26,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    private val binding by viewBinding(ActivityMainBinding::inflate)
+    private val binding by viewBindings<ActivityMainBinding>()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -45,29 +45,28 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         binding.apply {
-            setSupportActionBar(appBarMain.toolbar)
-
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-            val navController = navHostFragment.navController
-            appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.nav_home, R.id.nav_customer_list, R.id.nav_order_list),
-                drawerLayout
-            )
-            setupActionBarWithNavController(navController, appBarConfiguration)
-            navView.setupWithNavController(navController)
-
-            appBarMain.fab.setIntervalClickListener {
-                when (navController.currentDestination?.id) {
-                    R.id.nav_customer_list ->
-                        customerService.launchCreateCustomer(this@MainActivity)
+            appBar.apply {
+                setSupportActionBar(toolbar)
+                val navController =
+                    contentMain.navHostFragment.getFragment<NavHostFragment>().navController
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(R.id.nav_home, R.id.nav_customer_list, R.id.nav_order_list),
+                    drawerLayout
+                )
+                setupActionBarWithNavController(navController, appBarConfiguration)
+                navView.setupWithNavController(navController)
+                fab.setIntervalClickListener {
+                    when (navController.currentDestination?.id) {
+                        R.id.nav_customer_list ->
+                            customerService.launchCreateCustomer(this@MainActivity)
+                    }
                 }
             }
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 }

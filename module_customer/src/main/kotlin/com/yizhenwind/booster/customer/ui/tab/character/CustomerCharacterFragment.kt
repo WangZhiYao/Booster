@@ -3,7 +3,7 @@ package com.yizhenwind.booster.customer.ui.tab.character
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yizhenwind.booster.component.base.BasePagingDataMVIFragment
+import com.yizhenwind.booster.component.base.BaseListMVIFragment
 import com.yizhenwind.booster.component.ext.fragmentArgs
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.order.IOrderService
@@ -20,10 +20,10 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class CustomerCharacterFragment :
-    BasePagingDataMVIFragment<CustomerCharacterViewState, CustomerCharacterSideEffect>() {
+    BaseListMVIFragment<CustomerCharacterViewState, CustomerCharacterSideEffect>() {
 
     private val viewModel by viewModels<CustomerCharacterViewModel>()
-    private val args by fragmentArgs(CustomerCharacterArgs::deserialize)
+    private val args by fragmentArgs<CustomerCharacterArgs>()
     private val adapter: CustomerCharacterAdapter = CustomerCharacterAdapter()
 
     @Inject

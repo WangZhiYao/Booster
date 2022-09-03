@@ -7,7 +7,7 @@ import com.yizhenwind.booster.common.model.CustomerCharacterList
 import com.yizhenwind.booster.common.model.Subject
 import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
-import com.yizhenwind.booster.component.ext.viewBinding
+import com.yizhenwind.booster.component.ext.viewBindings
 import com.yizhenwind.booster.order.databinding.ActivityCreateOrderBinding
 import dagger.hilt.android.AndroidEntryPoint
 import org.orbitmvi.orbit.viewmodel.observe
@@ -23,8 +23,8 @@ class CreateOrderActivity :
     BaseMVIActivity<CreateOrderViewState, CreateOrderSideEffect>() {
 
     private val viewModel by viewModels<CreateOrderViewModel>()
-    private val binding by viewBinding(ActivityCreateOrderBinding::inflate)
-    private val args by activityArgs(CreateOrderLaunchArgs::deserialize)
+    private val binding by viewBindings<ActivityCreateOrderBinding>()
+    private val args by activityArgs<CreateOrderArgs>()
 
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var characterAdapter: CharacterAdapter

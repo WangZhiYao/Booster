@@ -24,8 +24,10 @@ data class CustomerCharacterArgs(
 
     companion object : IFragmentArgDeserializer<CustomerCharacterArgs> {
 
-        override fun deserialize(arguments: Bundle): CustomerCharacterArgs =
-            CustomerCharacterArgs(arguments.getLong(IntentKey.CUSTOMER_ID))
+        @JvmStatic
+        override fun deserialize(arguments: Bundle): CustomerCharacterArgs = arguments.run {
+            CustomerCharacterArgs(getLong(IntentKey.CUSTOMER_ID))
+        }
 
     }
 }

@@ -7,6 +7,8 @@ package com.yizhenwind.booster.common.constant
  */
 object IntentKey {
 
+    const val TAB_INDEX = "TAB_INDEX"
+
     const val CUSTOMER_ID = "CUSTOMER_ID"
 
     const val CUSTOMER = "CUSTOMER"

@@ -5,10 +5,11 @@ import android.content.Intent
 
 /**
  *
+ *
  * @author WangZhiYao
  * @since 2022/7/29
  */
-interface IActivityLaunchArgs {
+interface IActivityArgs {
 
     fun intent(context: Context): Intent
 

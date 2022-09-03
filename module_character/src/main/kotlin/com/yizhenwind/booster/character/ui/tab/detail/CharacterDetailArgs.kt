@@ -24,6 +24,7 @@ data class CharacterDetailArgs(
 
     companion object : IFragmentArgDeserializer<CharacterDetailArgs> {
 
+        @JvmStatic
         override fun deserialize(arguments: Bundle): CharacterDetailArgs = arguments.run {
             CharacterDetailArgs(requireNotNull(getParcelable(IntentKey.CHARACTER)) { IntentKey.CHARACTER })
         }

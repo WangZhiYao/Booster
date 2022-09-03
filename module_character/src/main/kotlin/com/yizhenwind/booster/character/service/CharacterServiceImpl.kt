@@ -3,8 +3,8 @@ package com.yizhenwind.booster.character.service
 import android.content.Context
 import androidx.paging.PagingData
 import com.yizhenwind.booster.character.data.domain.ObserveCharacterListByCustomerIdUseCase
-import com.yizhenwind.booster.character.ui.create.CreateCharacterLaunchArgs
-import com.yizhenwind.booster.character.ui.tab.CharacterTabLaunchArgs
+import com.yizhenwind.booster.character.ui.create.CreateCharacterArgs
+import com.yizhenwind.booster.character.ui.tab.CharacterTabArgs
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.mediator.character.ICharacterService
@@ -26,12 +26,12 @@ class CharacterServiceImpl @Inject constructor(
         customer: Customer?,
         openDetailAfterCreateSuccess: Boolean
     ) {
-        CreateCharacterLaunchArgs(customer, openDetailAfterCreateSuccess)
+        CreateCharacterArgs(customer, openDetailAfterCreateSuccess)
             .launch(context)
     }
 
     override fun launchCharacterTab(context: Context, character: Character) {
-        CharacterTabLaunchArgs(character).launch(context)
+        CharacterTabArgs(character).launch(context)
     }
 
     override fun observeCharacterListByCustomerId(customerId: Long): Flow<PagingData<Character>> =

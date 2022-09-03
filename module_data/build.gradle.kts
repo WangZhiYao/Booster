@@ -49,7 +49,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
-    api(project(":module_common"))
+    implementation(project(":module_common"))
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.43.2")

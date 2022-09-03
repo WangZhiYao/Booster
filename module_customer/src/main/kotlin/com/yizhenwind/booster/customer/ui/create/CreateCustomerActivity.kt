@@ -7,13 +7,14 @@ import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.yizhenwind.booster.common.constant.Constant
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.common.ext.blankThenNull
 import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
 import com.yizhenwind.booster.component.ext.showSnack
 import com.yizhenwind.booster.component.ext.showSnackWithAction
-import com.yizhenwind.booster.component.ext.viewBinding
+import com.yizhenwind.booster.component.ext.viewBindings
 import com.yizhenwind.booster.customer.R
 import com.yizhenwind.booster.customer.databinding.ActivityCreateCustomerBinding
 import com.yizhenwind.booster.mediator.customer.ICustomerService
@@ -32,7 +33,7 @@ class CreateCustomerActivity :
     BaseMVIActivity<CreateCustomerViewState, CreateCustomerSideEffect>() {
 
     private val viewModel by viewModels<CreateCustomerViewModel>()
-    private val binding by viewBinding(ActivityCreateCustomerBinding::inflate)
+    private val binding by viewBindings<ActivityCreateCustomerBinding>()
 
     @Inject
     lateinit var customerService: ICustomerService
@@ -95,7 +96,11 @@ class CreateCustomerActivity :
                     R.string.create_customer_success,
                     R.string.create_customer_jump_to_detail
                 ) {
-                    customerService.launchCustomerTab(this, state.customer)
+                    customerService.launchCustomerTab(
+                        this,
+                        state.customer,
+                        Constant.CustomerTab.INDEX_DETAIL
+                    )
                     finish()
                 }
             }

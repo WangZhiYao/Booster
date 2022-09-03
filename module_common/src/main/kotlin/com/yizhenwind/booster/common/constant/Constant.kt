@@ -44,4 +44,13 @@ object Constant {
          */
         val CHARACTER_NAME = "^[\\u4E00-\\u9FA5@1-9]+$".toRegex()
     }
+
+    object CustomerTab {
+
+        const val INDEX_DETAIL = 0
+
+        const val INDEX_CHARACTER = 1
+
+        const val INDEX_ORDER = 2
+    }
 }

@@ -32,14 +32,13 @@ class CustomerTabActivity :
     BaseTabMVIActivity<CustomerTabViewState, CustomerTabSideEffect>() {
 
     private val viewModel by viewModels<CustomerTabViewModel>()
+    private val args by activityArgs<CustomerTabArgs>()
 
     @Inject
     lateinit var characterService: ICharacterService
 
     @Inject
     lateinit var orderService: IOrderService
-
-    private val args by activityArgs(CustomerTabLaunchArgs::deserialize)
 
     override fun initPage() {
         super.initPage()

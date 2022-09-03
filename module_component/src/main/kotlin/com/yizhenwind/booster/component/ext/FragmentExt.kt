@@ -1,6 +1,5 @@
 package com.yizhenwind.booster.component.ext
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -9,17 +8,16 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.yizhenwind.booster.component.base.IFragmentArgs
+import com.yizhenwind.booster.component.lazy.FragmentArgsLazy
 
 /**
  *
  * @author WangZhiYao
  * @since 2022/6/5
  */
-inline fun <reified T : IFragmentArgs> Fragment.fragmentArgs(
-    crossinline deserializer: (Bundle) -> T
-) =
-    lazy(LazyThreadSafetyMode.NONE) {
-        deserializer.invoke(requireArguments())
+inline fun <reified Args : IFragmentArgs> Fragment.fragmentArgs(): FragmentArgsLazy<Args> =
+    FragmentArgsLazy(Args::class) {
+        arguments ?: throw IllegalStateException("Fragment $this has null arguments")
     }
 
 inline fun Fragment.registerMenu(
