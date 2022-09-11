@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -81,4 +82,7 @@ dependencies {
     // Biometric
     api("androidx.biometric:biometric:1.2.0-alpha04")
 
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    kapt("com.github.bumptech.glide:compiler:4.13.2")
 }
