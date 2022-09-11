@@ -33,9 +33,6 @@ class CustomerCharacterAdapter :
         getItem(position)?.let {
             holder.apply {
                 bind(it)
-                onCharacterClickListener = {
-                    this@CustomerCharacterAdapter.onCharacterClickListener?.invoke(it)
-                }
                 onCreateOrderClickListener = {
                     this@CustomerCharacterAdapter.onCreateOrderClickListener?.invoke(it)
                 }
@@ -44,5 +41,9 @@ class CustomerCharacterAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        CustomerCharacterViewHolder(parent.viewBinding(ItemCustomerCharacterBinding::inflate))
+        CustomerCharacterViewHolder(parent.viewBinding(ItemCustomerCharacterBinding::inflate)).apply {
+            onItemClickListener = {
+                this@CustomerCharacterAdapter.onCharacterClickListener?.invoke(it)
+            }
+        }
 }

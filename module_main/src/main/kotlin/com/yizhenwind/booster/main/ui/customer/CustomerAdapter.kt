@@ -20,15 +20,16 @@ class CustomerAdapter :
     var onCreateOrderClickListener: ((Customer) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        CustomerViewHolder(parent.viewBinding(ItemCustomerBinding::inflate))
+        CustomerViewHolder(parent.viewBinding(ItemCustomerBinding::inflate)).apply {
+            onItemClickListener = {
+                this@CustomerAdapter.onItemClickListener?.invoke(it)
+            }
+        }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         getItem(position)?.let {
             holder.apply {
                 bind(it)
-                onItemClickListener = {
-                    this@CustomerAdapter.onItemClickListener?.invoke(it)
-                }
                 onCreateCharacterClickListener = {
                     this@CustomerAdapter.onCreateCharacterClickListener?.invoke(it)
                 }

@@ -17,7 +17,6 @@ class CustomerCharacterViewHolder(
     private val binding: ItemCustomerCharacterBinding
 ) : BaseViewHolder<Character>(binding.root) {
 
-    var onCharacterClickListener: (() -> Unit)? = null
     var onCreateOrderClickListener: (() -> Unit)? = null
 
     override fun bind(data: Character) {
@@ -37,7 +36,7 @@ class CustomerCharacterViewHolder(
                     text = remark
                 }
 
-                root.setIntervalClickListener { onCharacterClickListener?.invoke() }
+                root.setIntervalClickListener { onItemClickListener?.invoke(this) }
                 btnCharacterCreateOrder.setIntervalClickListener { onCreateOrderClickListener?.invoke() }
             }
         }
