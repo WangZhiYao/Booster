@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <string name="create_character_select_customer">选择客户</string>
+    <string name="create_character_select_zone">选择大区</string>
+    <string name="create_character_select_server">选择服务器</string>
+    <string name="create_character_account_input">输入账号</string>
+    <string name="create_character_password_input">输入密码</string>
+
+    <string name="create_character_select_customer_contact">联系方式：%s %s</string>
+
     <string name="create_character_label">创建角色</string>
-    <string name="create_character_select_customer">客户*</string>
-    <string name="create_character_select_zone">大区*</string>
-    <string name="create_character_select_server">主服务器*</string>
+    <!--<string name="create_character_select_customer">客户*</string>-->
+    <!--<string name="create_character_select_zone">大区*</string>
+    <string name="create_character_select_server">主服务器*</string>-->
     <string name="create_character_account">账号*</string>
     <string name="create_character_password">密码*</string>
     <string name="create_character_security_lock">安全锁</string>

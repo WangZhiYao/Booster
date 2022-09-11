@@ -39,7 +39,7 @@ class OrderRepository @Inject constructor(
             orderDao.observeOrderList()
         }.flow
             .map { pagingData ->
-                pagingData.map { orderInfoToOrderMapper.map(it) }
+                pagingData.map { orderInfoToOrderMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -48,7 +48,7 @@ class OrderRepository @Inject constructor(
             orderDao.observeOrderListByCustomerId(customerId)
         }.flow
             .map { pagingData ->
-                pagingData.map { orderInfoToOrderMapper.map(it) }
+                pagingData.map { orderInfoToOrderMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -57,7 +57,7 @@ class OrderRepository @Inject constructor(
             orderDao.observeOrderListByCharacterId(characterId)
         }.flow
             .map { pagingData ->
-                pagingData.map { orderInfoToOrderMapper.map(it) }
+                pagingData.map { orderInfoToOrderMapper(it) }
             }
             .flowOn(dispatcher)
 

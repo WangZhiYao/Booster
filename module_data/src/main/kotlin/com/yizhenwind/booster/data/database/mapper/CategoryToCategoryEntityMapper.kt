@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class CategoryToCategoryEntityMapper @Inject constructor() : IMapper<Category, CategoryEntity> {
 
-    override fun map(input: Category): CategoryEntity = input.run {
+    override fun invoke(input: Category): CategoryEntity = input.run {
         CategoryEntity(id, title, description, createTime)
     }
 }

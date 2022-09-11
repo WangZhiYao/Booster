@@ -18,6 +18,8 @@ sealed class CreateCharacterViewState : IViewState {
         val sectInternalList: List<SectInternal> = emptyList()
     ) : CreateCharacterViewState()
 
+    data class OnCustomerSelected(val customer: Customer) : CreateCharacterViewState()
+
     data class OnZoneSelected(val serverList: List<Server>) : CreateCharacterViewState()
 
     data class OnSectSelected(val internalList: List<Internal>) : CreateCharacterViewState()

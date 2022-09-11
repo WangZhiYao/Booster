@@ -19,11 +19,11 @@ class ZoneWithServerListToZoneServerMapper @Inject constructor(
     private val serverEntityListToServerListMapper: ListMapper<ServerEntity, Server> =
         ListMapper(serverEntityToServerMapper)
 
-    override fun map(input: ZoneWithServerList) =
+    override fun invoke(input: ZoneWithServerList) =
         input.run {
             ZoneServer(
-                zoneEntityToZoneMapper.map(zone),
-                serverEntityListToServerListMapper.map(serverList)
+                zoneEntityToZoneMapper(zone),
+                serverEntityListToServerListMapper(serverList)
             )
         }
 

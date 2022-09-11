@@ -42,8 +42,6 @@ class CreateCharacterViewModel @Inject constructor(
     private val zoneServerList: HashSet<ZoneServer> = HashSet()
     private val sectInternalList: HashSet<SectInternal> = HashSet()
 
-    var customer: Customer? = null
-
     init {
         intent {
             getZoneServerListUseCase().combine(getSectInternalListUseCase()) { zoneServerList, sectInternalList ->
@@ -63,6 +61,14 @@ class CreateCharacterViewModel @Inject constructor(
                         it
                     }
                 }
+        }
+    }
+
+    fun onCustomerSelected(customer: Customer) {
+        intent {
+            reduce {
+                CreateCharacterViewState.OnCustomerSelected(customer)
+            }
         }
     }
 

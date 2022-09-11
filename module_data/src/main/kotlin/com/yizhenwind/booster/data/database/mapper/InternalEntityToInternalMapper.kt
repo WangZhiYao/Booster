@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class InternalEntityToInternalMapper @Inject constructor(): IMapper<InternalEntity, Internal> {
 
-    override fun map(input: InternalEntity) =
+    override fun invoke(input: InternalEntity) =
         input.run { Internal(id, name) }
 
 }

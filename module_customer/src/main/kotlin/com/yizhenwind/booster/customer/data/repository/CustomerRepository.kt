@@ -4,8 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.common.model.Customer
 import com.yizhenwind.booster.common.model.CustomerCharacterList
@@ -17,6 +15,8 @@ import com.yizhenwind.booster.data.database.mapper.CustomerWithCharacterListToCu
 import com.yizhenwind.booster.data.database.mapper.ListMapper
 import com.yizhenwind.booster.data.repository.IRepository
 import com.yizhenwind.booster.infra.di.qualifier.IODispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -50,7 +50,7 @@ class CustomerRepository @Inject constructor(
             .flow
             .map { pagingData ->
                 pagingData.map {
-                    customerEntityToCustomerMapper.map(it)
+                    customerEntityToCustomerMapper(it)
                 }
             }
             .flowOn(dispatcher)
@@ -85,7 +85,7 @@ class CustomerRepository @Inject constructor(
                 customerId?.let { customerDao.getCustomerById(it) }
             }
             .map { customerEntity ->
-                customerEntity?.let { customerEntityToCustomerMapper.map(it) }
+                customerEntity?.let { customerEntityToCustomerMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -99,7 +99,7 @@ class CustomerRepository @Inject constructor(
             emit(customerDao.getCustomerById(customerId))
         }
             .map { customerEntity ->
-                customerEntity?.let { customerEntityToCustomerMapper.map(it) }
+                customerEntity?.let { customerEntityToCustomerMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -114,7 +114,7 @@ class CustomerRepository @Inject constructor(
         contact: String
     ): Customer? =
         customerDao.getCustomerByContact(contactType, contact)
-            ?.let { customerEntityToCustomerMapper.map(it) }
+            ?.let { customerEntityToCustomerMapper(it) }
 
     /**
      * 获取客户列表
@@ -124,7 +124,7 @@ class CustomerRepository @Inject constructor(
             emit(customerDao.getCustomerList())
         }
             .map {
-                ListMapper(customerEntityToCustomerMapper).map(it)
+                ListMapper(customerEntityToCustomerMapper)(it)
             }
             .flowOn(dispatcher)
 
@@ -136,7 +136,7 @@ class CustomerRepository @Inject constructor(
             emit(customerDao.getCustomerWithCharacterList())
         }
             .map {
-                ListMapper(customerWithCharacterListToCustomerCharacterMapper).map(it)
+                ListMapper(customerWithCharacterListToCustomerCharacterMapper)(it)
             }
             .flowOn(dispatcher)
 
@@ -147,7 +147,7 @@ class CustomerRepository @Inject constructor(
      */
     fun deleteCustomer(customer: Customer): Flow<Boolean> =
         flow {
-            emit(customerDao.delete(customerToCustomerEntityMapper.map(customer)))
+            emit(customerDao.delete(customerToCustomerEntityMapper(customer)))
         }
             .catch {
                 emit(0)

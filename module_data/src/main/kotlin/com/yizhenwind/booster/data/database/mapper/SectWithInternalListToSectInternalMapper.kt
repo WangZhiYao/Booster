@@ -19,11 +19,11 @@ class SectWithInternalListToSectInternalMapper @Inject constructor(
     private val internalEntityListToInternalListMapper: ListMapper<InternalEntity, Internal> =
         ListMapper(internalEntityToInternalMapper)
 
-    override fun map(input: SectWithInternalList) =
+    override fun invoke(input: SectWithInternalList) =
         input.run {
             SectInternal(
-                sectEntityToSectMapper.map(input.sect),
-                internalEntityListToInternalListMapper.map(input.internalList)
+                sectEntityToSectMapper(input.sect),
+                internalEntityListToInternalListMapper(input.internalList)
             )
         }
 }

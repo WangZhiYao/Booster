@@ -18,26 +18,26 @@ class CustomerWithCharacterListToCustomerCharacterMapper @Inject constructor(
     private val internalEntityToInternalMapper: InternalEntityToInternalMapper
 ) : IMapper<CustomerWithCharacterList, CustomerCharacterList> {
 
-    override fun map(input: CustomerWithCharacterList) =
+    override fun invoke(input: CustomerWithCharacterList) =
         input.run {
             CustomerCharacterList(
-                customerEntityToCustomerMapper.map(customer),
-                ListMapper(CharacterInfoToCharacterMapper()).map(characterList)
+                customerEntityToCustomerMapper(customer),
+                ListMapper(CharacterInfoToCharacterMapper())(characterList)
             )
         }
 
     inner class CharacterInfoToCharacterMapper :
         IMapper<CustomerWithCharacterList.CharacterInfo, CustomerCharacterList.Character> {
 
-        override fun map(input: CustomerWithCharacterList.CharacterInfo) =
+        override fun invoke(input: CustomerWithCharacterList.CharacterInfo) =
             input.run {
                 CustomerCharacterList.Character(
                     character.id,
                     character.name,
-                    zoneEntityToZoneMapper.map(zoneEntity),
-                    serverEntityToServerMapper.map(serverEntity),
-                    sectEntityToSectMapper.map(sectEntity),
-                    internalEntityToInternalMapper.map(internalEntity)
+                    zoneEntityToZoneMapper(zoneEntity),
+                    serverEntityToServerMapper(serverEntity),
+                    sectEntityToSectMapper(sectEntity),
+                    internalEntityToInternalMapper(internalEntity)
                 )
             }
     }

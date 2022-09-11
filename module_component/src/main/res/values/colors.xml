@@ -10,4 +10,5 @@
 
     <color name="color_text_primary">#545454</color>
     <color name="color_text_secondary">#B3BDC2</color>
+    <color name="color_divider">#F7F7F8</color>
 </resources>

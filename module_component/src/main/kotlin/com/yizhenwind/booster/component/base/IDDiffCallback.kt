@@ -1,6 +1,7 @@
 package com.yizhenwind.booster.component.base
 
 import androidx.recyclerview.widget.DiffUtil
+import kotlin.reflect.KProperty1
 
 /**
  *
@@ -8,8 +9,10 @@ import androidx.recyclerview.widget.DiffUtil
  * @author WangZhiYao
  * @since 2022/8/5
  */
-abstract class BaseDiffCallback<T>(
-    private val oldList: List<T>, private val newList: List<T>
+open class IDDiffCallback<T>(
+    private val oldList: List<T>,
+    private val newList: List<T>,
+    private val diffProperty: KProperty1<T, Long>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int = oldList.size
@@ -22,7 +25,8 @@ abstract class BaseDiffCallback<T>(
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         areContentsTheSame(oldList[oldItemPosition], newList[newItemPosition])
 
-    abstract fun areItemsTheSame(oldItem: T, newItem: T): Boolean
+    open fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+        diffProperty.get(oldItem) == diffProperty.get(newItem)
 
-    abstract fun areContentsTheSame(oldItem: T, newItem: T): Boolean
+    open fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
 }

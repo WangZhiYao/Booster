@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class CharacterToCharacterEntityMapper @Inject constructor() : IMapper<Character, CharacterEntity> {
 
-    override fun map(input: Character) =
+    override fun invoke(input: Character) =
         input.run {
             CharacterEntity(
                 id,

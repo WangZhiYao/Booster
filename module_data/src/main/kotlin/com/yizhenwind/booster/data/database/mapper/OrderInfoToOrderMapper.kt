@@ -15,13 +15,13 @@ class OrderInfoToOrderMapper @Inject constructor(
     private val subjectEntityToSubjectMapper: SubjectEntityToSubjectMapper,
 ) : IMapper<OrderInfo, Order> {
 
-    override fun map(input: OrderInfo) =
+    override fun invoke(input: OrderInfo) =
         input.run {
             Order(
                 order.id,
-                customerEntityToCustomerMapper.map(customer),
-                characterInfoToCharacterMapper.map(character),
-                subjectEntityToSubjectMapper.map(subject),
+                customerEntityToCustomerMapper(customer),
+                characterInfoToCharacterMapper(character),
+                subjectEntityToSubjectMapper(subject),
                 order.billingCycle,
                 order.originalPrice,
                 order.startDate,

@@ -1,9 +1,8 @@
 package com.yizhenwind.booster.common.model
 
 import android.os.Parcelable
-//import androidx.recyclerview.widget.DiffUtil
-import kotlinx.parcelize.Parcelize
 import com.yizhenwind.booster.common.constant.ContactType
+import kotlinx.parcelize.Parcelize
 
 /**
  * 客户

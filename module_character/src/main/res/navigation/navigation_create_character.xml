@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_create_character"
+    app:startDestination="@id/nav_customer_selection">
+
+    <fragment
+        android:id="@+id/nav_customer_selection"
+        android:name="com.yizhenwind.booster.character.ui.create.customer.CustomerSelectionFragment"
+        android:label="@string/create_character_select_customer"
+        tools:layout="@layout/fragment_base_list_mvi">
+        <action
+            android:id="@+id/action_nav_customer_selection_to_nav_zone_selection"
+            app:destination="@id/nav_zone_selection"
+            app:enterAnim="@anim/anim_enter_right_to_lift"
+            app:exitAnim="@anim/anim_exit_right_to_lift"
+            app:popEnterAnim="@anim/anim_enter_lift_to_right"
+            app:popExitAnim="@anim/anim_exit_lift_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_zone_selection"
+        android:name="com.yizhenwind.booster.character.ui.create.zone.ZoneSelectionFragment"
+        android:label="@string/create_character_select_zone"
+        tools:layout="@layout/fragment_base_list_mvi">
+        <action
+            android:id="@+id/action_nav_zone_selection_to_nav_server_selection"
+            app:destination="@id/nav_server_selection"
+            app:enterAnim="@anim/anim_enter_right_to_lift"
+            app:exitAnim="@anim/anim_exit_right_to_lift"
+            app:popEnterAnim="@anim/anim_enter_lift_to_right"
+            app:popExitAnim="@anim/anim_exit_lift_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_server_selection"
+        android:name="com.yizhenwind.booster.character.ui.create.server.ServerSelectionFragment"
+        android:label="@string/create_character_select_server"
+        tools:layout="@layout/fragment_base_list_mvi">
+        <action
+            android:id="@+id/action_nav_server_selection_to_nav_account_input"
+            app:destination="@id/nav_account_input"
+            app:enterAnim="@anim/anim_enter_right_to_lift"
+            app:exitAnim="@anim/anim_exit_right_to_lift"
+            app:popEnterAnim="@anim/anim_enter_lift_to_right"
+            app:popExitAnim="@anim/anim_exit_lift_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_account_input"
+        android:name="com.yizhenwind.booster.character.ui.create.account.AccountInputFragment"
+        android:label="@string/create_character_account_input"
+        tools:layout="@layout/fragment_account_input">
+        <action
+            android:id="@+id/action_nav_account_input_to_nav_password_input"
+            app:destination="@id/nav_password_input"
+            app:enterAnim="@anim/anim_enter_right_to_lift"
+            app:exitAnim="@anim/anim_exit_right_to_lift"
+            app:popEnterAnim="@anim/anim_enter_lift_to_right"
+            app:popExitAnim="@anim/anim_exit_lift_to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_password_input"
+        android:name="com.yizhenwind.booster.character.ui.create.password.PasswordInputFragment"
+        android:label="@string/create_character_password_input"
+        tools:layout="@layout/fragment_password_input" />
+
+</navigation>

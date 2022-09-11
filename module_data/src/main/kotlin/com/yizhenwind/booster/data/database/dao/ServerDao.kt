@@ -12,7 +12,7 @@ import com.yizhenwind.booster.data.database.entity.ServerEntity
 @Dao
 interface ServerDao : IDao<ServerEntity> {
 
-    @Query("SELECT * FROM server WHERE zone_id = (SELECT zone_id FROM zone WHERE name = :zoneName)")
-    suspend fun getServerByZoneName(zoneName: String): List<ServerEntity>
+    @Query("SELECT * FROM server WHERE zone_id = :zoneId")
+    suspend fun getServerListByZoneId(zoneId: Long): List<ServerEntity>
 
 }

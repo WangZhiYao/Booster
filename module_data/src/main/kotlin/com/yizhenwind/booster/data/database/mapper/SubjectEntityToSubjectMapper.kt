@@ -12,13 +12,6 @@ import javax.inject.Inject
  */
 class SubjectEntityToSubjectMapper @Inject constructor() : IMapper<SubjectEntity, Subject> {
 
-    override fun map(input: SubjectEntity): Subject =
-        input.run {
-            Subject(
-                id,
-                categoryId,
-                content,
-                createTime
-            )
-        }
+    override fun invoke(input: SubjectEntity): Subject =
+        input.run { Subject(id, categoryId, content, createTime) }
 }

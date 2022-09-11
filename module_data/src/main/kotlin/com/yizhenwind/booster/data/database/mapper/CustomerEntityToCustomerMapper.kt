@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class CustomerEntityToCustomerMapper @Inject constructor() : IMapper<CustomerEntity, Customer> {
 
-    override fun map(input: CustomerEntity) =
+    override fun invoke(input: CustomerEntity) =
         input.run {
             Customer(
                 id,

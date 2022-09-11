@@ -11,7 +11,7 @@ import com.yizhenwind.booster.data.database.entity.ServerEntity
  */
 class ServerToServerEntityMapper(private val zone: Zone) : IMapper<Server, ServerEntity> {
 
-    override fun map(input: Server) =
+    override fun invoke(input: Server) =
         input.run { ServerEntity(id, zone.id, name) }
 
 }

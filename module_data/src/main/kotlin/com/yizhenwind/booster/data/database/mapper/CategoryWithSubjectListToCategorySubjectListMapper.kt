@@ -15,11 +15,11 @@ class CategoryWithSubjectListToCategorySubjectListMapper @Inject constructor(
     private val subjectEntityToSubjectMapper: SubjectEntityToSubjectMapper
 ) : IMapper<CategoryWithSubjectList, CategorySubjectList> {
 
-    override fun map(input: CategoryWithSubjectList) =
+    override fun invoke(input: CategoryWithSubjectList) =
         input.run {
             CategorySubjectList(
-                categoryEntityToCategoryMapper.map(category),
-                ListMapper(subjectEntityToSubjectMapper).map(subjectList)
+                categoryEntityToCategoryMapper(category),
+                ListMapper(subjectEntityToSubjectMapper)(subjectList)
             )
         }
 

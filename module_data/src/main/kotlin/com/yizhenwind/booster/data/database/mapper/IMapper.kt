@@ -7,5 +7,5 @@ package com.yizhenwind.booster.data.database.mapper
  */
 interface IMapper<in I, out O> {
 
-    fun map(input: I): O
+    operator fun invoke(input: I): O
 }

@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class ServerEntityToServerMapper @Inject constructor() : IMapper<ServerEntity, Server> {
 
-    override fun map(input: ServerEntity) =
+    override fun invoke(input: ServerEntity) =
         input.run { Server(id, name) }
 
 }

@@ -47,7 +47,7 @@ class CharacterRepository @Inject constructor(
             .flow
             .map { pagingData ->
                 pagingData.map {
-                    characterInfoToCharacterMapper.map(it)
+                    characterInfoToCharacterMapper(it)
                 }
             }
             .flowOn(dispatcher)
@@ -100,7 +100,7 @@ class CharacterRepository @Inject constructor(
                 characterId?.let { characterDao.getCharacterById(it) }
             }
             .map { characterInfo ->
-                characterInfo?.let { characterInfoToCharacterMapper.map(it) }
+                characterInfo?.let { characterInfoToCharacterMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -114,7 +114,7 @@ class CharacterRepository @Inject constructor(
             emit(characterDao.getCharacterById(characterId))
         }
             .map { characterInfo ->
-                characterInfo?.let { characterInfoToCharacterMapper.map(it) }
+                characterInfo?.let { characterInfoToCharacterMapper(it) }
             }
             .flowOn(dispatcher)
 
@@ -125,7 +125,7 @@ class CharacterRepository @Inject constructor(
      */
     fun deleteCharacter(character: Character): Flow<Boolean> =
         flow {
-            emit(characterDao.delete(characterToCharacterEntityMapper.map(character)))
+            emit(characterDao.delete(characterToCharacterEntityMapper(character)))
         }
             .catch {
                 emit(0)

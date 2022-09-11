@@ -3,7 +3,7 @@ package com.yizhenwind.booster.main.ui.customer
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.yizhenwind.booster.common.model.Customer
-import com.yizhenwind.booster.component.comparator.CustomerComparator
+import com.yizhenwind.booster.component.base.IDItemDiffCallback
 import com.yizhenwind.booster.component.ext.viewBinding
 import com.yizhenwind.booster.main.databinding.ItemCustomerBinding
 
@@ -13,7 +13,7 @@ import com.yizhenwind.booster.main.databinding.ItemCustomerBinding
  * @since 2021/11/12
  */
 class CustomerAdapter :
-    PagingDataAdapter<Customer, CustomerViewHolder>(CustomerComparator()) {
+    PagingDataAdapter<Customer, CustomerViewHolder>(IDItemDiffCallback(Customer::id)) {
 
     var onItemClickListener: ((Customer) -> Unit)? = null
     var onCreateCharacterClickListener: ((Customer) -> Unit)? = null

@@ -17,19 +17,19 @@ class CharacterInfoToCharacterMapper @Inject constructor(
     private val internalEntityToInternalMapper: InternalEntityToInternalMapper
 ) : IMapper<CharacterInfo, Character> {
 
-    override fun map(input: CharacterInfo) =
+    override fun invoke(input: CharacterInfo) =
         input.run {
             Character(
                 character.id,
                 character.customerId,
-                zoneEntityToZoneMapper.map(zoneEntity),
-                serverEntityToServerMapper.map(serverEntity),
+                zoneEntityToZoneMapper(zoneEntity),
+                serverEntityToServerMapper(serverEntity),
                 character.account,
                 character.password,
                 character.securityLock,
                 character.name,
-                sectEntityToSectMapper.map(sectEntity),
-                internalEntityToInternalMapper.map(internalEntity),
+                sectEntityToSectMapper(sectEntity),
+                internalEntityToInternalMapper(internalEntity),
                 character.remark,
                 character.createTime
             )

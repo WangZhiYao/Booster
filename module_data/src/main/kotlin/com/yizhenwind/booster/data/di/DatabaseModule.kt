@@ -2,13 +2,13 @@ package com.yizhenwind.booster.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.yizhenwind.booster.data.database.BoosterDatabase
+import com.yizhenwind.booster.data.database.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import com.yizhenwind.booster.data.database.BoosterDatabase
-import com.yizhenwind.booster.data.database.dao.*
 import javax.inject.Singleton
 
 /**

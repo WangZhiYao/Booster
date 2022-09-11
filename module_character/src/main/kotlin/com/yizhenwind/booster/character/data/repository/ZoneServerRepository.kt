@@ -1,20 +1,21 @@
 package com.yizhenwind.booster.character.data.repository
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.*
+import com.yizhenwind.booster.common.constant.PreferencesKey
+import com.yizhenwind.booster.common.model.Server
+import com.yizhenwind.booster.common.model.Zone
 import com.yizhenwind.booster.common.model.ZoneServer
 import com.yizhenwind.booster.common.model.ZoneServerList
-import com.yizhenwind.booster.common.constant.PreferencesKey
 import com.yizhenwind.booster.data.database.dao.ServerDao
 import com.yizhenwind.booster.data.database.dao.ZoneDao
-import com.yizhenwind.booster.data.database.mapper.ServerToServerEntityMapper
-import com.yizhenwind.booster.data.database.mapper.ZoneToZoneEntityMapper
-import com.yizhenwind.booster.data.database.mapper.ZoneWithServerListToZoneServerMapper
+import com.yizhenwind.booster.data.database.entity.ServerEntity
+import com.yizhenwind.booster.data.database.entity.ZoneEntity
+import com.yizhenwind.booster.data.database.mapper.*
 import com.yizhenwind.booster.data.datastore.DataStoreService
 import com.yizhenwind.booster.data.network.BoosterService
 import com.yizhenwind.booster.data.repository.IRepository
 import com.yizhenwind.booster.infra.di.qualifier.IODispatcher
-import timber.log.Timber
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -29,6 +30,7 @@ class ZoneServerRepository @Inject constructor(
     private val serverDao: ServerDao,
     private val zoneWithServerListToZoneServerMapper: ZoneWithServerListToZoneServerMapper,
     private val zoneToZoneEntityMapper: ZoneToZoneEntityMapper,
+    private val serverEntityToServerMapper: ServerEntityToServerMapper,
     private val boosterService: BoosterService,
     @IODispatcher private val dispatcher: CoroutineDispatcher
 ) : IRepository {
@@ -53,22 +55,38 @@ class ZoneServerRepository @Inject constructor(
             .onStart {
                 emit(
                     zoneDao.getZoneWithServerList().map {
-                        zoneWithServerListToZoneServerMapper.map(it)
+                        zoneWithServerListToZoneServerMapper(it)
                     }
                 )
             }
-            .catch {
-                Timber.e(it)
+            .flowOn(dispatcher)
+
+    fun getServerByZone(zone: Zone): Flow<List<Server>> =
+        flow {
+            emit(serverDao.getServerListByZoneId(zone.id))
+        }
+            .map {
+                ListMapper(serverEntityToServerMapper)(it)
             }
             .flowOn(dispatcher)
 
     private suspend fun updateLocalZoneServer(zoneServerList: ZoneServerList) {
+        val zoneEntityList = ArrayList<ZoneEntity>()
+        val serverEntityList = ArrayList<ServerEntity>()
+
         zoneServerList.zoneServerList.forEach { zoneServer ->
-            zoneDao.insertReplace(zoneToZoneEntityMapper.map(zoneServer.zone))
-            serverDao.insertBatchReplace(zoneServer.serverList.map { server ->
-                ServerToServerEntityMapper(zoneServer.zone).map(server)
-            })
+            zoneServer.apply {
+                zoneEntityList.add(zoneToZoneEntityMapper(zone))
+                serverEntityList.addAll(
+                    serverList.map { server ->
+                        ServerToServerEntityMapper(zone)(server)
+                    }
+                )
+            }
         }
+
+        zoneDao.insertBatchReplace(zoneEntityList)
+        serverDao.insertBatchReplace(serverEntityList)
 
         dataStoreService.setInt(PreferencesKey.VERSION_ZONE_SERVER, zoneServerList.version)
     }

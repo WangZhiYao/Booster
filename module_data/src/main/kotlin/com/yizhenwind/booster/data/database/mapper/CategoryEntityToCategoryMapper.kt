@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class CategoryEntityToCategoryMapper @Inject constructor() : IMapper<CategoryEntity, Category> {
 
-    override fun map(input: CategoryEntity) =
+    override fun invoke(input: CategoryEntity): Category =
         input.run { Category(id, title, description, createTime) }
 
 }

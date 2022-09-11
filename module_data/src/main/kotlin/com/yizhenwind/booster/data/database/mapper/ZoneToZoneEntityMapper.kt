@@ -11,7 +11,7 @@ import javax.inject.Inject
  */
 class ZoneToZoneEntityMapper @Inject constructor() : IMapper<Zone, ZoneEntity> {
 
-    override fun map(input: Zone) =
+    override fun invoke(input: Zone) =
         input.run { ZoneEntity(id, name) }
 
 }
