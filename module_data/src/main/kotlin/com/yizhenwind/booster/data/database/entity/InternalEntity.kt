@@ -39,5 +39,11 @@ data class InternalEntity(
     /**
      * 心法名
      */
-    val name: String
+    val name: String,
+
+    /**
+     * 图标
+     */
+    @ColumnInfo(name = "icon_url")
+    val iconUrl: String
 )

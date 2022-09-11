@@ -18,7 +18,7 @@ data class ZoneEntity(
     val id: Long,
 
     /**
-     * 门派名
+     * 大区名
      */
     val name: String
 )

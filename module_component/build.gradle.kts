@@ -82,7 +82,12 @@ dependencies {
     // Biometric
     api("androidx.biometric:biometric:1.2.0-alpha04")
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.43.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.43.2")
+
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.13.2")
+    api("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.2")
     kapt("com.github.bumptech.glide:compiler:4.13.2")
 }

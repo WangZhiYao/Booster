@@ -1,5 +1,6 @@
 package com.yizhenwind.booster.data.database.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -20,5 +21,11 @@ data class SectEntity(
     /**
      * 门派名
      */
-    val name: String
+    val name: String,
+
+    /**
+     * 图标
+     */
+    @ColumnInfo(name = "icon_url")
+    val iconUrl: String
 )
