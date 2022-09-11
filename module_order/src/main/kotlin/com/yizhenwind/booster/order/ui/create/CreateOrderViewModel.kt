@@ -40,6 +40,7 @@ class CreateOrderViewModel @Inject constructor(
         intent {
             customerService.getCustomerWithCharacterList()
                 .combine(getBillingCycleListUseCase()) { customerCharacterList, billingCycleList ->
+                    this@CreateOrderViewModel.customerCharacterList.addAll(customerCharacterList)
                     CreateOrderViewState.Init(
                         customerCharacterList = customerCharacterList,
                         billingCycleList = billingCycleList
@@ -56,8 +57,10 @@ class CreateOrderViewModel @Inject constructor(
     fun onCustomerSelected(customer: Customer) {
         intent {
             this@CreateOrderViewModel.customer = customer
+
             reduce {
-                CreateOrderViewState.OnCustomerSelected(
+
+            CreateOrderViewState.OnCustomerSelected(
                     customerCharacterList.first { it.customer == customer }.characterList
                 )
             }
