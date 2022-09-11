@@ -53,7 +53,7 @@ dependencies {
     api(project(":module_common"))
 
     // Android X
-    api("androidx.core:core-ktx:1.8.0")
+    api("androidx.core:core-ktx:1.9.0")
     api("androidx.appcompat:appcompat:1.5.0")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
 
