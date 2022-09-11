@@ -69,8 +69,8 @@ dependencies {
     api("androidx.fragment:fragment-ktx:1.5.2")
 
     // Navigation
-    api("androidx.navigation:navigation-fragment-ktx:2.5.1")
-    api("androidx.navigation:navigation-ui-ktx:2.5.1")
+    api("androidx.navigation:navigation-fragment-ktx:2.5.2")
+    api("androidx.navigation:navigation-ui-ktx:2.5.2")
 
     // MVI
     api("org.orbit-mvi:orbit-viewmodel:4.3.2")
