@@ -257,7 +257,7 @@ class CreateCharacterActivity :
             val remark = tietCreateCharacterRemark.text?.toString()
 
             viewModel.attemptCreateCharacter(
-                /*viewModel.customer?.id*/0,
+                viewModel.customer?.id,
                 zone,
                 server,
                 account,

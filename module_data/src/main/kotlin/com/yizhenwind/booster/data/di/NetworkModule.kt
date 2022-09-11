@@ -1,6 +1,8 @@
 package com.yizhenwind.booster.data.di
 
 import com.squareup.moshi.Moshi
+import com.yizhenwind.booster.data.network.BoosterService
+import com.yizhenwind.booster.data.network.interceptor.RefererInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import com.yizhenwind.booster.data.network.BoosterService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -34,6 +35,7 @@ object NetworkModule {
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(RefererInterceptor())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 

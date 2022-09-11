@@ -14,5 +14,6 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class Internal(
     val id: Long,
-    val name: String
+    val name: String,
+    val iconUrl: String
 ) : Parcelable

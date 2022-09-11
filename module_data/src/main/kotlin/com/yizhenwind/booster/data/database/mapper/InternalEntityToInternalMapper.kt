@@ -10,9 +10,9 @@ import javax.inject.Inject
  * @author WangZhiYao
  * @since 2022/4/22
  */
-class InternalEntityToInternalMapper @Inject constructor(): IMapper<InternalEntity, Internal> {
+class InternalEntityToInternalMapper @Inject constructor() : IMapper<InternalEntity, Internal> {
 
     override fun map(input: InternalEntity) =
-        input.run { Internal(id, name) }
+        input.run { Internal(id, name, iconUrl) }
 
 }
