@@ -1,14 +1,15 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -53,8 +54,8 @@ dependencies {
     api(project(":module_common"))
 
     // Android X
-    api("androidx.core:core-ktx:1.8.0")
-    api("androidx.appcompat:appcompat:1.5.0")
+    api("androidx.core:core-ktx:1.9.0")
+    api("androidx.appcompat:appcompat:1.5.1")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Material
@@ -69,8 +70,8 @@ dependencies {
     api("androidx.fragment:fragment-ktx:1.5.2")
 
     // Navigation
-    api("androidx.navigation:navigation-fragment-ktx:2.5.1")
-    api("androidx.navigation:navigation-ui-ktx:2.5.1")
+    api("androidx.navigation:navigation-fragment-ktx:2.5.2")
+    api("androidx.navigation:navigation-ui-ktx:2.5.2")
 
     // MVI
     api("org.orbit-mvi:orbit-viewmodel:4.3.2")
@@ -81,4 +82,12 @@ dependencies {
     // Biometric
     api("androidx.biometric:biometric:1.2.0-alpha04")
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.43.2")
+    kapt("com.google.dagger:hilt-android-compiler:2.43.2")
+
+    // Glide
+    api("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.13.2")
+    kapt("com.github.bumptech.glide:compiler:4.13.2")
 }

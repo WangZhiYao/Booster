@@ -4,6 +4,7 @@ import androidx.core.view.isVisible
 import com.yizhenwind.booster.common.model.Character
 import com.yizhenwind.booster.component.base.BaseViewHolder
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
+import com.yizhenwind.booster.component.util.glide.GlideApp
 import com.yizhenwind.booster.customer.databinding.ItemCustomerCharacterBinding
 
 /**
@@ -22,6 +23,11 @@ class CustomerCharacterViewHolder(
     override fun bind(data: Character) {
         binding.apply {
             data.apply {
+
+                GlideApp.with(ivCharacterInternal)
+                    .load(data.internal.iconUrl)
+                    .into(ivCharacterInternal)
+
                 tvCharacterSect.text = sect.name
                 tvCharacterName.text = name
                 tvCharacterZone.text = zone.name
@@ -31,7 +37,7 @@ class CustomerCharacterViewHolder(
                     text = remark
                 }
 
-                cvCharacter.setIntervalClickListener { onCharacterClickListener?.invoke() }
+                root.setIntervalClickListener { onCharacterClickListener?.invoke() }
                 btnCharacterCreateOrder.setIntervalClickListener { onCreateOrderClickListener?.invoke() }
             }
         }

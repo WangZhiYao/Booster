@@ -13,6 +13,6 @@ import javax.inject.Inject
 class SectEntityToSectMapper @Inject constructor() : IMapper<SectEntity, Sect> {
 
     override fun map(input: SectEntity) =
-        input.run { Sect(id, name) }
+        input.run { Sect(id, name, iconUrl) }
 
 }

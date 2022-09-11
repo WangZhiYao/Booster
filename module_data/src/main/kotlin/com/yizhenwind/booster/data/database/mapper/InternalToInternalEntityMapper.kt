@@ -12,5 +12,5 @@ import com.yizhenwind.booster.data.database.entity.InternalEntity
 class InternalToInternalEntityMapper(private val sect: Sect) : IMapper<Internal, InternalEntity> {
 
     override fun map(input: Internal) =
-        input.run { InternalEntity(id, sect.id, name) }
+        input.run { InternalEntity(id, sect.id, name, iconUrl) }
 }
