@@ -9,7 +9,9 @@ import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yizhenwind.booster.character.databinding.ActivityCreateCharacterBinding
+import com.yizhenwind.booster.common.constant.Constant
 import com.yizhenwind.booster.common.ext.blankThenNull
+import com.yizhenwind.booster.common.ext.findFirstOrFirst
 import com.yizhenwind.booster.component.base.BaseMVIActivity
 import com.yizhenwind.booster.component.ext.activityArgs
 import com.yizhenwind.booster.component.ext.setIntervalClickListener
@@ -73,7 +75,7 @@ class CreateCharacterActivity :
             }
 
             actvCreateCharacterCustomer.setOnItemClickListener { _, _, position, _ ->
-                viewModel.onCustomerSelected(customerAdapter.getItem(position))
+                viewModel.customer = customerAdapter.getItem(position)
             }
 
             actvCreateCharacterZone.apply {
@@ -131,13 +133,13 @@ class CreateCharacterActivity :
 
     private fun initData() {
         viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-        args.customer?.let { viewModel.onCustomerSelected(it) }
+        args.customer?.let { viewModel.customer = it }
     }
 
     override fun render(state: CreateCharacterViewState) {
         when (state) {
             is CreateCharacterViewState.CreateCharacterSuccess -> {
-                /*viewModel.customer?.let { customer ->
+                viewModel.customer?.let { customer ->
                     if (args.openDetailAfterCreateSuccess) {
                         customerService.launchCustomerTab(
                             this,
@@ -145,22 +147,22 @@ class CreateCharacterActivity :
                             Constant.CustomerTab.INDEX_CHARACTER
                         )
                     }
-                }*/
+                }
                 finish()
             }
             is CreateCharacterViewState.Init -> {
                 state.apply {
                     customerList.let {
                         customerAdapter = CustomerAdapter(this@CreateCharacterActivity, it)
-                        /*val customer = it.findFirstOrFirst { customer ->
-                            customer.id == this@CreateCharacterActivity.customer?.id
+                        val customer = it.findFirstOrFirst { customer ->
+                            customer.id == viewModel.customer?.id
                         }
 
                         binding.actvCreateCharacterCustomer.apply {
                             setAdapter(customerAdapter)
                             text = null
                             setText(customer?.name, false)
-                        }*/
+                        }
                     }
 
                     zoneAdapter.apply {
@@ -173,9 +175,6 @@ class CreateCharacterActivity :
                         addAll(sectInternalList.map { it.sect.name })
                     }
                 }
-            }
-            is CreateCharacterViewState.OnCustomerSelected -> {
-
             }
             is CreateCharacterViewState.OnZoneSelected -> {
                 serverAdapter.apply {

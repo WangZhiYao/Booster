@@ -18,7 +18,7 @@ data class CreateCharacterArgs(
 ) : IActivityArgs {
 
     override fun intent(context: Context): Intent =
-        Intent(context, CreateCharacterActivity2::class.java).apply {
+        Intent(context, CreateCharacterActivity::class.java).apply {
             putExtra(IntentKey.CUSTOMER, customer)
             putExtra(IntentKey.OPEN_DETAIL_AFTER_CREATE_SUCCESS, openDetailAfterCreateSuccess)
         }
