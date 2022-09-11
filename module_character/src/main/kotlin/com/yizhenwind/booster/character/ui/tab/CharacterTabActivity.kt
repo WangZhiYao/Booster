@@ -79,14 +79,18 @@ class CharacterTabActivity : BaseTabMVIActivity<CharacterTabViewState, Character
     override fun getPageTitle(): String = args.character.name
 
     override fun getTabTitleList(): List<Int> =
-        listOf(R.string.character_info_detail, R.string.character_info_order)
-
-    override fun getFragmentList(): List<Fragment> = args.run {
         listOf(
-            CharacterDetailArgs(character).newInstance(),
-            CharacterOrderArgs(character.id).newInstance()
+            R.string.character_tab_detail,
+            R.string.character_tab_order
         )
-    }
+
+    override fun getFragmentList(): List<Fragment> =
+        args.run {
+            listOf(
+                CharacterDetailArgs(character).newInstance(),
+                CharacterOrderArgs(character.id).newInstance()
+            )
+        }
 
     override fun handleSideEffect(sideEffect: CharacterTabSideEffect) {
         when (sideEffect) {

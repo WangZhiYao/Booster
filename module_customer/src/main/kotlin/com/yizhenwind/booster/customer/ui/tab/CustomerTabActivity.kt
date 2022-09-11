@@ -81,19 +81,21 @@ class CustomerTabActivity :
 
     override fun getPageTitle(): String = args.customer.name
 
-    override fun getTabTitleList(): List<Int> = listOf(
-        R.string.customer_info_detail,
-        R.string.customer_info_character,
-        R.string.customer_info_order
-    )
-
-    override fun getFragmentList(): List<Fragment> = args.run {
+    override fun getTabTitleList(): List<Int> =
         listOf(
-            CustomerDetailArgs(customer).newInstance(),
-            CustomerCharacterArgs(customer.id).newInstance(),
-            CustomerOrderArgs(customer.id).newInstance()
+            R.string.customer_tab_detail,
+            R.string.customer_tab_character,
+            R.string.customer_tab_order
         )
-    }
+
+    override fun getFragmentList(): List<Fragment> =
+        args.run {
+            listOf(
+                CustomerDetailArgs(customer).newInstance(),
+                CustomerCharacterArgs(customer.id).newInstance(),
+                CustomerOrderArgs(customer.id).newInstance()
+            )
+        }
 
     override fun handleSideEffect(sideEffect: CustomerTabSideEffect) {
         when (sideEffect) {

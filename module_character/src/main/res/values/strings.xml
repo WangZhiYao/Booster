@@ -14,8 +14,8 @@
     <string name="create_character_remark">备注</string>
     <string name="create_character_success">创建角色成功</string>
 
-    <string name="character_info_detail">详细信息</string>
-    <string name="character_info_order">订单</string>
+    <string name="character_tab_detail">详细信息</string>
+    <string name="character_tab_order">订单</string>
 
     <string name="character_detail_zone">大区</string>
     <string name="character_detail_server">服务器</string>

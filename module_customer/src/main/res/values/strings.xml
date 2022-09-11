@@ -10,9 +10,9 @@
     <string name="create_customer_success">创建客户成功</string>
     <string name="create_customer_jump_to_detail">去创建角色/订单</string>
 
-    <string name="customer_info_detail">详细信息</string>
-    <string name="customer_info_character">角色</string>
-    <string name="customer_info_order">订单</string>
+    <string name="customer_tab_detail">详细信息</string>
+    <string name="customer_tab_character">角色</string>
+    <string name="customer_tab_order">订单</string>
 
     <string name="customer_detail_name">客户名</string>
     <string name="customer_detail_contact_type">联系方式类型</string>
