@@ -15,7 +15,6 @@ class CustomerViewHolder(
     private val binding: ItemCustomerBinding
 ) : BaseViewHolder<Customer>(binding.root) {
 
-    var onItemClickListener: (() -> Unit)? = null
     var onCreateCharacterClickListener: (() -> Unit)? = null
     var onCreateOrderClickListener: (() -> Unit)? = null
 
@@ -36,7 +35,7 @@ class CustomerViewHolder(
                 }
             }
 
-            cvCustomer.setIntervalClickListener { onItemClickListener?.invoke() }
+            root.setIntervalClickListener { onItemClickListener?.invoke(data) }
             btnCustomerCreateCharacter.setIntervalClickListener { onCreateCharacterClickListener?.invoke() }
             btnCustomerCreateOrder.setIntervalClickListener { onCreateOrderClickListener?.invoke() }
         }
