@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TextLabelView">
-        <attr name="title" format="string" />
-        <attr name="titleTextSize" format="dimension" />
-        <attr name="titleTextColor" format="color" />
-        <attr name="titleMaxLines" format="integer" />
-        <attr name="titleMinLines" format="integer" />
-        <attr name="titleEllipsize" format="enum">
+    <declare-styleable name="HeadlineView">
+        <attr name="headline" format="string" />
+        <attr name="headlineTextSize" format="dimension" />
+        <attr name="headlineTextColor" format="color" />
+        <attr name="headlineMaxLines" format="integer" />
+        <attr name="headlineMinLines" format="integer" />
+        <attr name="headlineEllipsize" format="enum">
             <enum name="none" value="0" />
             <enum name="start" value="1" />
             <enum name="middle" value="2" />
@@ -14,12 +14,12 @@
             <enum name="marquee" value="4" />
         </attr>
 
-        <attr name="content" format="string" />
-        <attr name="contentTextSize" format="dimension" />
-        <attr name="contentTextColor" format="color" />
-        <attr name="contentMaxLines" format="integer" />
-        <attr name="contentMinLines" format="integer" />
-        <attr name="contentEllipsize" format="enum">
+        <attr name="detail" format="string" />
+        <attr name="detailTextSize" format="dimension" />
+        <attr name="detailTextColor" format="color" />
+        <attr name="detailMaxLines" format="integer" />
+        <attr name="detailMinLines" format="integer" />
+        <attr name="detailEllipsize" format="enum">
             <enum name="none" value="0" />
             <enum name="start" value="1" />
             <enum name="middle" value="2" />

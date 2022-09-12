@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import com.yizhenwind.booster.common.ext.sp
 import com.yizhenwind.booster.component.R
-import com.yizhenwind.booster.component.databinding.LayoutTextLabelViewBinding
+import com.yizhenwind.booster.component.databinding.LayoutHeadlineViewBinding
 import com.yizhenwind.booster.component.ext.viewBinding
 
 /**
@@ -18,119 +18,119 @@ import com.yizhenwind.booster.component.ext.viewBinding
  * @author WangZhiYao
  * @since 2022/9/11
  */
-class TextLabelView @JvmOverloads constructor(
+class HeadlineView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private val binding = viewBinding(LayoutTextLabelViewBinding::inflate, attachToParent = true)
+    private val binding = viewBinding(LayoutHeadlineViewBinding::inflate, attachToParent = true)
 
     var title: CharSequence?
-        get() = binding.tvTextLabelTitle.text
+        get() = binding.tvHeadline.text
         set(value) {
-            binding.tvTextLabelTitle.text = value
+            binding.tvHeadline.text = value
         }
 
     var titleTextSize: Float
-        get() = binding.tvTextLabelTitle.textSize
+        get() = binding.tvHeadline.textSize
         set(value) {
-            binding.tvTextLabelTitle.textSize = value
+            binding.tvHeadline.textSize = value
         }
 
     var titleMaxLines: Int
-        get() = binding.tvTextLabelTitle.maxLines
+        get() = binding.tvHeadline.maxLines
         set(value) {
-            binding.tvTextLabelTitle.maxLines = value
+            binding.tvHeadline.maxLines = value
         }
 
     var titleMinLines: Int
-        get() = binding.tvTextLabelTitle.minLines
+        get() = binding.tvHeadline.minLines
         set(value) {
-            binding.tvTextLabelTitle.minLines = value
+            binding.tvHeadline.minLines = value
         }
 
     var titleEllipsize: TextUtils.TruncateAt?
-        get() = binding.tvTextLabelTitle.ellipsize
+        get() = binding.tvHeadline.ellipsize
         set(value) {
-            binding.tvTextLabelTitle.ellipsize = value
+            binding.tvHeadline.ellipsize = value
         }
 
     var content: CharSequence?
-        get() = binding.tvTextLabelContent.text
+        get() = binding.tvDetail.text
         set(value) {
-            binding.tvTextLabelContent.text = value
+            binding.tvDetail.text = value
         }
 
     var contentTextSize: Float
-        get() = binding.tvTextLabelContent.textSize
+        get() = binding.tvDetail.textSize
         set(value) {
-            binding.tvTextLabelContent.textSize = value
+            binding.tvDetail.textSize = value
         }
 
     var contentMaxLines: Int
-        get() = binding.tvTextLabelContent.maxLines
+        get() = binding.tvDetail.maxLines
         set(value) {
-            binding.tvTextLabelContent.maxLines = value
+            binding.tvDetail.maxLines = value
         }
 
     var contentMinLines: Int
-        get() = binding.tvTextLabelContent.minLines
+        get() = binding.tvDetail.minLines
         set(value) {
-            binding.tvTextLabelContent.minLines = value
+            binding.tvDetail.minLines = value
         }
 
     var contentEllipsize: TextUtils.TruncateAt?
-        get() = binding.tvTextLabelContent.ellipsize
+        get() = binding.tvDetail.ellipsize
         set(value) {
-            binding.tvTextLabelContent.ellipsize = value
+            binding.tvDetail.ellipsize = value
         }
 
     init {
-        context.obtainStyledAttributes(attrs, R.styleable.TextLabelView).use { ta ->
+        context.obtainStyledAttributes(attrs, R.styleable.HeadlineView).use { ta ->
             ta.apply {
                 binding.apply {
-                    tvTextLabelTitle.apply {
-                        text = getString(R.styleable.TextLabelView_title)
+                    tvHeadline.apply {
+                        text = getString(R.styleable.HeadlineView_headline)
                         setTextSize(
                             TypedValue.COMPLEX_UNIT_PX,
                             getDimensionPixelSize(
-                                R.styleable.TextLabelView_titleTextSize,
+                                R.styleable.HeadlineView_headlineTextSize,
                                 18f.sp.toInt()
                             ).toFloat()
                         )
                         setTextColor(
                             getColor(
-                                R.styleable.TextLabelView_titleTextColor,
+                                R.styleable.HeadlineView_headlineTextColor,
                                 ContextCompat.getColor(context, R.color.color_text_secondary)
                             )
                         )
                         maxLines =
-                            getInteger(R.styleable.TextLabelView_titleMaxLines, Int.MAX_VALUE)
-                        minLines = getInteger(R.styleable.TextLabelView_titleMinLines, 0)
+                            getInteger(R.styleable.HeadlineView_headlineMaxLines, Int.MAX_VALUE)
+                        minLines = getInteger(R.styleable.HeadlineView_headlineMinLines, 0)
                         ellipsize =
-                            getEllipsize(getInt(R.styleable.TextLabelView_titleEllipsize, 0))
+                            getEllipsize(getInt(R.styleable.HeadlineView_headlineEllipsize, 0))
                     }
 
-                    tvTextLabelContent.apply {
-                        text = getString(R.styleable.TextLabelView_content)
+                    tvDetail.apply {
+                        text = getString(R.styleable.HeadlineView_detail)
                         setTextSize(
                             TypedValue.COMPLEX_UNIT_PX, getDimensionPixelSize(
-                                R.styleable.TextLabelView_contentTextSize,
+                                R.styleable.HeadlineView_detailTextSize,
                                 14f.sp.toInt()
                             ).toFloat()
                         )
                         setTextColor(
                             getColor(
-                                R.styleable.TextLabelView_contentTextColor,
+                                R.styleable.HeadlineView_detailTextColor,
                                 ContextCompat.getColor(context, R.color.color_text_primary)
                             )
                         )
                         maxLines =
-                            getInteger(R.styleable.TextLabelView_contentMaxLines, Int.MAX_VALUE)
-                        minLines = getInteger(R.styleable.TextLabelView_contentMinLines, 0)
+                            getInteger(R.styleable.HeadlineView_detailMaxLines, Int.MAX_VALUE)
+                        minLines = getInteger(R.styleable.HeadlineView_detailMinLines, 0)
                         ellipsize =
-                            getEllipsize(getInt(R.styleable.TextLabelView_contentEllipsize, 0))
+                            getEllipsize(getInt(R.styleable.HeadlineView_detailEllipsize, 0))
                     }
                 }
             }
@@ -145,5 +145,4 @@ class TextLabelView @JvmOverloads constructor(
         4 -> TextUtils.TruncateAt.MARQUEE
         else -> null
     }
-
 }
