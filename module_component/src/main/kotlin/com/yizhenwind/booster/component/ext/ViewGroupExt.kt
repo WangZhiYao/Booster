@@ -12,10 +12,9 @@ import androidx.viewbinding.ViewBinding
  * @since 2021/11/12
  */
 inline fun <T : ViewBinding> ViewGroup.viewBinding(
-    crossinline viewBindingFactory: (LayoutInflater, ViewGroup, Boolean) -> T,
+    crossinline inflater: (LayoutInflater, ViewGroup, Boolean) -> T,
     attachToParent: Boolean = false
-) =
-    viewBindingFactory.invoke(LayoutInflater.from(context), this, attachToParent)
+) = inflater.invoke(LayoutInflater.from(context), this, attachToParent)
 
 fun ViewGroup.inflate(@LayoutRes resourceId: Int, attachToParent: Boolean = false): View =
     LayoutInflater.from(context).inflate(resourceId, this, attachToParent)
