@@ -12,6 +12,15 @@
     <string name="create_order_end_date">结束时间*</string>
     <string name="create_order_remark">备注</string>
 
+    <string name="category_tab_detail">详细信息</string>
+    <string name="category_tab_subject">项目</string>
+
+    <string name="category_detail_title">标题</string>
+    <string name="category_detail_description">说明</string>
+    <string name="category_detail_create_time">创建时间</string>
+
+    <string name="category_subject_create_order">创建订单</string>
+
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
 
