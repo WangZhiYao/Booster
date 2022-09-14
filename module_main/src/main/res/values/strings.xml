@@ -16,8 +16,8 @@
     <string name="item_customer_add_character">创建角色</string>
     <string name="item_customer_create_order">新建订单</string>
 
-    <string name="item_customer_character_contact_prefix">联系方式：%s %s</string>
-    <string name="item_customer_character_remark_prefix">备注：%s</string>
+    <string name="item_customer_character_contact_prefix">联系方式: %1$s %2$s</string>
+    <string name="item_customer_character_remark_prefix">备注: %s</string>
     <string name="item_customer_character_remark_empty">无</string>
 
 </resources>
