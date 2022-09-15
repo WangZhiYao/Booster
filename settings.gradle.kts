@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("./plugin")
     repositories {
         gradlePluginPortal()
         google()
@@ -26,7 +27,6 @@ include(":module_customer")
 include(":module_character")
 include(":module_order")
 
-includeBuild("./plugin")
 include(":core:ui")
 include(":core:common")
 include(":core:model")
@@ -39,5 +39,8 @@ include(":feature:customer")
 include(":feature:character")
 include(":feature:zone")
 include(":feature:server")
+include(":feature:sect")
+include(":feature:internal")
 include(":feature:order")
 include(":feature:category")
+include(":feature:home")
