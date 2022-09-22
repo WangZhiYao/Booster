@@ -20,15 +20,15 @@ class CharacterDetailFragment :
     override fun initPage() {
         binding.apply {
             args.character.apply {
-                tvCharacterDetailZone.text = zone.name
-                tvCharacterDetailServer.text = server.name
-                tvCharacterDetailSect.text = sect.name
-                tvCharacterDetailInternal.text = internal.name
-                tvCharacterDetailAccount.text = account
-                tvCharacterDetailPassword.text = password
-                tvCharacterDetailSecurityLock.text = securityLock
-                tvCharacterDetailRemark.text = remark
-                tvCharacterDetailCreateTime.text = createTime.formatToDateTime()
+                hlvCharacterDetailZone.content = zone.name
+                hlvCharacterDetailServer.content = server.name
+                hlvCharacterDetailSect.content = sect.name
+                hlvCharacterDetailInternal.content = internal.name
+                hlvCharacterDetailAccount.content = account
+                hlvCharacterDetailPassword.content = password
+                hlvCharacterDetailSecurityLock.content = securityLock
+                hlvCharacterDetailRemark.content = remark
+                hlvCharacterDetailCreateTime.content = createTime.formatToDateTime()
             }
         }
     }

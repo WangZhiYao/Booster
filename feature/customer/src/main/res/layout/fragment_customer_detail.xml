@@ -1,139 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_customer_detail_name_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_customer_detail_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_detail_name"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:headline="@string/customer_detail_name" />
 
-    <TextView
-        android:id="@+id/tv_customer_detail_name"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_customer_detail_contact_type"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/color_text_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_name_title"
-        tools:text="339" />
+        app:headline="@string/customer_detail_contact_type" />
 
-    <TextView
-        android:id="@+id/tv_customer_detail_contact_type_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_customer_detail_contact"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_detail_contact_type"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_name" />
+        app:headline="@string/customer_detail_contact" />
 
-    <TextView
-        android:id="@+id/tv_customer_detail_contact_type"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_customer_detail_remark"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_contact_type_title"
-        tools:text="QQ" />
+        app:headline="@string/customer_detail_remark" />
 
-    <TextView
-        android:id="@+id/tv_customer_detail_contact_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_customer_detail_create_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_detail_contact"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_contact_type" />
+        app:headline="@string/customer_detail_create_time" />
 
-    <TextView
-        android:id="@+id/tv_customer_detail_contact"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_contact_title"
-        tools:text="苍云" />
-
-    <TextView
-        android:id="@+id/tv_customer_detail_remark_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_detail_remark"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_contact" />
-
-    <TextView
-        android:id="@+id/tv_customer_detail_remark"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_remark_title"
-        tools:text="备注" />
-
-    <TextView
-        android:id="@+id/tv_customer_detail_create_time_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/customer_detail_create_time"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_remark" />
-
-    <TextView
-        android:id="@+id/tv_customer_detail_create_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_customer_detail_create_time_title"
-        tools:text="备注" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

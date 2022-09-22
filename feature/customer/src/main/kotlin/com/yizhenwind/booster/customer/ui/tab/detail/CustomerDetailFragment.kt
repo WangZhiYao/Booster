@@ -19,11 +19,11 @@ class CustomerDetailFragment :
     override fun initPage() {
         binding.apply {
             args.customer.apply {
-                tvCustomerDetailName.text = name
-                tvCustomerDetailContactType.text = contactType.value
-                tvCustomerDetailContact.text = contact
-                tvCustomerDetailRemark.text = remark
-                tvCustomerDetailCreateTime.text = createTime.formatToDateTime()
+                hlvCustomerDetailName.content = name
+                hlvCustomerDetailContactType.content = contactType.value
+                hlvCustomerDetailContact.content = contact
+                hlvCustomerDetailRemark.content = remark
+                hlvCustomerDetailCreateTime.content = createTime.formatToDateTime()
             }
         }
     }

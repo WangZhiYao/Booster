@@ -1,243 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_character_detail_zone_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_zone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_zone"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:headline="@string/character_detail_zone" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_zone"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_server"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/color_text_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_zone_title"
-        tools:text="电信五区" />
+        app:headline="@string/character_detail_server" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_server_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_sect"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_server"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_zone" />
+        app:headline="@string/character_detail_sect" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_server"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_internal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_server_title"
-        tools:text="唯我独尊" />
+        app:headline="@string/character_detail_internal" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_sect_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_account"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_sect"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_server" />
+        app:headline="@string/character_detail_account" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_sect"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_sect_title"
-        tools:text="苍云" />
+        app:headline="@string/character_detail_password" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_internal_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_security_lock"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_internal"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_sect" />
+        app:headline="@string/character_detail_security_lock" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_internal"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_remark"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_internal_title"
-        tools:text="分山劲" />
+        app:headline="@string/character_detail_remark" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_account_title"
-        android:layout_width="0dp"
+    <com.yizhenwind.booster.framework.widget.HeadlineView
+        android:id="@+id/hlv_character_detail_create_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_account"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_internal" />
+        app:headline="@string/character_detail_create_time" />
 
-    <TextView
-        android:id="@+id/tv_character_detail_account"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_account_title"
-        tools:text="339@339.im" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_password_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_password"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_account" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_password_title"
-        tools:text="12345678" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_security_lock_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_security_lock"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_password" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_security_lock"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock_title"
-        tools:text="123456" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_remark_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_remark"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_security_lock" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_remark"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_remark_title"
-        tools:text="123456" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_create_time_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/character_detail_create_time"
-        android:textColor="@color/color_text_secondary"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_remark" />
-
-    <TextView
-        android:id="@+id/tv_character_detail_create_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_detail_create_time_title"
-        tools:text="123456" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
