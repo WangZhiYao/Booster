@@ -5,11 +5,10 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    id("kotlin-parcelize")
     id("com.yizhenwind.plugin.version")
     id("com.yizhenwind.plugin.dependencies")
 }
-
 
 android {
     compileSdk = Version.compileSdk
@@ -48,6 +47,10 @@ dependencies {
     androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
     androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
-    implementation(Dependency.Google.HILT)
-    kapt(Dependency.Google.HILT_COMPILER)
+    implementation(project(":core:common"))
+
+    // Moshi
+    implementation(Dependency.Library.MOSHI)
+    kapt(Dependency.Library.MOSHI_KOTLIN_CODEGEN)
+
 }

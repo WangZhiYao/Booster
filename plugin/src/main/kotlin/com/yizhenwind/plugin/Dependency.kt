@@ -25,6 +25,9 @@ class Dependency : Plugin<Project> {
         const val ANDROID_TEST_ESPRESSO_CORE =
             "androidx.test.espresso:espresso-core:${Version.ANDROID_TEST_ESPRESSO}"
 
+        const val LEAKCANARY =
+            "com.squareup.leakcanary:leakcanary-android:${Version.LEAKCANARY_ANDROID}"
+
     }
 
     object Kotlin {
@@ -61,6 +64,8 @@ class Dependency : Plugin<Project> {
 
         const val LIFECYCLE_VIEW_MODEL_KTX =
             "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.LIFECYCLE}"
+
+        const val STARTUP = "androidx.startup:startup-runtime:${Version.STARTUP}"
 
         const val ROOM_RUNTIME = "androidx.room:room-runtime:${Version.ROOM}"
 

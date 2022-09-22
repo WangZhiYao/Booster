@@ -51,10 +51,16 @@ dependencies {
     androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
     androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
-    implementation(project(":core:ui"))
+    implementation(project(":core:common"))
+    implementation(project(":core:framework"))
     implementation(project(":core:mediator"))
+    implementation(project(":core:data:database"))
+    implementation(project(":core:model"))
+    implementation(project(":core:logger"))
 
     implementation(Dependency.Google.HILT)
     kapt(Dependency.Google.HILT_COMPILER)
+
+    implementation(Dependency.Androidx.PAGING_RUNTIME_KTX)
 
 }

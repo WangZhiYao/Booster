@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
     androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
-    implementation(project(":core:ui"))
+    implementation(project(":core:framework"))
     implementation(project(":core:mediator"))
 
     implementation(Dependency.Google.HILT)

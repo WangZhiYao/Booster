@@ -29,6 +29,8 @@ class Version : Plugin<Project> {
 
         const val ANDROID_TEST_ESPRESSO = "3.4.0"
 
+        const val LEAKCANARY_ANDROID = "2.9.1"
+
         const val KOTLIN = "1.6.4"
 
         const val CORE_KTX = "1.9.0"
@@ -44,6 +46,8 @@ class Version : Plugin<Project> {
         const val PAGING = "3.1.1"
 
         const val LIFECYCLE = "2.5.1"
+
+        const val STARTUP = "1.1.1"
 
         const val ROOM = "2.4.3"
 

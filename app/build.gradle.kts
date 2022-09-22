@@ -1,4 +1,6 @@
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import com.yizhenwind.plugin.Dependency
+import com.yizhenwind.plugin.Version
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -7,27 +9,23 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("com.yizhenwind.plugin.version")
+    id("com.yizhenwind.plugin.dependencies")
 }
 
 android {
     namespace = "com.yizhenwind.booster"
 
-    compileSdk = 33
+    compileSdk = Version.compileSdk
 
     defaultConfig {
         applicationId = "com.yizhenwind.booster"
-        minSdk = 21
-        targetSdk = 33
+        minSdk = Version.minSdk
+        targetSdk = Version.targetSdk
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets {
-        map {
-            it.java.srcDir("src/${it.name}/kotlin")
-        }
     }
 
     buildTypes {
@@ -51,7 +49,6 @@ android {
             }
     }
 
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -68,24 +65,26 @@ android {
 
 dependencies {
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(Dependency.Test.JUNIT)
+    androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
+    androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
     // LeakCanary
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+    debugImplementation(Dependency.Test.LEAKCANARY)
 
-    implementation(project(":module_infra"))
-    implementation(project(":module_main"))
-    implementation(project(":module_customer"))
-    implementation(project(":module_character"))
-    implementation(project(":module_order"))
+    implementation(project(":core:framework"))
+
+    implementation(project(":feature:home"))
+    implementation(project(":feature:customer"))
+    implementation(project(":feature:character"))
+    implementation(project(":feature:zone"))
+    implementation(project(":feature:server"))
+    implementation(project(":feature:sect"))
+    implementation(project(":feature:internal"))
+    implementation(project(":feature:order"))
+    implementation(project(":feature:category"))
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.43.2")
-    kapt("com.google.dagger:hilt-android-compiler:2.43.2")
-
-    // AppStartup
-    implementation("androidx.startup:startup-runtime:1.1.1")
-
+    implementation(Dependency.Google.HILT)
+    kapt(Dependency.Google.HILT_COMPILER)
 }

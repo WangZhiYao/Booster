@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.yizhenwind.booster.customer">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yizhenwind.booster.customer">
+
+    <application android:theme="@style/Theme.Booster">
+
+        <activity
+            android:name=".ui.tab.CustomerTabActivity"
+            android:theme="@style/Theme.Booster.NoActionBar" />
+
+        <activity
+            android:name=".ui.create.CreateCustomerActivity"
+            android:label="@string/create_customer_label" />
+
+    </application>
 
 </manifest>
