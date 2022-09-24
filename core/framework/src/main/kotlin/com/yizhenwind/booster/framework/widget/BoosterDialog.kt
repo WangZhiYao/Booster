@@ -67,8 +67,10 @@ class BoosterDialog private constructor(private val builder: Builder) : DialogFr
                 this.onPositiveClickListener = onPositiveClickListener
             }
 
+        fun build(): BoosterDialog = BoosterDialog(this)
+
         fun show(manager: FragmentManager): BoosterDialog =
-            BoosterDialog(this).apply { show(manager) }
+            build().apply { show(manager) }
     }
 
     companion object {

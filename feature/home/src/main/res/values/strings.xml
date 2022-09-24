@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
     <string name="menu_home">主页</string>
     <string name="menu_customer">客户</string>
     <string name="menu_order">订单</string>
 
     <string name="action_search">搜索</string>
 
-    <string name="item_customer_add_character">创建角色</string>
-    <string name="item_customer_create_order">新建订单</string>
+    <string name="item_customer_summary">%1d 个角色，%2d 条订单</string>
 
-    <string name="item_customer_character_contact_prefix">联系方式：%s %s</string>
-    <string name="item_customer_character_remark_prefix">备注：%s</string>
-    <string name="item_customer_character_remark_empty">无</string>
+    <string name="action_create_character">创建角色</string>
+    <string name="action_create_order">创建订单</string>
+    <string name="action_delete_customer">删除客户</string>
+
+    <string name="dialog_customer_summary_title">提示</string>
+    <string name="dialog_customer_summary_message_delete">确认要删除客户: %s 吗?\n删除该客户将会删除所有该客户的角色与订单</string>
+
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+
+    <string name="error_delete_customer">删除客户失败</string>
+
 </resources>

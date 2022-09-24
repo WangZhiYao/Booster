@@ -19,13 +19,12 @@
     <string name="customer_detail_contact">联系方式</string>
     <string name="customer_detail_remark">备注</string>
 
-    <string name="error_customer_id">客户ID错误</string>
     <string name="error_customer_contact_exist">已经存在以上联系方式的客户</string>
     <string name="error_customer_input_name">请输入姓名</string>
     <string name="error_customer_select_contact_type">请选择类型</string>
     <string name="error_customer_input_contact">@string/create_customer_input_contact</string>
     <string name="error_create_customer">创建客户失败</string>
-    <string name="error_customer_do_not_exist">客户不存在</string>
+    <string name="error_get_customer_failure">查询客户信息失败</string>
     <string name="error_delete_customer">删除客户失败</string>
 
     <string name="customer_character_create_order">新建订单</string>

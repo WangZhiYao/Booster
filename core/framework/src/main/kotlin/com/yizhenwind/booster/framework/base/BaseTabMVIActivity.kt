@@ -28,7 +28,6 @@ abstract class BaseTabMVIActivity<STATE : IViewState, SIDE_EFFECT : ISideEffect>
                     onBackPressedDispatcher.onBackPressed()
                 }
             }
-            collapsingToolbarLayout.title = getPageTitle()
             viewPager.setupFragmentWithTab(
                 this@BaseTabMVIActivity,
                 tabLayout,
@@ -38,7 +37,9 @@ abstract class BaseTabMVIActivity<STATE : IViewState, SIDE_EFFECT : ISideEffect>
         }
     }
 
-    abstract fun getPageTitle(): String
+    fun setPageTitle(title: String) {
+        binding.collapsingToolbarLayout.title = title
+    }
 
     abstract fun getTabTitleList(): List<Int>
 

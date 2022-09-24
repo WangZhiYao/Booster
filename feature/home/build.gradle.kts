@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":core:framework"))
     implementation(project(":core:model"))
     implementation(project(":core:mediator"))
+    implementation(project(":core:logger"))
 
     implementation(Dependency.Google.HILT)
     kapt(Dependency.Google.HILT_COMPILER)

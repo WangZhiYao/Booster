@@ -1,6 +1,6 @@
 package com.yizhenwind.booster.data.database.mapper
 
-import com.yizhenwind.booster.data.database.model.OrderInfo
+import com.yizhenwind.booster.data.database.dto.OrderInfoDto
 import com.yizhenwind.booster.model.Order
 import javax.inject.Inject
 
@@ -13,9 +13,9 @@ class OrderInfoToOrderMapper @Inject constructor(
     private val customerEntityToCustomerMapper: CustomerEntityToCustomerMapper,
     private val characterInfoToCharacterMapper: CharacterInfoToCharacterMapper,
     private val subjectEntityToSubjectMapper: SubjectEntityToSubjectMapper,
-) : IMapper<OrderInfo, Order> {
+) : IMapper<OrderInfoDto, Order> {
 
-    override fun map(input: OrderInfo) =
+    override fun map(input: OrderInfoDto) =
         input.run {
             Order(
                 order.id,

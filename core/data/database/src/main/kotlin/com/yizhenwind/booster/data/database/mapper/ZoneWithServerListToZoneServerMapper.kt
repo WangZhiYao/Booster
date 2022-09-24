@@ -1,7 +1,7 @@
 package com.yizhenwind.booster.data.database.mapper
 
+import com.yizhenwind.booster.data.database.dto.ZoneWithServerListDto
 import com.yizhenwind.booster.data.database.entity.ServerEntity
-import com.yizhenwind.booster.data.database.model.ZoneWithServerList
 import com.yizhenwind.booster.model.Server
 import com.yizhenwind.booster.model.ZoneServer
 import javax.inject.Inject
@@ -14,12 +14,12 @@ import javax.inject.Inject
 class ZoneWithServerListToZoneServerMapper @Inject constructor(
     private val zoneEntityToZoneMapper: ZoneEntityToZoneMapper,
     serverEntityToServerMapper: ServerEntityToServerMapper
-) : IMapper<ZoneWithServerList, ZoneServer> {
+) : IMapper<ZoneWithServerListDto, ZoneServer> {
 
     private val serverEntityListToServerListMapper: ListMapper<ServerEntity, Server> =
         ListMapper(serverEntityToServerMapper)
 
-    override fun map(input: ZoneWithServerList) =
+    override fun map(input: ZoneWithServerListDto) =
         input.run {
             ZoneServer(
                 zoneEntityToZoneMapper.map(zone),

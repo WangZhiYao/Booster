@@ -1,6 +1,6 @@
 package com.yizhenwind.booster.data.database.mapper
 
-import com.yizhenwind.booster.data.database.model.CharacterInfo
+import com.yizhenwind.booster.data.database.dto.CharacterInfoDto
 import com.yizhenwind.booster.model.Character
 import javax.inject.Inject
 
@@ -15,9 +15,9 @@ class CharacterInfoToCharacterMapper @Inject constructor(
     private val serverEntityToServerMapper: ServerEntityToServerMapper,
     private val sectEntityToSectMapper: SectEntityToSectMapper,
     private val internalEntityToInternalMapper: InternalEntityToInternalMapper
-) : IMapper<CharacterInfo, Character> {
+) : IMapper<CharacterInfoDto, Character> {
 
-    override fun map(input: CharacterInfo) =
+    override fun map(input: CharacterInfoDto) =
         input.run {
             Character(
                 character.id,

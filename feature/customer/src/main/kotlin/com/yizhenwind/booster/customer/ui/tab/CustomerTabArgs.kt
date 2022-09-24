@@ -6,8 +6,6 @@ import com.yizhenwind.booster.common.constant.Constant
 import com.yizhenwind.booster.common.constant.IntentKey
 import com.yizhenwind.booster.framework.base.IActivityArgs
 import com.yizhenwind.booster.framework.base.IActivityArgsDeserializer
-import com.yizhenwind.booster.framework.ext.parcelable
-import com.yizhenwind.booster.model.Customer
 
 /**
  *
@@ -16,13 +14,13 @@ import com.yizhenwind.booster.model.Customer
  * @since 2022/7/29
  */
 data class CustomerTabArgs(
-    val customer: Customer,
+    val customerId: Long,
     val tabIndex: Int = Constant.CustomerTab.INDEX_DETAIL
 ) : IActivityArgs {
 
     override fun intent(context: Context): Intent =
         Intent(context, CustomerTabActivity::class.java).apply {
-            putExtra(IntentKey.CUSTOMER, customer)
+            putExtra(IntentKey.CUSTOMER_ID, customerId)
             putExtra(IntentKey.TAB_INDEX, tabIndex)
         }
 
@@ -31,7 +29,7 @@ data class CustomerTabArgs(
         @JvmStatic
         override fun deserialize(intent: Intent): CustomerTabArgs = intent.run {
             CustomerTabArgs(
-                requireNotNull(parcelable(IntentKey.CUSTOMER)) { IntentKey.CUSTOMER },
+                getLongExtra(IntentKey.CUSTOMER_ID, Constant.DEFAULT_ID),
                 getIntExtra(IntentKey.TAB_INDEX, Constant.CustomerTab.INDEX_DETAIL)
             )
         }

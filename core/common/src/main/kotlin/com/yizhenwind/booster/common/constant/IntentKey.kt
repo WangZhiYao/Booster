@@ -13,6 +13,8 @@ object IntentKey {
 
     const val CUSTOMER = "CUSTOMER"
 
+    const val CUSTOMER_NAME = "CUSTOMER_NAME"
+
     const val OPEN_DETAIL_AFTER_CREATE_SUCCESS = "OPEN_DETAIL_AFTER_CREATE_SUCCESS"
 
     const val CHARACTER = "CHARACTER"

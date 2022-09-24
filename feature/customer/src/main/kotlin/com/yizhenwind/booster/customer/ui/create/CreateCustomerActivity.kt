@@ -94,7 +94,7 @@ class CreateCustomerActivity :
                 ) {
                     customerService.launchCustomerTab(
                         this,
-                        state.customer,
+                        state.customer.id,
                         Constant.CustomerTab.INDEX_DETAIL
                     )
                     finish()

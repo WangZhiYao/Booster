@@ -47,6 +47,7 @@ dependencies {
     androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
     androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
+    implementation(project(":core:common"))
     implementation(project(":core:model"))
 
     implementation(Dependency.Google.HILT)

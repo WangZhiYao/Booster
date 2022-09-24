@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import com.yizhenwind.booster.data.database.dto.CategoryWithSubjectListDto
 import com.yizhenwind.booster.data.database.entity.CategoryEntity
-import com.yizhenwind.booster.data.database.model.CategoryWithSubjectList
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -25,11 +25,11 @@ interface CategoryDao : IDao<CategoryEntity> {
 
     @Transaction
     @Query("SELECT * FROM category")
-    fun observeCategoryWithSubjectList(): Flow<List<CategoryWithSubjectList>>
+    fun observeCategoryWithSubjectList(): Flow<List<CategoryWithSubjectListDto>>
 
     @Transaction
     @Query("SELECT * FROM category")
-    fun getCategoryWithSubjectList(): List<CategoryWithSubjectList>
+    fun getCategoryWithSubjectList(): List<CategoryWithSubjectListDto>
 
     @Query("SELECT * FROM category WHERE title = :title")
     suspend fun getCategoryByTitle(title: String): CategoryEntity?

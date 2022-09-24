@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.data.database.model
+package com.yizhenwind.booster.data.database.dto
 
 import androidx.room.Embedded
 import androidx.room.Relation
@@ -12,7 +12,7 @@ import com.yizhenwind.booster.data.database.entity.SubjectEntity
  * @author WangZhiYao
  * @since 2022/6/7
  */
-data class OrderInfo(
+data class OrderInfoDto(
     @Embedded
     val order: OrderEntity,
 
@@ -27,7 +27,7 @@ data class OrderInfo(
         entityColumn = "id",
         entity = CharacterEntity::class
     )
-    val character: CharacterInfo,
+    val character: CharacterInfoDto,
 
     @Relation(
         parentColumn = "subject_id",

@@ -1,6 +1,5 @@
 package com.yizhenwind.booster.model
 
-//import androidx.recyclerview.widget.DiffUtil
 import android.os.Parcelable
 import com.yizhenwind.booster.common.constant.ContactType
 import kotlinx.parcelize.Parcelize
@@ -13,10 +12,10 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class Customer(
-    val id: Long,
-    val name: String,
-    var contactType: ContactType,
-    var contact: String,
-    var remark: String?,
-    val createTime: Long
+    val id: Long = 0,
+    val name: String = "",
+    var contactType: ContactType = ContactType.QQ,
+    var contact: String = "",
+    var remark: String? = null,
+    val createTime: Long = System.currentTimeMillis()
 ) : Parcelable

@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.data.database.model
+package com.yizhenwind.booster.data.database.dto
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
@@ -11,7 +11,7 @@ import com.yizhenwind.booster.data.database.entity.*
  * @author WangZhiYao
  * @since 2022/6/22
  */
-data class CustomerWithCharacterList(
+data class CustomerWithCharacterListDto(
     @Embedded
     val customer: CustomerEntity,
 

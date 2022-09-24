@@ -9,7 +9,6 @@ import com.yizhenwind.booster.framework.base.BaseMVIViewModel
 import com.yizhenwind.booster.framework.ext.ifNullOrElse
 import com.yizhenwind.booster.logger.Logger
 import com.yizhenwind.booster.mediator.customer.ICustomerService
-import com.yizhenwind.booster.model.Customer
 import com.yizhenwind.booster.model.SectInternal
 import com.yizhenwind.booster.model.ZoneServer
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +41,7 @@ class CreateCharacterViewModel @Inject constructor(
     private val zoneServerList: HashSet<ZoneServer> = HashSet()
     private val sectInternalList: HashSet<SectInternal> = HashSet()
 
-    var customer: Customer? = null
+    var customerId: Long = Constant.DEFAULT_ID
 
     init {
         intent {

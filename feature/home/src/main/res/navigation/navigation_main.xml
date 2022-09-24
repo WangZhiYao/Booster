@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_customer_list"
-        android:name="com.yizhenwind.booster.home.ui.customer.CustomerFragment"
+        android:name="com.yizhenwind.booster.home.ui.customer.CustomerSummaryFragment"
         android:label="@string/menu_customer"
         tools:layout="@layout/fragment_base_list_mvi" />
 

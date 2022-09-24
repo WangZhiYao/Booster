@@ -5,8 +5,10 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import com.yizhenwind.booster.common.constant.ContactType
+import com.yizhenwind.booster.data.database.dto.CustomerSummaryDto
+import com.yizhenwind.booster.data.database.dto.CustomerWithCharacterListDto
 import com.yizhenwind.booster.data.database.entity.CustomerEntity
-import com.yizhenwind.booster.data.database.model.CustomerWithCharacterList
+import kotlinx.coroutines.flow.Flow
 
 /**
  * 客户表操作
@@ -46,5 +48,23 @@ interface CustomerDao : IDao<CustomerEntity> {
      */
     @Transaction
     @Query("SELECT * FROM customer ORDER BY create_time DESC")
-    suspend fun getCustomerWithCharacterList(): List<CustomerWithCharacterList>
+    suspend fun getCustomerWithCharacterList(): List<CustomerWithCharacterListDto>
+
+    /**
+     * 分页查询客户简介
+     */
+    @Query("SELECT id, name, contact_type, contact, (SELECT COUNT(*) FROM character WHERE customer_id = customer.id) as character_count, (SELECT COUNT(*) FROM `order` WHERE customer_id = customer.id ) AS order_count FROM customer")
+    fun observeCustomerSummaryList(): PagingSource<Int, CustomerSummaryDto>
+
+    /**
+     * 根据ID删除客户
+     */
+    @Query("DELETE FROM customer WHERE id = :customerId")
+    suspend fun deleteCustomerById(customerId: Long): Int
+
+    /**
+     * 根据ID订阅查询客户
+     */
+    @Query("SELECT * FROM customer WHERE id = :customerId")
+    fun observeCustomerById(customerId: Long): Flow<CustomerEntity>
 }

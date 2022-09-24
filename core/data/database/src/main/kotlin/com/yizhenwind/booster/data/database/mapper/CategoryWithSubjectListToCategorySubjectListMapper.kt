@@ -1,6 +1,6 @@
 package com.yizhenwind.booster.data.database.mapper
 
-import com.yizhenwind.booster.data.database.model.CategoryWithSubjectList
+import com.yizhenwind.booster.data.database.dto.CategoryWithSubjectListDto
 import com.yizhenwind.booster.model.CategorySubjectList
 import javax.inject.Inject
 
@@ -13,9 +13,9 @@ import javax.inject.Inject
 class CategoryWithSubjectListToCategorySubjectListMapper @Inject constructor(
     private val categoryEntityToCategoryMapper: CategoryEntityToCategoryMapper,
     private val subjectEntityToSubjectMapper: SubjectEntityToSubjectMapper
-) : IMapper<CategoryWithSubjectList, CategorySubjectList> {
+) : IMapper<CategoryWithSubjectListDto, CategorySubjectList> {
 
-    override fun map(input: CategoryWithSubjectList) =
+    override fun map(input: CategoryWithSubjectListDto) =
         input.run {
             CategorySubjectList(
                 categoryEntityToCategoryMapper.map(category),

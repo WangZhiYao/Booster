@@ -10,6 +10,8 @@ import com.yizhenwind.booster.framework.base.ISideEffect
  */
 sealed class CustomerTabSideEffect : ISideEffect {
 
+    data class GetCustomerFailure(@StringRes val errorMessage: Int) : CustomerTabSideEffect()
+
     object DeleteCustomerSuccess : CustomerTabSideEffect()
 
     data class DeleteCustomerFailure(@StringRes val errorMessage: Int) : CustomerTabSideEffect()

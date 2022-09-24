@@ -3,8 +3,8 @@ package com.yizhenwind.booster.data.database.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import com.yizhenwind.booster.data.database.dto.ZoneWithServerListDto
 import com.yizhenwind.booster.data.database.entity.ZoneEntity
-import com.yizhenwind.booster.data.database.model.ZoneWithServerList
 
 /**
  *
@@ -19,5 +19,5 @@ interface ZoneDao : IDao<ZoneEntity> {
 
     @Transaction
     @Query("SELECT * FROM zone")
-    suspend fun getZoneWithServerList(): List<ZoneWithServerList>
+    suspend fun getZoneWithServerList(): List<ZoneWithServerListDto>
 }

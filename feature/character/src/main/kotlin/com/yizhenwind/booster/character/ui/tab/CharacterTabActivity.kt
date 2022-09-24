@@ -43,6 +43,7 @@ class CharacterTabActivity : BaseTabMVIActivity<CharacterTabViewState, Character
     }
 
     private fun initView() {
+        setPageTitle(args.character.name)
         binding.apply {
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -74,8 +75,6 @@ class CharacterTabActivity : BaseTabMVIActivity<CharacterTabViewState, Character
     private fun initData() {
         viewModel.observe(this, sideEffect = ::handleSideEffect)
     }
-
-    override fun getPageTitle(): String = args.character.name
 
     override fun getTabTitleList(): List<Int> =
         listOf(R.string.character_info_detail, R.string.character_info_order)

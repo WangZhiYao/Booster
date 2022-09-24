@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
+import com.yizhenwind.booster.data.database.dto.CharacterInfoDto
 import com.yizhenwind.booster.data.database.entity.CharacterEntity
-import com.yizhenwind.booster.data.database.model.CharacterInfo
 
 /**
  * 角色表操作
@@ -18,10 +18,10 @@ interface CharacterDao : IDao<CharacterEntity> {
 
     @Transaction
     @Query("SELECT * FROM character WHERE customer_id = :customerId ORDER BY create_time DESC")
-    fun observeCharacterListByCustomerId(customerId: Long): PagingSource<Int, CharacterInfo>
+    fun observeCharacterListByCustomerId(customerId: Long): PagingSource<Int, CharacterInfoDto>
 
     @Transaction
     @Query("SELECT * FROM character WHERE id = :characterId")
-    suspend fun getCharacterById(characterId: Long): CharacterInfo?
+    suspend fun getCharacterById(characterId: Long): CharacterInfoDto?
 
 }

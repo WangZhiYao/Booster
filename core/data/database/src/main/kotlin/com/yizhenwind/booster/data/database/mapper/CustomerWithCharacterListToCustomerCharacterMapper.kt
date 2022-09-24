@@ -1,6 +1,6 @@
 package com.yizhenwind.booster.data.database.mapper
 
-import com.yizhenwind.booster.data.database.model.CustomerWithCharacterList
+import com.yizhenwind.booster.data.database.dto.CustomerWithCharacterListDto
 import com.yizhenwind.booster.model.CustomerCharacterList
 import javax.inject.Inject
 
@@ -16,9 +16,9 @@ class CustomerWithCharacterListToCustomerCharacterMapper @Inject constructor(
     private val serverEntityToServerMapper: ServerEntityToServerMapper,
     private val sectEntityToSectMapper: SectEntityToSectMapper,
     private val internalEntityToInternalMapper: InternalEntityToInternalMapper
-) : IMapper<CustomerWithCharacterList, CustomerCharacterList> {
+) : IMapper<CustomerWithCharacterListDto, CustomerCharacterList> {
 
-    override fun map(input: CustomerWithCharacterList) =
+    override fun map(input: CustomerWithCharacterListDto) =
         input.run {
             CustomerCharacterList(
                 customerEntityToCustomerMapper.map(customer),
@@ -27,9 +27,9 @@ class CustomerWithCharacterListToCustomerCharacterMapper @Inject constructor(
         }
 
     inner class CharacterInfoToCharacterMapper :
-        IMapper<CustomerWithCharacterList.CharacterInfo, CustomerCharacterList.Character> {
+        IMapper<CustomerWithCharacterListDto.CharacterInfo, CustomerCharacterList.Character> {
 
-        override fun map(input: CustomerWithCharacterList.CharacterInfo) =
+        override fun map(input: CustomerWithCharacterListDto.CharacterInfo) =
             input.run {
                 CustomerCharacterList.Character(
                     character.id,

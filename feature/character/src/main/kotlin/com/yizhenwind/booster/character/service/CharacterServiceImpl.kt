@@ -7,7 +7,6 @@ import com.yizhenwind.booster.character.ui.create.CreateCharacterArgs
 import com.yizhenwind.booster.character.ui.tab.CharacterTabArgs
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.model.Character
-import com.yizhenwind.booster.model.Customer
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -23,11 +22,10 @@ class CharacterServiceImpl @Inject constructor(
 
     override fun launchCreateCharacter(
         context: Context,
-        customer: Customer?,
+        customerId: Long,
         openDetailAfterCreateSuccess: Boolean
     ) {
-        CreateCharacterArgs(customer, openDetailAfterCreateSuccess)
-            .launch(context)
+        CreateCharacterArgs(customerId, openDetailAfterCreateSuccess).launch(context)
     }
 
     override fun launchCharacterTab(context: Context, character: Character) {

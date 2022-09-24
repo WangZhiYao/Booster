@@ -12,7 +12,6 @@
     <string name="create_character_select_sect">门派*</string>
     <string name="create_character_select_internal">心法*</string>
     <string name="create_character_remark">备注</string>
-    <string name="create_character_success">创建角色成功</string>
 
     <string name="character_info_detail">详细信息</string>
     <string name="character_info_order">订单</string>
@@ -38,7 +37,6 @@
     <string name="error_internal">请选择心法</string>
     <string name="error_create_character">创建角色失败</string>
     <string name="error_delete_character">删除角色失败</string>
-    <string name="error_get_character_failure">获取角色信息失败</string>
 
     <string name="dialog_character_info_title">提示</string>
     <string name="dialog_character_info_message_delete">确认要删除角色: %s 吗?\n删除该角色将会删除所有该角色的订单</string>

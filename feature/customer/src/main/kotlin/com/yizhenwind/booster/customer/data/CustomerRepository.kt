@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.data.database.dao.CustomerDao
+import com.yizhenwind.booster.data.database.dto.CustomerSummaryDto
 import com.yizhenwind.booster.data.database.entity.CustomerEntity
 import com.yizhenwind.booster.data.database.mapper.CustomerEntityToCustomerMapper
 import com.yizhenwind.booster.data.database.mapper.CustomerToCustomerEntityMapper
@@ -52,6 +53,13 @@ class CustomerRepository @Inject constructor(
                     customerEntityToCustomerMapper.map(it)
                 }
             }
+            .flowOn(dispatcher)
+
+    fun observeCustomerSummaryList(): Flow<PagingData<CustomerSummaryDto>> =
+        Pager(pagingConfig) {
+            customerDao.observeCustomerSummaryList()
+        }
+            .flow
             .flowOn(dispatcher)
 
     /**
@@ -153,6 +161,25 @@ class CustomerRepository @Inject constructor(
             }
             .map { count ->
                 count >= 0
+            }
+            .flowOn(dispatcher)
+
+    fun deleteCustomerById(customerId: Long): Flow<Boolean> =
+        flow {
+            emit(customerDao.deleteCustomerById(customerId))
+        }
+            .catch {
+                emit(0)
+            }
+            .map { count ->
+                count >= 0
+            }
+            .flowOn(dispatcher)
+
+    fun observeCustomerById(customerId: Long): Flow<Customer> =
+        customerDao.observeCustomerById(customerId)
+            .map {
+                customerEntityToCustomerMapper.map(it)
             }
             .flowOn(dispatcher)
 }

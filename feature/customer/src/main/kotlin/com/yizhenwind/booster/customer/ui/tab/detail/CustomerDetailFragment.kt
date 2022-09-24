@@ -1,9 +1,13 @@
 package com.yizhenwind.booster.customer.ui.tab.detail
 
+import androidx.fragment.app.activityViewModels
 import com.yizhenwind.booster.customer.databinding.FragmentCustomerDetailBinding
+import com.yizhenwind.booster.customer.ui.tab.CustomerTabViewModel
+import com.yizhenwind.booster.customer.ui.tab.CustomerTabViewState
 import com.yizhenwind.booster.framework.base.BaseFragment
 import com.yizhenwind.booster.framework.ext.formatToDateTime
-import com.yizhenwind.booster.framework.ext.fragmentArgs
+import dagger.hilt.android.AndroidEntryPoint
+import org.orbitmvi.orbit.viewmodel.observe
 
 /**
  *
@@ -11,14 +15,19 @@ import com.yizhenwind.booster.framework.ext.fragmentArgs
  * @author WangZhiYao
  * @since 2022/8/20
  */
+@AndroidEntryPoint
 class CustomerDetailFragment :
     BaseFragment<FragmentCustomerDetailBinding>(FragmentCustomerDetailBinding::inflate) {
 
-    private val args by fragmentArgs<CustomerDetailArgs>()
+    private val activityViewModel by activityViewModels<CustomerTabViewModel>()
 
     override fun initPage() {
+        activityViewModel.observe(viewLifecycleOwner, state = ::render)
+    }
+
+    private fun render(state: CustomerTabViewState) {
         binding.apply {
-            args.customer.apply {
+            state.customer.apply {
                 hlvCustomerDetailName.content = name
                 hlvCustomerDetailContactType.content = contactType.value
                 hlvCustomerDetailContact.content = contact

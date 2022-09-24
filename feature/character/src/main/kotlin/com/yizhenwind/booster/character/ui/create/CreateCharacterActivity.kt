@@ -65,12 +65,12 @@ class CreateCharacterActivity :
             toolbar.apply {
                 setSupportActionBar(this)
                 setNavigationOnClickListener {
-                    onBackPressed()
+                    onBackPressedDispatcher.onBackPressed()
                 }
             }
 
             actvCreateCharacterCustomer.setOnItemClickListener { _, _, position, _ ->
-                viewModel.customer = customerAdapter.getItem(position)
+                viewModel.customerId = customerAdapter.getItem(position).id
             }
 
             actvCreateCharacterZone.apply {
@@ -128,20 +128,18 @@ class CreateCharacterActivity :
 
     private fun initData() {
         viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
-        args.customer?.let { viewModel.customer = it }
+        viewModel.customerId = args.customerId
     }
 
     override fun render(state: CreateCharacterViewState) {
         when (state) {
             is CreateCharacterViewState.CreateCharacterSuccess -> {
-                viewModel.customer?.let { customer ->
-                    if (args.openDetailAfterCreateSuccess) {
-                        customerService.launchCustomerTab(
-                            this,
-                            customer,
-                            Constant.CustomerTab.INDEX_CHARACTER
-                        )
-                    }
+                if (args.openDetailAfterCreateSuccess) {
+                    customerService.launchCustomerTab(
+                        this,
+                        viewModel.customerId,
+                        Constant.CustomerTab.INDEX_CHARACTER
+                    )
                 }
                 finish()
             }
@@ -150,7 +148,7 @@ class CreateCharacterActivity :
                     customerList.let {
                         customerAdapter = CustomerAdapter(this@CreateCharacterActivity, it)
                         val customer = it.findFirstOrFirst { customer ->
-                            customer.id == viewModel.customer?.id
+                            customer.id == viewModel.customerId
                         }
 
                         binding.actvCreateCharacterCustomer.apply {
@@ -252,7 +250,7 @@ class CreateCharacterActivity :
             val remark = tietCreateCharacterRemark.text?.toString()
 
             viewModel.attemptCreateCharacter(
-                viewModel.customer?.id,
+                viewModel.customerId,
                 zone,
                 server,
                 account,

@@ -61,14 +61,18 @@ class CustomerTabActivity :
 
             fab.setIntervalClickListener {
                 when (viewPager.currentItem) {
-                    INDEX_DETAIL -> {}
-                    INDEX_CHARACTER -> characterService.launchCreateCharacter(
-                        this@CustomerTabActivity,
-                        args.customer
-                    )
+                    INDEX_DETAIL -> {
+                        // TODO: Edit Customer Info
+                    }
+                    INDEX_CHARACTER -> {
+                        characterService.launchCreateCharacter(
+                            this@CustomerTabActivity,
+                            viewModel.container.stateFlow.value.customer.id
+                        )
+                    }
                     INDEX_ORDER -> orderService.launchCreateOrder(
                         this@CustomerTabActivity,
-                        args.customer.id
+                        args.customerId
                     )
                 }
             }
@@ -76,10 +80,9 @@ class CustomerTabActivity :
     }
 
     private fun initData() {
-        viewModel.observe(this, sideEffect = ::handleSideEffect)
+        viewModel.observe(this, state = ::render, sideEffect = ::handleSideEffect)
+        viewModel.getCustomerById(args.customerId)
     }
-
-    override fun getPageTitle(): String = args.customer.name
 
     override fun getTabTitleList(): List<Int> =
         listOf(
@@ -91,14 +94,20 @@ class CustomerTabActivity :
     override fun getFragmentList(): List<Fragment> =
         args.run {
             listOf(
-                CustomerDetailArgs(customer).newInstance(),
-                CustomerCharacterArgs(customer.id).newInstance(),
-                CustomerOrderArgs(customer.id).newInstance()
+                CustomerDetailArgs().newInstance(),
+                CustomerCharacterArgs(customerId).newInstance(),
+                CustomerOrderArgs(customerId).newInstance()
             )
         }
 
+    override fun render(state: CustomerTabViewState) {
+        setPageTitle(state.customer.name)
+    }
+
     override fun handleSideEffect(sideEffect: CustomerTabSideEffect) {
         when (sideEffect) {
+            is CustomerTabSideEffect.GetCustomerFailure ->
+                binding.root.showSnack(sideEffect.errorMessage)
             CustomerTabSideEffect.DeleteCustomerSuccess -> finish()
             is CustomerTabSideEffect.DeleteCustomerFailure ->
                 binding.root.showSnack(sideEffect.errorMessage)
@@ -112,7 +121,7 @@ class CustomerTabActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_delete) {
-            attemptDeleteCustomer(args.customer)
+            attemptDeleteCustomer(viewModel.container.stateFlow.value.customer)
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -123,7 +132,7 @@ class CustomerTabActivity :
             .setTitle(getString(R.string.dialog_customer_info_title))
             .setMessage(getString(R.string.dialog_customer_info_message_delete, customer.name))
             .setNegativeButton(getString(R.string.cancel)) { it.dismiss() }
-            .setPositiveButton(getString(R.string.ok)) { viewModel.deleteCustomer(customer) }
+            .setPositiveButton(getString(R.string.ok)) { viewModel.deleteCustomerById(customer.id) }
             .show(supportFragmentManager)
     }
 

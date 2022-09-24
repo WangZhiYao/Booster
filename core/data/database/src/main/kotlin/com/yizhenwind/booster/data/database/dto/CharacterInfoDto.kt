@@ -1,4 +1,4 @@
-package com.yizhenwind.booster.data.database.model
+package com.yizhenwind.booster.data.database.dto
 
 import androidx.room.Embedded
 import androidx.room.Relation
@@ -10,7 +10,7 @@ import com.yizhenwind.booster.data.database.entity.*
  * @author WangZhiYao
  * @since 2022/4/22
  */
-data class CharacterInfo(
+data class CharacterInfoDto(
 
     @Embedded
     val character: CharacterEntity,
