@@ -9,6 +9,7 @@ import com.yizhenwind.booster.framework.ext.registerMenu
 import com.yizhenwind.booster.framework.widget.BoosterDialog
 import com.yizhenwind.booster.framework.widget.action.BottomActionDialog
 import com.yizhenwind.booster.home.R
+import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.customer.ICustomerService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,6 +31,9 @@ class CustomerSummaryFragment :
 
     @Inject
     lateinit var customerService: ICustomerService
+
+    @Inject
+    lateinit var characterService: ICharacterService
 
     override fun initView() {
         binding.rvList.apply {
@@ -58,7 +62,10 @@ class CustomerSummaryFragment :
                     )
                     .setOnActionClickListener { dialog, action ->
                         when (action) {
-                            is CustomerSummaryAction.CreateCharacter -> {}
+                            is CustomerSummaryAction.CreateCharacter -> {
+                                characterService.launchCreateCharacter(requireContext(), id)
+                                dialog.dismiss()
+                            }
                             is CustomerSummaryAction.CreateOrder -> {}
                             is CustomerSummaryAction.Delete -> {
                                 attemptDeleteCustomer(id, name)
