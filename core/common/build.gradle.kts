@@ -46,4 +46,6 @@ dependencies {
     androidTestImplementation(Dependency.Test.ANDROID_TEST_JUNIT)
     androidTestImplementation(Dependency.Test.ANDROID_TEST_ESPRESSO_CORE)
 
+    implementation(project(":core:logger"))
+
 }

@@ -19,9 +19,9 @@
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceHeadline6"
             android:textColor="@color/color_text_primary"
-            app:layout_constraintEnd_toStartOf="@id/ib_more"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="客户名" />
@@ -31,28 +31,58 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="@color/color_text_secondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ib_more"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_customer_name"
-            tools:text="名下共：1 个角色，0 个订单" />
+            tools:text="名下 1 个角色，0 个订单" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/color_divider"
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_summary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_character"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/action_create_character"
+            android:textColor="@color/color_secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_summary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_create_order"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/action_create_order"
+            android:textColor="@color/color_secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_create_character"
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_summary" />
 
         <ImageButton
-            android:id="@+id/ib_more"
+            android:id="@+id/ib_contact_type"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="?attr/colorControlNormal"
-            android:src="@drawable/ic_round_more_vert_white_24dp"
+            android:background="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tv_customer_summary"
+            app:tint="?attr/colorControlNormal"
+            tools:src="@drawable/ic_contact_type_qq" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

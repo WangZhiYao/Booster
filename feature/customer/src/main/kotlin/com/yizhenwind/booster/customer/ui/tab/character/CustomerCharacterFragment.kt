@@ -24,7 +24,7 @@ class CustomerCharacterFragment :
 
     private val viewModel by viewModels<CustomerCharacterViewModel>()
     private val args by fragmentArgs<CustomerCharacterArgs>()
-    private val adapter: CustomerCharacterAdapter = CustomerCharacterAdapter()
+    private val adapter: CustomerCharacterAdapter by lazy { CustomerCharacterAdapter() }
 
     @Inject
     lateinit var characterService: ICharacterService

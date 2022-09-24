@@ -6,7 +6,8 @@
 
     <string name="action_search">搜索</string>
 
-    <string name="item_customer_summary">%1d 个角色，%2d 条订单</string>
+    <string name="item_customer_contact">联系方式：%1s %2s</string>
+    <string name="item_customer_summary">名下 %1d 个角色，%2d 条订单</string>
 
     <string name="action_create_character">创建角色</string>
     <string name="action_create_order">创建订单</string>
