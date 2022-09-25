@@ -19,6 +19,9 @@
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
 
+    <string name="error_launch_qq">唤起QQ失败，请检查是否安装QQ或手动打开QQ联系客户</string>
+    <string name="error_launch_wechat">唤起微信失败，请检查是否安装微信或手动打开微信联系客户</string>
+    <string name="error_launch_phone">唤起拨号界面失败，请检查是否有此功能或手动拨打</string>
     <string name="error_delete_customer">删除客户失败</string>
 
 </resources>

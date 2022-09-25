@@ -3,6 +3,7 @@ package com.yizhenwind.booster.home.ui.customer
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.yizhenwind.booster.common.constant.ContactType
 import com.yizhenwind.booster.framework.ext.viewBinding
 import com.yizhenwind.booster.home.databinding.ItemCustomerSummaryBinding
 import com.yizhenwind.booster.model.CustomerSummary
@@ -29,15 +30,30 @@ class CustomerSummaryAdapter :
     }
 
     var onItemClickListener: ((CustomerSummary) -> Unit)? = null
-    var onMoreActionClickListener: ((CustomerSummary) -> Unit)? = null
+    var onCreateCharacterClickListener: ((Long) -> Unit)? = null
+    var onCreateOrderClickListener: ((Long) -> Unit)? = null
+    var onContactClickListener: ((ContactType, String) -> Unit)? = null
+    var onDeleteCustomerClickListener: ((Long, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CustomerSummaryViewHolder(parent.viewBinding(ItemCustomerSummaryBinding::inflate)).apply {
             onItemClickListener = { customer ->
                 this@CustomerSummaryAdapter.onItemClickListener?.invoke(customer)
             }
-            onMoreActionClickListener = { customer ->
-                this@CustomerSummaryAdapter.onMoreActionClickListener?.invoke(customer)
+            onCreateCharacterClickListener = { customerId ->
+                this@CustomerSummaryAdapter.onCreateCharacterClickListener?.invoke(customerId)
+            }
+            onCreateOrderClickListener = { customerId ->
+                this@CustomerSummaryAdapter.onCreateOrderClickListener?.invoke(customerId)
+            }
+            onContactClickListener = { contactType, contact ->
+                this@CustomerSummaryAdapter.onContactClickListener?.invoke(contactType, contact)
+            }
+            onDeleteCustomerClickListener = { customerId, customerName ->
+                this@CustomerSummaryAdapter.onDeleteCustomerClickListener?.invoke(
+                    customerId,
+                    customerName
+                )
             }
         }
 

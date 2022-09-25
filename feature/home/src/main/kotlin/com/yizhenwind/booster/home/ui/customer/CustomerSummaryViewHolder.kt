@@ -1,7 +1,6 @@
 package com.yizhenwind.booster.home.ui.customer
 
 import com.yizhenwind.booster.common.constant.ContactType
-import com.yizhenwind.booster.common.util.ContactHelper
 import com.yizhenwind.booster.framework.base.BaseViewHolder
 import com.yizhenwind.booster.framework.ext.setIntervalClickListener
 import com.yizhenwind.booster.home.R
@@ -17,37 +16,45 @@ class CustomerSummaryViewHolder(
     private val binding: ItemCustomerSummaryBinding
 ) : BaseViewHolder<CustomerSummary>(binding.root) {
 
-    var onMoreActionClickListener: ((CustomerSummary) -> Unit)? = null
+    var onCreateCharacterClickListener: ((Long) -> Unit)? = null
+    var onCreateOrderClickListener: ((Long) -> Unit)? = null
+    var onContactClickListener: ((ContactType, String) -> Unit)? = null
+    var onDeleteCustomerClickListener: ((Long, String) -> Unit)? = null
 
     override fun bind(data: CustomerSummary) {
         binding.apply {
             data.apply {
                 tvCustomerName.text = name
-                root.context.apply {
-                    tvCustomerSummary.text = getString(
-                        R.string.item_customer_summary,
-                        characterCount,
-                        orderCount
-                    )
+                tvCustomerSummary.text = root.context.getString(
+                    R.string.item_customer_summary,
+                    characterCount,
+                    orderCount
+                )
 
-                    ibContactType.setIntervalClickListener {
+                btnCreateCharacter.setIntervalClickListener {
+                    onCreateCharacterClickListener?.invoke(id)
+                }
+
+                btnCreateOrder.setIntervalClickListener {
+                    onCreateOrderClickListener?.invoke(id)
+                }
+
+                ibContactType.apply {
+                    setImageResource(
                         when (contactType) {
-                            ContactType.QQ -> ContactHelper.attemptStartQQ(this, contact)
-                            ContactType.WECHAT -> ContactHelper.attemptStartWeChat(this)
-                            ContactType.PHONE -> ContactHelper.attemptStartDial(this, contact)
+                            ContactType.QQ -> R.drawable.ic_contact_type_qq
+                            ContactType.WECHAT -> R.drawable.ic_contact_type_wechat
+                            ContactType.PHONE -> R.drawable.ic_contact_type_phone
                         }
+                    )
+                    setIntervalClickListener {
+                        onContactClickListener?.invoke(contactType, contact)
                     }
                 }
 
-                ibContactType.setImageResource(
-                    when (contactType) {
-                        ContactType.QQ -> R.drawable.ic_contact_type_qq
-                        ContactType.WECHAT -> R.drawable.ic_contact_type_wechat
-                        ContactType.PHONE -> R.drawable.ic_contact_type_phone
-                    }
-                )
-
-
+                ibCustomerDelete.setIntervalClickListener {
+                    onDeleteCustomerClickListener?.invoke(id, name)
+                }
             }
 
             root.setIntervalClickListener { onItemClickListener?.invoke(data) }

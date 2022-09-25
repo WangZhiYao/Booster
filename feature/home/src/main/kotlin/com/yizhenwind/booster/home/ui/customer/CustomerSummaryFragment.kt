@@ -4,13 +4,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yizhenwind.booster.common.constant.Constant
+import com.yizhenwind.booster.common.constant.ContactType
+import com.yizhenwind.booster.common.util.ContactHelper
 import com.yizhenwind.booster.framework.base.BaseListMVIFragment
 import com.yizhenwind.booster.framework.ext.registerMenu
+import com.yizhenwind.booster.framework.ext.showSnack
 import com.yizhenwind.booster.framework.widget.BoosterDialog
-import com.yizhenwind.booster.framework.widget.action.BottomActionDialog
 import com.yizhenwind.booster.home.R
 import com.yizhenwind.booster.mediator.character.ICharacterService
 import com.yizhenwind.booster.mediator.customer.ICustomerService
+import com.yizhenwind.booster.mediator.order.IOrderService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.viewmodel.observe
@@ -35,45 +38,50 @@ class CustomerSummaryFragment :
     @Inject
     lateinit var characterService: ICharacterService
 
+    @Inject
+    lateinit var orderService: IOrderService
+
     override fun initView() {
         binding.rvList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@CustomerSummaryFragment.adapter
         }
 
-        adapter.onItemClickListener = { customerSummary ->
-            customerService.launchCustomerTab(
-                requireContext(),
-                customerSummary.id,
-                Constant.CustomerTab.INDEX_DETAIL
-            )
-        }
-
-        adapter.onMoreActionClickListener = { customerSummary ->
-            customerSummary.apply {
-                BottomActionDialog.Builder<CustomerSummaryAction>()
-                    .setTitle(name)
-                    .setActions(
-                        listOf(
-                            CustomerSummaryAction.CreateCharacter,
-                            CustomerSummaryAction.CreateOrder,
-                            CustomerSummaryAction.Delete
-                        )
-                    )
-                    .setOnActionClickListener { dialog, action ->
-                        when (action) {
-                            is CustomerSummaryAction.CreateCharacter -> {
-                                characterService.launchCreateCharacter(requireContext(), id)
-                                dialog.dismiss()
-                            }
-                            is CustomerSummaryAction.CreateOrder -> {}
-                            is CustomerSummaryAction.Delete -> {
-                                attemptDeleteCustomer(id, name)
-                                dialog.dismiss()
-                            }
+        adapter.apply {
+            onItemClickListener = { customerSummary ->
+                customerService.launchCustomerTab(
+                    requireContext(),
+                    customerSummary.id,
+                    Constant.CustomerTab.INDEX_DETAIL
+                )
+            }
+            onCreateCharacterClickListener = { customerId ->
+                characterService.launchCreateCharacter(requireContext(), customerId)
+            }
+            onCreateOrderClickListener = { customerId ->
+                orderService.launchCreateOrder(requireContext(), customerId)
+            }
+            onContactClickListener = { contactType, contact ->
+                when (contactType) {
+                    ContactType.QQ -> {
+                        if (!ContactHelper.attemptLaunchQQ(requireContext(), contact)) {
+                            binding.root.showSnack(R.string.error_launch_qq)
                         }
                     }
-                    .show(childFragmentManager)
+                    ContactType.WECHAT -> {
+                        if (!ContactHelper.attemptLaunchWeChat(requireContext())) {
+                            binding.root.showSnack(R.string.error_launch_wechat)
+                        }
+                    }
+                    ContactType.PHONE -> {
+                        if (!ContactHelper.attemptLaunchDial(requireContext(), contact)) {
+                            binding.root.showSnack(R.string.error_launch_phone)
+                        }
+                    }
+                }
+            }
+            onDeleteCustomerClickListener = { customerId, customerName ->
+                attemptDeleteCustomer(customerId, customerName)
             }
         }
 
@@ -86,6 +94,7 @@ class CustomerSummaryFragment :
                 else -> false
             }
         }
+
     }
 
     override fun initData() {

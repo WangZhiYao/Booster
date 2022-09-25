@@ -3,6 +3,7 @@ package com.yizhenwind.booster.common.util
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.yizhenwind.booster.logger.Logger
 
 /**
  *
@@ -22,45 +23,65 @@ object ContactHelper {
     private const val SCHEME_WECHAT = "weixin://"
     private const val SCHEME_PHONE = "tel:$PLACEHOLDER_PHONE"
 
-    fun attemptStartQQ(context: Context, qq: String) {
+    fun attemptLaunchQQ(context: Context, qq: String): Boolean =
         if (isQQInstalled(context)) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(SCHEME_QQ.replace(PLACEHOLDER_QQ, qq))
+            try {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(SCHEME_QQ.replace(PLACEHOLDER_QQ, qq))
+                    )
                 )
-            )
+                true
+            } catch (ex: Exception) {
+                Logger.e(ex)
+                false
+            }
+        } else {
+            false
         }
-    }
 
     private fun isQQInstalled(context: Context): Boolean {
         return AndroidUtil.isPackageInstalled(context.applicationContext, PACKAGE_NAME_QQ)
     }
 
-    fun attemptStartWeChat(context: Context) {
+    fun attemptLaunchWeChat(context: Context): Boolean =
         if (isWeChatInstalled(context)) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(SCHEME_WECHAT)
+            try {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(SCHEME_WECHAT)
+                    )
                 )
-            )
+                true
+            } catch (ex: Exception) {
+                Logger.e(ex)
+                false
+            }
+        } else {
+            false
         }
-    }
 
     private fun isWeChatInstalled(context: Context): Boolean {
         return AndroidUtil.isPackageInstalled(context.applicationContext, PACKAGE_NAME_WECHAT)
     }
 
-    fun attemptStartDial(context: Context, phoneNumber: String) {
-        context.startActivity(
-            Intent(
-                Intent.ACTION_DIAL, Uri.parse(
-                    SCHEME_PHONE.replace(
-                        PLACEHOLDER_PHONE, phoneNumber
+    fun attemptLaunchDial(context: Context, phoneNumber: String): Boolean =
+        try {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_DIAL,
+                    Uri.parse(
+                        SCHEME_PHONE.replace(
+                            PLACEHOLDER_PHONE, phoneNumber
+                        )
                     )
-                )
-            ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
-    }
+                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+            true
+        } catch (ex: Exception) {
+            Logger.e(ex)
+            false
+        }
 }
